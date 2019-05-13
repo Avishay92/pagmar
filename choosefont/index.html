@@ -1,0 +1,396 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css"
+    />
+    <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" href="../style/material-theme.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre"
+      
+			rel="stylesheet"
+		/>
+  </head>
+
+  <body>
+    <!-- row -->
+    <div style="display: flex;justify-content: space-between; margin: 0 30px">
+      <!-- left part -->
+      <div style="display: flex;">
+        <image src="../images/logo.svg"></image>
+      </div>
+      <!-- right part -->
+      <div class="form">
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="sample1" />
+          <label class="mdl-textfield__label" for="sample1"
+            >Name your font</label
+          >
+        </div>
+        <div class="form-text">based on</div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="sample1" />
+          <label class="mdl-textfield__label" for="sample1">FrankG</label>
+        </div>
+        <!-- <button id="demo-menu-lower-right"
+              class="mdl-button mdl-js-button mdl-button--icon;" style="margin:10px" >
+            
+        <i class="material-icons">more_vert</i>
+      </button>    
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="demo-menu-lower-right">
+        <li class="mdl-menu__item">Some Action</li>
+        <li class="mdl-menu__item">Another Action</li>
+        <li disabled class="mdl-menu__item">Disabled Action</li>
+        <li class="mdl-menu__item">Yet Another Action</li>
+      </ul> -->
+        <div
+          style="display:flex; justify-content: center; flex-direction: column "
+        >
+          <image
+            src="../images/download.png"
+            style="height:20px; width: auto; margin-left:20px"
+          ></image>
+        </div>
+      </div>
+    </div>
+    <div class="time-select">
+      <button class="play" id="play">play</button>
+      <button class="playLoop">play loop</button>
+      <button class="stop">stop</button>
+      <button class="sound">sound</button>
+    </div>
+
+    <div class="grid">
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let1"
+            width="212"
+            height="298"
+            style="width: 106px; height: 149px;"
+            >ב</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let2"
+            width="200"
+            height="298"
+            style="width: 100px; height: 149px;"
+            >ג</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let3"
+            width="206"
+            height="298"
+            style="width: 103px; height: 149px;"
+            >ד</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="ה">
+          <canvas
+            class="b-canvas"
+            id="let4"
+            width="226"
+            height="298"
+            style="width: 113px; height: 149px;"
+            >ה</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let5"
+            width="190"
+            height="298"
+            style="width: 95px; height: 149px;"
+            >ו</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let6"
+            width="192"
+            height="298"
+            style="width: 96px; height: 149px;"
+            >ז</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let7"
+            width="226"
+            height="298"
+            style="width: 113px; height: 149px;"
+            >ח</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let8"
+            width="220"
+            height="298"
+            style="width: 110px; height: 149px;"
+            >ט</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let9"
+            width="190"
+            height="298"
+            style="width: 95px; height: 149px;"
+            >י</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let10"
+            width="212"
+            height="298"
+            style="width: 106px; height: 149px;"
+            >כ</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let11"
+            width="208"
+            height="298"
+            style="width: 104px; height: 149px;"
+            >ך</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let12"
+            width="210"
+            height="298"
+            style="width: 105px; height: 149px;"
+            >ל</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let13"
+            width="224"
+            height="298"
+            style="width: 112px; height: 149px;"
+            >מ</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let14"
+            width="224"
+            height="298"
+            style="width: 112px; height: 149px;"
+            >ם</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let15"
+            width="198"
+            height="298"
+            style="width: 99px; height: 149px;"
+            >נ</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let16"
+            width="188"
+            height="298"
+            style="width: 94px; height: 149px;"
+            >ן</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let17"
+            width="222"
+            height="298"
+            style="width: 111px; height: 149px;"
+            >ס</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let18"
+            width="216"
+            height="298"
+            style="width: 108px; height: 149px;"
+            >ע</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let19"
+            width="212"
+            height="298"
+            style="width: 106px; height: 149px;"
+            >פ</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let20"
+            width="208"
+            height="298"
+            style="width: 104px; height: 149px;"
+            >ף</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let21"
+            width="212"
+            height="298"
+            style="width: 106px; height: 149px;"
+            >צ</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let22"
+            width="204"
+            height="298"
+            style="width: 102px; height: 149px;"
+            >ץ</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let23"
+            width="222"
+            height="298"
+            style="width: 111px; height: 149px;"
+            >ק</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let24"
+            width="206"
+            height="298"
+            style="width: 103px; height: 149px;"
+            >ר</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let25"
+            width="226"
+            height="298"
+            style="width: 113px; height: 149px;"
+            >ש</canvas
+          >
+        </div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-letter" data-blotter="">
+          <canvas
+            class="b-canvas"
+            id="let26"
+            width="224"
+            height="298"
+            style="width: 112px; height: 149px;"
+            >ת</canvas
+          >
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="txt" />
+
+    <script src="../blotter/blotter.min.js"></script>
+    <script src="../blotter/RollingDistortMaterial.js"></script>
+    <!-- <script src="../tone/tone.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/blotter.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/materials/liquidDistortMaterial.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/materials/rollingDistortMaterial.js"></script> -->
+    <script src="https://tonejs.github.io/build/Tone.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

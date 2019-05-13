@@ -1,0 +1,57 @@
+<html>
+<head>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+        <script src="../blotter/blotter.min.js"></script>
+    <script src="../blotter/RollingDistortMaterial.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./main.css">
+
+</head>
+
+    <body backgroundcolor="#0f0f0f">
+
+            <div class="time-select">
+                    <button class="play" id="play">play</button>
+                    <button class="playLoop">play loop</button>
+                    <button class="stop">stop</button>
+            </div>
+
+            <div class="effects">
+                    <button class="pitchShiftUp">pitch shift up</button>
+                    <button class="pitchShiftDown">pitch shift down</button>
+            <div>
+                <br/>
+
+            
+            <div>uSineDistortSpread & distortion</div>
+            <input value="0.05" id="uSineDistortSpread" type="range" min="0" max="1" step="0.001">
+            
+            <div>uSineDistortCycleCount</div>
+            <input value="2.0" id="uSineDistortCycleCount" type="range" min="0" max="7" step="0.01">
+
+            <div>uSineDistortAmplitude & wet</div>
+            <input value="0.25" id="uSineDistortAmplitude" type="range" min="0" max="1" step="0.01">
+
+            <div>uNoiseDistortVolatility & pitch</div>
+            <input value="20" id="uNoiseDistortVolatility" type="range" min="0" max="25" step="1">
+
+            <!-- <div>uNoiseDistortAmplitude</div>
+            <input value="0.01" id="uNoiseDistortAmplitude" type="range" min="0" max="1" step="0.001">
+
+            <div>uDistortPositionX</div>
+            <input id="uDistortPositionX" type="range" min="0" max="1" step="0.01">
+
+            <div>uDistortPositionY</div>
+            <input id="uDistortPositionY" type="range" min="0" max="1" step="0.01">
+
+            <div>uRotation</div>
+            <input value="170" id="uRotation" type="range" min="0" max="360" step="1">
+
+            <div>uSpeed</div>
+            <input  value="0.08" id="uSpeed" type="range" min="0" max="10" step="0.01"> -->
+    <script src="./main.js" defer></script>
+	<script src="https://tonejs.github.io/build/Tone.js"></script>
+            
+</body>
+
+</html>
