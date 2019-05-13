@@ -1,139 +1,131 @@
 const notes = ["C", "D", "E", "F", "G", "A", "B"];
 let octave = 4;
-const alphabeth = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "ם", "נ", "ן", "ס", "ע", "פ", "ף", "צ", "ץ", "ק", "ר", "ש", "ת", ]
+const alphabeth = [
+  "א",
+  "ב",
+  "ג",
+  "ד",
+  "ה",
+  "ו",
+  "ז",
+  "ח",
+  "ט",
+  "י",
+  "כ",
+  "ל",
+  "מ",
+  "ם",
+  "נ",
+  "ן",
+  "ס",
+  "ע",
+  "פ",
+  "ף",
+  "צ",
+  "ץ",
+  "ק",
+  "ר",
+  "ש",
+  "ת"
+];
+
+const defaultUniforms = {
+  uSineDistortSpread: 0.354,
+  uSineDistortCycleCount: 5,
+  uSineDistortAmplitude: 0,
+  uNoiseDistortVolatility: 0,
+  uNoiseDistortAmplitude: 0.168,
+  uDistortPosition: [0.38, 0.68],
+  uRotation: 48,
+  uSpeed: 0.421
+};
 
 let data = {};
+let noteIndex = 0;
 
-alphabeth.foreach(function(value, index){
-    Object.assign(data, {[value]: {note: , effects:[]}})
-    }
-})
-
-const MathUtils = {
-  lineEq: function(y2, y1, x2, x1, currentVal) {
-    // y = mx + b
-    var m = (y2 - y1) / (x2 - x1),
-      b = y1 - m * x1;
-    return m * currentVal + b;
-  },
-  lerp: function(a, b, n) {
-    (1 - n) * a + n * b;
-  }
-};
-
-class Renderer {
-  function(options, material) {
-    this.options = options;
-    this.material = material;
-    for (let i = 0, len = this.options.uniforms.length; i <= len - 1; ++i) {
-      this.material.uniforms[
-        this.options.uniforms[i].uniform
-      ].value = this.options.uniforms[i].value;
-    }
-    for (let i = 0, len = this.options.animatable.length; i <= len - 1; ++i) {
-      this[this.options.animatable[i].prop] = this.options.animatable[i].from;
-      this.material.uniforms[this.options.animatable[i].prop].value = this[
-        this.options.animatable[i].prop
-      ];
-    }
-    this.currentScroll = window.pageYOffset;
-    this.maxScrollSpeed = 80;
-    requestAnimationFrame(function() {
-      this.render();
-    });
-  }
-  render() {
-    requestAnimationFrame(function() {
-      this.render();
-    });
-  }
-}
-
-class RollingDistortMaterial {
-  constructor(options) {
-    this.material = new Blotter.RollingDistortMaterial();
-    new Renderer(options, this.material);
-    return this.material;
-  }
-}
-
-class Material {
-  constructor(type, options = {}) {
-    let material = new RollingDistortMaterial(options);
-    return material;
-  }
-}
-
-class BlotterEl {
-  constructor(el, options, fill) {
-    this.DOM = { el: el };
-    console.log(el);
-    this.DOM.textEl = this.DOM.el.querySelector("canvas");
-    this.style = {
-      family: "Frank Ruhl Libre",
-      size: 140,
-      paddingLeft: 10,
-      paddingRight: 10,
-      paddingTop: 10,
-      paddingBottom: 0,
-      fill: fill || "#fff"
-    };
-    Object.assign(this.style, options.style);
-    this.material = new Material(options.type, options);
-    this.text = new Blotter.Text(this.DOM.textEl.innerHTML, this.style);
-    this.blotter = new Blotter(this.material, { texts: this.text });
-    this.scope = this.blotter.forText(this.text);
-    this.DOM.el.removeChild(this.DOM.textEl);
-    this.scope.appendTo(this.DOM.el);
-    return this.blotter;
-  }
-}
-
-let config = {
-  type: "RollingDistortMaterial",
-  uniforms: [
-    {
-      uniform: "uSineDistortSpread",
-      value: 0.354
-    },
-    {
-      uniform: "uSineDistortCycleCount",
-      value: 5
-    },
-    {
-      uniform: "uSineDistortAmplitude",
-      value: 0
-    },
-    {
-      uniform: "uNoiseDistortVolatility",
-      value: 0
-    },
-    {
-      uniform: "uNoiseDistortAmplitude",
-      value: 0.168
-    },
-    {
-      uniform: "uDistortPosition",
-      value: [0.38, 0.68]
-    },
-    {
-      uniform: "uRotation",
-      value: 48
-    },
-    {
-      uniform: "uSpeed",
-      value: 0.421
-    }
-  ],
-  animatable: [{ prop: "uSineDistortAmplitude", from: 0, to: 0.5 }],
-  easeFactor: 0.15
-};
-
-$(document).ready(function() {
-  document.querySelectorAll("[data-blotter]").forEach(function(blotterEl, pos) {
-    blotters[blotterEl.dataset.blotter] = new BlotterEl(blotterEl, config);
+//fills data with letter and note
+alphabeth.forEach(function(value, index) {
+  Object.assign(data, {
+    [value]: { note: `${notes[noteIndex]}${octave}`, effects: [], char: value }
   });
-  console.log(blotters);
+  if (noteIndex === notes.length - 1) {
+    noteIndex = 0;
+    octave++;
+  } else {
+    noteIndex++;
+  }
+});
+
+//html string for all letters
+let letterElements = Object.values(data)
+  .map(function(value, index) {
+    return `<div class="grid__item" data-blotter="${value.char}">
+      </div>`;
+  })
+  .join("");
+
+const gridElement = (document.querySelector(
+  ".grid"
+).innerHTML = letterElements);
+
+function resetChar(char) {
+  let blotter = data[char].blotter;
+  if (blotter) {
+    let material = blotter.material;
+    material.uniforms.uSineDistortCycleCount.value = 0;
+    material.uniforms.uSineDistortSpread.value = 0;
+    material.uniforms.uSineDistortAmplitude.value = 0;
+    material.uniforms.uNoiseDistortVolatility.value = 0;
+    material.uniforms.uNoiseDistortAmplitude.value = 0;
+    material.uniforms.uDistortPosition.value = [0, 0]; // this is the [X,Y] position;
+    material.uniforms.uRotation.value = 0;
+    material.uniforms.uSpeed.value = 0;
+    blotter.needsUpdate = true;
+    const note = data[char].note;
+  }
+}
+
+function activateChar(char) {
+  let blotter = data[char].blotter;
+  if (blotter) {
+    let material = blotter.material;
+    material.uniforms.uSineDistortCycleCount.value = 10;
+    material.uniforms.uSineDistortSpread.value = 0.0;
+    material.uniforms.uSineDistortAmplitude.value = 1;
+    material.uniforms.uNoiseDistortVolatility.value = 90.0;
+    material.uniforms.uNoiseDistortAmplitude.value = 0.09;
+    material.uniforms.uDistortPosition.value = [7, 0.03]; // this is the [X,Y] position;
+    material.uniforms.uRotation.value = 370.0;
+    material.uniforms.uSpeed.value = 0.18;
+    blotter.needsUpdate = true;
+  }
+}
+
+//builds blotter and insert pointers to data
+$(document).ready(function() {
+  document
+    .querySelectorAll("[data-blotter]")
+    .forEach(function(gridItemElement) {
+      const style = {
+        family: "Frank Ruhl Libre",
+        fill: "#fff",
+        size: 140
+      };
+      const char = gridItemElement.dataset.blotter;
+      let material = new Blotter.RollingDistortMaterial();
+      const text = new Blotter.Text(char, style);
+      const blotter = new Blotter(material, { texts: text });
+      data[char].blotter = blotter;
+      resetChar(char);
+      const scope = blotter.forText(text);
+      scope.appendTo(gridItemElement);
+      $(gridItemElement).mouseenter(function() {
+        activateChar(char);
+      });
+      $(gridItemElement).mouseleave(function() {
+        resetBlotter(char);
+      });
+    });
 });
 
 var synth;
@@ -163,41 +155,12 @@ stop.addEventListener("click", function() {
   loopBeat.stop();
 });
 
-// document.addEventListener('keydown', keyDown);
-
-const letters = [
-  [65, "C4"],
-  [66, "D4"],
-  [67, "E4"],
-  [68, "F4"],
-  [69, "G4"],
-  [70, "A4"],
-  [71, "B4"],
-  [72, "C5"]
-];
-
-// function keyDown(event){
-//     // let char = event.char || event.charCode || event.which;
-//     var charCode = event.which; // charCode will contain the code of the character inputted
-//     var theChar = String.fromCharCode(charCode); // theChar will contain the actual character
-//     console.log(theChar);
-//     // for (let i = 0; i< letters.length; i++){
-//     //     if (letters[i][0]===char){
-//     //         synth.triggerAttackRelease(letters[i][1], '4n');
-//     //         var blotter = document.querySelector('#let1');
-//     //         blotter.style.fill= "#00ff88";
-//     //     }
-//     // }
-// }
-
 $(document).keydown(function(event) {
   var char = event.key; // charCode will contain the code of the character inputted
-  blotters[char]["_texts"][0]["_properties"].fill = "red";
-  blotters[char].needsUpdate = true;
+  activateChar(char);
 });
 
 $(document).keyup(function(event) {
-    var char = event.key; // charCode will contain the code of the character inputted
-    blotters[char]["_texts"][0]["_properties"].fill = "white";
-    blotters[char].needsUpdate = true;
-  });
+  var char = event.key; // charCode will contain the code of the character inputted
+  resetChar(char);
+});
