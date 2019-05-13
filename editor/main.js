@@ -15,7 +15,7 @@ synth = new Tone.Synth().connect(distortionEffect);
 
 
 Tone.Transport.start();
-var text = new Blotter.Text("פ", {
+var text = new Blotter.Text(localStorage.getItem("char"), {
     family : "Frank Ruhl Libre",
     size : 400,
     fill : "white",

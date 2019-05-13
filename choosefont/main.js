@@ -43,6 +43,9 @@ const defaultUniforms = {
 let data = {};
 let noteIndex = 0;
 
+let pitchTry = new Tone.PitchShift().toMaster();
+let synth = new Tone.Synth().connect(pitchTry);
+
 //fills data with letter and note
 alphabeth.forEach(function(value, index) {
   Object.assign(data, {
@@ -69,7 +72,7 @@ const gridElement = (document.querySelector(
 ).innerHTML = letterElements);
 
 function resetChar(char) {
-  let blotter = data[char].blotter;
+  let blotter = data[char] && data[char].blotter;
   if (blotter) {
     let material = blotter.material;
     material.uniforms.uSineDistortCycleCount.value = 0;
@@ -81,12 +84,12 @@ function resetChar(char) {
     material.uniforms.uRotation.value = 0;
     material.uniforms.uSpeed.value = 0;
     blotter.needsUpdate = true;
-    const note = data[char].note;
+
   }
 }
 
 function activateChar(char) {
-  let blotter = data[char].blotter;
+  let blotter = data[char] && data[char].blotter;
   if (blotter) {
     let material = blotter.material;
     material.uniforms.uSineDistortCycleCount.value = 10;
@@ -98,6 +101,8 @@ function activateChar(char) {
     material.uniforms.uRotation.value = 370.0;
     material.uniforms.uSpeed.value = 0.18;
     blotter.needsUpdate = true;
+    const note = data[char].note;
+    synth.triggerAttackRelease(note, '4n');
   }
 }
 
@@ -123,36 +128,14 @@ $(document).ready(function() {
         activateChar(char);
       });
       $(gridItemElement).mouseleave(function() {
-        resetBlotter(char);
+        resetChar(char);
       });
+      $(gridItemElement).click(function(){
+        // localStorage.setItem("data", JSON.stringify(data));
+        localStorage.setItem("char", char);
+        location.assign("../editor")
+      })
     });
-});
-
-var synth;
-var loopBeat;
-var pitchTry;
-
-const play = document.querySelector(".play");
-const playLoop = document.querySelector(".playLoop");
-const stop = document.querySelector(".stop");
-loopBeat = new Tone.Loop(func, "4n");
-pitchTry = new Tone.PitchShift().toMaster();
-synth = new Tone.Synth().connect(pitchTry);
-Tone.Transport.start();
-function func() {
-  synth.triggerAttackRelease("C4", "8n");
-}
-
-play.addEventListener("click", function() {
-  synth.triggerAttackRelease("C4", "8n");
-});
-
-playLoop.addEventListener("click", function() {
-  loopBeat.start(0);
-});
-
-stop.addEventListener("click", function() {
-  loopBeat.stop();
 });
 
 $(document).keydown(function(event) {
