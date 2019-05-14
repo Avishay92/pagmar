@@ -102,7 +102,9 @@ function activateChar(char) {
     material.uniforms.uSpeed.value = 0.18;
     blotter.needsUpdate = true;
     const note = data[char].note;
-    synth.triggerAttackRelease(note, '4n');
+    Tone.context.resume().then(()=>{
+        synth.triggerAttackRelease(note, '4n');
+    })
   }
 }
 
