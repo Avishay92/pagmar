@@ -84,7 +84,8 @@ function resetChar(char) {
     material.uniforms.uRotation.value = 0;
     material.uniforms.uSpeed.value = 0;
     blotter.needsUpdate = true;
-
+    var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+    $(gridItem).css('opacity', '0.7');
   }
 }
 
@@ -105,6 +106,8 @@ function activateChar(char) {
     Tone.context.resume().then(()=>{
         synth.triggerAttackRelease(note, '4n');
     })
+    var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+    $(gridItem).css('opacity', '1');
   }
 }
 

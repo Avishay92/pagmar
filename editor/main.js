@@ -12,9 +12,8 @@ wetEffect = new Tone.Effect(0.9).chain(pitchEffect);
 distortionEffect= new Tone.Distortion(0.8).chain(wetEffect);
 
 synth = new Tone.Synth().connect(distortionEffect);
-
-
 Tone.Transport.start();
+
 var text = new Blotter.Text(localStorage.getItem("char"), {
     family : "Frank Ruhl Libre",
     size : 400,
@@ -43,8 +42,6 @@ material.uniforms.uSpeed.value = 0.18;
 var blotter = new Blotter(material, {
   texts: text,
 });
-
-
 
 var scope = blotter.forText(text);
 scope.appendTo(document.body);
