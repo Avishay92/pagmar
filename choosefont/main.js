@@ -1,5 +1,5 @@
 const notes = ["C", "D", "E", "F", "G", "A", "B"];
-let octave = 4;
+let octave = 3;
 const alphabeth = [
   "א",
   "ב",
@@ -44,7 +44,7 @@ let data = {};
 let noteIndex = 0;
 
 let pitchTry = new Tone.PitchShift().toMaster();
-let synth = new Tone.Synth().connect(pitchTry);
+let synth = new Tone.DuoSynth().connect(pitchTry);
 
 //fills data with letter and note
 alphabeth.forEach(function(value, index) {
@@ -85,7 +85,7 @@ function resetChar(char) {
     material.uniforms.uSpeed.value = 0;
     blotter.needsUpdate = true;
     var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
-    $(gridItem).css('opacity', '0.7');
+    $(gridItem).css('opacity', '0.2');
   }
 }
 
@@ -119,7 +119,7 @@ $(document).ready(function() {
       const style = {
         family: "Frank Ruhl Libre",
         fill: "#fff",
-        size: 140
+        size: 100
       };
       const char = gridItemElement.dataset.blotter;
       let material = new Blotter.RollingDistortMaterial();
