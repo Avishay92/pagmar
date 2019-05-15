@@ -30,8 +30,8 @@ const alphabeth = [
 ];
 
 const defaultUniforms = {
-  uSineDistortSpread: 0.354,
-  uSineDistortCycleCount: 5,
+  uSineDistortSpread: 0.0,
+  uSineDistortCycleCount: 0,
   uSineDistortAmplitude: 0,
   uNoiseDistortVolatility: 0,
   uNoiseDistortAmplitude: 0.168,
@@ -118,6 +118,7 @@ $(document).ready(function() {
     .forEach(function(gridItemElement) {
       const style = {
         family: "Frank Ruhl Libre",
+        //weight: "bold",
         fill: "#fff",
         size: 100
       };
