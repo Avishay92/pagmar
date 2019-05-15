@@ -1,5 +1,5 @@
 const notes = ["C", "D", "E", "F", "G", "A", "B"];
-let octave = 3;
+let octave = 4;
 const alphabeth = [
   "א",
   "ב",
@@ -44,7 +44,14 @@ let data = {};
 let noteIndex = 0;
 
 let pitchTry = new Tone.PitchShift().toMaster();
-let synth = new Tone.DuoSynth().connect(pitchTry);
+let synth = new Tone.MembraneSynth().connect(pitchTry);
+var env = new Tone.Envelope({
+	"attack" : 0.5,
+	"decay" : 0.5,
+	"sustain" : 0.2,
+	"release" : 0.2,
+});
+
 
 //fills data with letter and note
 alphabeth.forEach(function(value, index) {
