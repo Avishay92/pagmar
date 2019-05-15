@@ -1,129 +1,91 @@
-var synth, loopBeat, pitchEffect, wetEffect, distortionEffect;
+const char = localStorage.getItem("char");
+const data = JSON.parse(localStorage.getItem("data"));
+const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
+data[char].uniforms = Object.assign(defaultUniforms, data[char].uniforms);
 
-
-const play = document.querySelector(".play");
-const playLoop = document.querySelector(".playLoop");
-const stop = document.querySelector(".stop");
-const pitchShiftUp = document.querySelector(".pitchShiftUp");
-const pitchShiftDown = document.querySelector(".pitchShiftDown");
-loopBeat = new Tone.Loop(func, '4n');
-pitchEffect = new Tone.PitchShift().toMaster();
-wetEffect = new Tone.Effect(0.9).chain(pitchEffect);
-distortionEffect= new Tone.Distortion(0.8).chain(wetEffect);
-
-synth = new Tone.Synth().connect(distortionEffect);
-Tone.Transport.start();
-
-var text = new Blotter.Text(localStorage.getItem("char"), {
-    family : "Frank Ruhl Libre",
-    size : 400,
-    fill : "white",
-    paddingLeft: 300,
-    paddingRight: 100
+var text = new Blotter.Text(char, {
+    family: "Frank Ruhl Libre",
+    size: 100,
+    fill: "white",
 });
 
+function setCharDataUniform(uniform, value) {
+    data[char].uniforms[uniform] = value;
+}
+
 var material = new Blotter.RollingDistortMaterial();
-material.uniforms.uSineDistortCycleCount.value = 10;
-material.uniforms.uSineDistortSpread.value = 0.0;
-material.uniforms.uSineDistortAmplitude.value = 1;
-material.uniforms.uNoiseDistortVolatility.value = 90.0;
-material.uniforms.uNoiseDistortAmplitude.value = 0.09;
-material.uniforms.uDistortPosition.value = [7, 0.03]; // this is the [X,Y] position;
-material.uniforms.uRotation.value =  370.0;
-material.uniforms.uSpeed.value = 0.18;
-
-// material.uniforms = JSON.parse(localStorage.getItem("material"))
-
-
-// $(window).on("beforeunload", function(){
-//     localStorage.setItem('material', JSON.stringify(material.uniforms));
-// })
+Object.keys(material.uniforms).forEach(function (key, index) {
+    if (defaultUniforms[key]) {
+        if (key === "uDistortPosition") {
+            material.uniforms[key].value = [Number(data[char].uniforms[key][0]), Number(data[char].uniforms[key][1])];
+        } else {
+            material.uniforms[key].value = Number(data[char].uniforms[key])
+        }
+    }
+})
 
 var blotter = new Blotter(material, {
-  texts: text,
+    texts: text,
 });
 
 var scope = blotter.forText(text);
-scope.appendTo(document.body);
+scope.appendTo(document.querySelector("#char"));
 
-
-/// my code
-
-const inputs = document.querySelectorAll('input');
-
-for(let input of inputs) {
-    input.addEventListener('input', ({currentTarget}) => {
-        console.clear();
+const inputElements = document.querySelectorAll('input');
+for (let inputElement of inputElements) {
+    inputElement.addEventListener('input', ({
+        currentTarget
+    }) => {
         const currentValue = currentTarget.value;
-        const {id: propKey} = currentTarget;
-        synth.triggerAttackRelease(synth.frequency.value, '4n');
-
-        console.log(propKey)
-        console.log(currentValue)
-
-        if (propKey === 'uSineDistortSpread') {
-            distortionEffect.distortion = currentValue;
-            return;
+        const {
+            id: propKey
+        } = currentTarget;
+        switch (propKey) {
+            case 'uDistortPositionY': {
+                const [x, y] = material.uniforms.uDistortPosition.value;
+                material.uniforms.uDistortPosition.value = [x, Number(currentValue)];
+                setCharDataUniform("uDistortPosition", material.uniforms.uDistortPosition.value);
+                break;
+            }
+            case 'uDistortPositionX': {
+                const [x, y] = material.uniforms.uDistortPosition.value;
+                material.uniforms.uDistortPosition.value = [Number(currentValue), y];
+                setCharDataUniform("uDistortPosition", material.uniforms.uDistortPosition.value);
+                break;
+            }
+            default: {
+                material.uniforms[propKey].value = currentValue;
+                setCharDataUniform(propKey, currentValue);
+            }
         }
-        if (propKey === 'uSineDistortAmplitude') {
-            wetEffect.wet.value = currentValue;
-            return;
-         }
-         if (propKey === 'uNoiseDistortVolatility') {
-            pitchEffect.pitch = currentValue;
-             return;
-         }
-        if (propKey === 'uDistortPositionY') {
-            const [x,y] = material.uniforms.uDistortPosition.value;
-            material.uniforms.uDistortPosition.value = [x, Number(currentValue)];
-            return;
-        }
-
-        if (propKey === 'uDistortPositionX') {
-            const [x,y] = material.uniforms.uDistortPosition.value;
-            material.uniforms.uDistortPosition.value = [Number(currentValue),y];
-            return;
-        }
-
-        material.uniforms[propKey].value = currentValue;
-
-    
     })
 }
 
-
-
-function func(){
-    synth.triggerAttackRelease('C4', '8n');
-}
-
-play.addEventListener("click",
-function(){
-  synth.triggerAttackRelease('C4', '8n');
+$(document).ready(function () {
+    inputElements.forEach(function (inputElement) {
+        switch (inputElement.id) {
+            case 'uDistortPositionY': {
+                const [x, y] = data[char].uniforms.uDistortPosition;
+                inputElement.value = Number(y);
+                break;
+            }
+            case 'uDistortPositionX': {
+                const [x, y] = data[char].uniforms.uDistortPosition;
+                inputElement.value = Number(x);
+                break;
+            }
+            default: {
+                inputElement.value = Number(data[char].uniforms[inputElement.id]);
+            }
+        }
+    })
 });
 
-playLoop.addEventListener("click",
-function(){
-loopBeat.start(0);
+$(window).on("beforeunload", function () {
+    localStorage.setItem('data', JSON.stringify(data));
+})
+
+$("button").click(function () {
+    localStorage.setItem("data", JSON.stringify(data));
+    location.assign("../menu");
 });
-
-stop.addEventListener("click",
-function(){
-loopBeat.stop();
-});
-
-pitchShiftUp.addEventListener("click",
-function(){
-distortionEffect.distortion += 0.1;
-console.log(distortionEffect.distortion);
-}); 
-
-pitchShiftDown.addEventListener("click",
-function(){
-
-    distortionEffect.distortion -= 0.1;
-console.log(distortionEffect.distortion);
-
-});     
-
-

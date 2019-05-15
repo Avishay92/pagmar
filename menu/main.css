@@ -50,3 +50,7 @@ body {
 .grid__item:hover {
 	opacity: 1;
 }
+
+#logo{
+	cursor: pointer;
+}

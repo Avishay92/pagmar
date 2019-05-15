@@ -1,0 +1,20 @@
+body{
+    background: #000;
+}
+
+.entry{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.entry > div{
+    text-align: center;
+    margin: 30px;
+}
+
+button{
+    background: #00BAC6 !important;
+    font-family: 'Frank Ruhl Libre'
+}
