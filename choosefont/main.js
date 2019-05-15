@@ -93,14 +93,14 @@ function activateChar(char) {
   let blotter = data[char] && data[char].blotter;
   if (blotter) {
     let material = blotter.material;
-    material.uniforms.uSineDistortCycleCount.value = 10;
+    material.uniforms.uSineDistortCycleCount.value = 0;
     material.uniforms.uSineDistortSpread.value = 0.0;
-    material.uniforms.uSineDistortAmplitude.value = 1;
-    material.uniforms.uNoiseDistortVolatility.value = 90.0;
-    material.uniforms.uNoiseDistortAmplitude.value = 0.09;
-    material.uniforms.uDistortPosition.value = [7, 0.03]; // this is the [X,Y] position;
-    material.uniforms.uRotation.value = 370.0;
-    material.uniforms.uSpeed.value = 0.18;
+    material.uniforms.uSineDistortAmplitude.value = 0;
+    material.uniforms.uNoiseDistortVolatility.value = 9.0;
+    material.uniforms.uNoiseDistortAmplitude.value = 0.326;
+    material.uniforms.uDistortPosition.value = [0, 0.38]; // this is the [X,Y] position;
+    material.uniforms.uRotation.value = 24.0;
+    material.uniforms.uSpeed.value = 0.09;
     blotter.needsUpdate = true;
     const note = data[char].note;
     Tone.context.resume().then(()=>{

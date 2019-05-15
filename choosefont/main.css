@@ -30,7 +30,7 @@ body {
 }
 
 .grid__item {
-	height: 210px;
+	height: 190px;
 	position: relative;
 	justify-content: center;
 	display: flex;
