@@ -65,8 +65,17 @@ const defaultUniforms = {
     uDistortPosition: f2,
 }
 
+
+
+const defaultSoundEffects= {instrument:"synth", pitchEffect:f1 , wetEffect:f1, distortionEffect:f1};
+
+var instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
+console.log(instrument);
+
+
 $("button").click(function () {
     localStorage.setItem("data", JSON.stringify(data));
     localStorage.setItem("defaultUniforms", JSON.stringify(defaultUniforms));
+    localStorage.setItem("defaultSoundEffects", JSON.stringify(defaultSoundEffects));
     location.assign("../menu");
 });
