@@ -52,8 +52,6 @@ alphabeth.forEach(function (value, index) {
 const f1 = parseFloat(0).toPrecision(2);
 const f2 = [f1, f1];
 
-
-
 const defaultUniforms = {
     uSineDistortCycleCount: f1,
     uSineDistortSpread: f1,
@@ -65,13 +63,7 @@ const defaultUniforms = {
     uDistortPosition: f2,
 }
 
-
-
 const defaultSoundEffects= {instrument:"synth", pitchEffect:f1 , wetEffect:f1, distortionEffect:f1};
-
-var instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
-console.log(instrument);
-
 
 $("button").click(function () {
     localStorage.setItem("data", JSON.stringify(data));

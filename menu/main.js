@@ -3,6 +3,7 @@ const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
+let instrument, pitchEffect, distortionEffect, wetEffect;
 
 //html string for all letters
 let letterElements = Object.values(data)
@@ -12,16 +13,7 @@ let letterElements = Object.values(data)
   })
   .join("");
 
-//let pitchEffect = new Tone.PitchShift().toMaster();
-// instrument = new Tone.Synth().toMaster();
-// var env = new Tone.Envelope({
-//   "attack": 0.5,
-//   "decay": 0.5,
-//   "sustain": 0.2,
-//   "release": 0.2,
-// });
-
-let instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
+instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
 initializeInstrument();
 
@@ -165,3 +157,10 @@ function initializeEffects() {
     }
   });
 }
+
+// var env = new Tone.Envelope({
+//   "attack": 0.5,
+//   "decay": 0.5,
+//   "sustain": 0.2,
+//   "release": 0.2,
+// });
