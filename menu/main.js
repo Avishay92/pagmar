@@ -4,6 +4,12 @@ const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
 let instrument, pitchEffect, distortionEffect, wetEffect;
+//initializing instruments and sound effects
+instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
+console.log(instrument);
+initializeEffects();
+initializeInstrument();
+
 
 //html string for all letters
 let letterElements = Object.values(data)
@@ -13,16 +19,13 @@ let letterElements = Object.values(data)
   })
   .join("");
 
-instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
-initializeEffects();
-initializeInstrument();
-
 const gridElement = (document.querySelector(
   ".grid"
 ).innerHTML = letterElements);
 
 function resetChar(char) {
   let blotter = data[char] && data[char].blotter;
+  let soundEffects =  data[char] && data[char].soundEffects;
   if (blotter) {
     let material = blotter.material;
     Object.keys(material.uniforms).forEach(function(key, index) {
@@ -40,18 +43,26 @@ function resetChar(char) {
     blotter.needsUpdate = true;
     var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
     $(gridItem).css("opacity", "0.2");
-    instrument.triggerRelease();
   }
+  if (soundEffects) {
+    Object.keys(soundEffects).forEach(function(key, index) {
+      if (defaultSoundEffects[key]) {
+        let newSound = data[char].soundEffects;
+        soundEffects[key] = Number(newSound[key]);
+      }
+    });
+  }
+  updateEffects(soundEffects);
+  instrument.triggerRelease();
 }
 
 function activateChar(char) {
   let blotter = data[char] && data[char].blotter;
+  let soundEffects = data[char] && data[char].soundEffects;
   if (blotter) {
     let material = blotter.material;
-    let uniforms = Object.assign(
-      Object.assign({}, defaultUniforms),
-      data[char].uniforms
-    );
+    let uniforms = Object.assign(Object.assign({}, defaultUniforms), data[char].uniforms);
+
     Object.keys(material.uniforms).forEach(function(key, index) {
       if (defaultUniforms[key]) {
         if (key === "uDistortPosition") {
@@ -64,15 +75,28 @@ function activateChar(char) {
         }
       }
     });
+
     blotter.needsUpdate = true;
-    const note = data[char].note;
-    Tone.context.resume().then(() => {
-      instrument.triggerAttackRelease(note);
-    });
+
     var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
     $(gridItem).css("opacity", "1");
   }
+
+  if (soundEffects) {
+    let savedSoundEffects = Object.assign(Object.assign({}, defaultSoundEffects), data[char].soundEffects);
+    Object.keys(soundEffects).forEach(function(key, index) {
+      if (defaultSoundEffects[key]) {
+        soundEffects[key] = Number(savedSoundEffects[key]);
+      }
+    });
+  }
+  updateEffects(soundEffects);
+  const note = data[char].note;
+  Tone.context.resume().then(() => {
+    instrument.triggerAttackRelease(note);
+  });
 }
+const f1 = parseFloat(0).toPrecision(2);
 
 //builds blotter and insert pointers to data
 $(document).ready(function() {
@@ -91,8 +115,13 @@ $(document).ready(function() {
       const blotter = new Blotter(material, {
         texts: text
       });
+      let soundEffects = {
+        sPitchEffect: f1,
+        sWetEffect: f1,
+        sDistortionEffect: f1
+      };
+      data[char].soundEffects = Object.assign(Object.assign({}, soundEffects), data[char].soundEffects);
       data[char].blotter = blotter;
-      //data[char].soundEffects = defaultSoundEffects;
       resetChar(char);
       const scope = blotter.forText(text);
       scope.appendTo(gridItemElement);
@@ -142,19 +171,31 @@ function initializeInstrument() {
 
 function initializeEffects() {
   Object.keys(defaultSoundEffects).forEach(function(key, index) {
-    console.log("got here");
     if (defaultSoundEffects[key]) {
-      if (key === "pitchEffect") {
+      if (key === "sPitchEffect") {
         pitchEffect = new Tone.PitchShift().toMaster();
-        console.log(pitchEffect.pitch);
       }
-      if (key === "wetEffect") {
+      if (key === "sWetEffect") {
         wetEffect = new Tone.Effect(0.9).chain(pitchEffect);
       }
-      if (key === "distortionEffect") {
+      if (key === "sDistortionEffect") {
         distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
       }
     }
+  });
+}
+
+function updateEffects(soundEffects) {
+  Object.keys(soundEffects).forEach(function(key, index) {
+      if (key === "sPitchEffect") {
+        pitchEffect.pitch = soundEffects[key];
+      }
+      if (key === "sWetEffect") {
+        wetEffect.wet.value = soundEffects[key];
+      }
+      if (key === "sDistortionEffect") {
+        distortionEffect.distortion = soundEffects[key];
+      }
   });
 }
 

@@ -63,9 +63,19 @@ const defaultUniforms = {
     uDistortPosition: f2,
 }
 
-const defaultSoundEffects= {instrument:"synth", pitchEffect:f1 , wetEffect:f1, distortionEffect:f1};
+let instrumentForm = document.querySelector("#instrument");
+let selectedInstrument = instrumentForm.elements[0].value;
+let defaultSoundEffects= {instrument:selectedInstrument, sPitchEffect:f1 , sWetEffect:f1, sDistortionEffect:f1};
 
 $("button").click(function () {
+    for(let i=0; i< instrumentForm.elements.length;i++){
+        if (instrumentForm.elements[i].checked){
+            selectedInstrument = instrumentForm.elements[i].value;
+            break;
+        }
+    }
+    defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] = selectedInstrument;
+    console.log(defaultSoundEffects[Object.keys(defaultSoundEffects)[0]]);
     localStorage.setItem("data", JSON.stringify(data));
     localStorage.setItem("defaultUniforms", JSON.stringify(defaultUniforms));
     localStorage.setItem("defaultSoundEffects", JSON.stringify(defaultSoundEffects));
