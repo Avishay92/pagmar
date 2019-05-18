@@ -137,7 +137,7 @@ $("#back").click(function () {
           wetEffect = new Tone.Effect(0).chain(pitchEffect);
           distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
   }
-  
+
   function initializeInstrument() {
     switch (instrument) {
       case "synth":
@@ -148,6 +148,12 @@ $("#back").click(function () {
         break;
       case "AMSynth":
         instrument = new Tone.AMSynth().connect(distortionEffect);
+        break;
+      case "monoSynth":
+        instrument = new Tone.MonoSynth().connect(distortionEffect);
+        break;
+      case "polySynth":
+        instrument = new Tone.PolySynth().connect(distortionEffect);
         break;
       default:
         instrument = new Tone.Synth().connect(distortionhEffect);

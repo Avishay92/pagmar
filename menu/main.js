@@ -177,6 +177,12 @@ function initializeInstrument() {
     case "AMSynth":
       instrument = new Tone.AMSynth().connect(distortionEffect);
       break;
+    case "monoSynth":
+      instrument = new Tone.MonoSynth().connect(distortionEffect);
+      break;
+    case "polySynth":
+      instrument = new Tone.PolySynth().connect(distortionEffect);
+      break;
     default:
       instrument = new Tone.Synth().connect(distortionhEffect);
       break;
