@@ -10,7 +10,6 @@ console.log(instrument);
 initializeEffects();
 initializeInstrument();
 
-
 //html string for all letters
 let letterElements = Object.values(data)
   .map(function(value, index) {
@@ -25,7 +24,7 @@ const gridElement = (document.querySelector(
 
 function resetChar(char) {
   let blotter = data[char] && data[char].blotter;
-  let soundEffects =  data[char] && data[char].soundEffects;
+  let soundEffects = data[char] && data[char].soundEffects;
   if (blotter) {
     let material = blotter.material;
     Object.keys(material.uniforms).forEach(function(key, index) {
@@ -61,7 +60,10 @@ function activateChar(char) {
   let soundEffects = data[char] && data[char].soundEffects;
   if (blotter) {
     let material = blotter.material;
-    let uniforms = Object.assign(Object.assign({}, defaultUniforms), data[char].uniforms);
+    let uniforms = Object.assign(
+      Object.assign({}, defaultUniforms),
+      data[char].uniforms
+    );
 
     Object.keys(material.uniforms).forEach(function(key, index) {
       if (defaultUniforms[key]) {
@@ -83,7 +85,10 @@ function activateChar(char) {
   }
 
   if (soundEffects) {
-    let savedSoundEffects = Object.assign(Object.assign({}, defaultSoundEffects), data[char].soundEffects);
+    let savedSoundEffects = Object.assign(
+      Object.assign({}, defaultSoundEffects),
+      data[char].soundEffects
+    );
     Object.keys(soundEffects).forEach(function(key, index) {
       if (defaultSoundEffects[key]) {
         soundEffects[key] = Number(savedSoundEffects[key]);
@@ -120,7 +125,10 @@ $(document).ready(function() {
         sWetEffect: f1,
         sDistortionEffect: f1
       };
-      data[char].soundEffects = Object.assign(Object.assign({}, soundEffects), data[char].soundEffects);
+      data[char].soundEffects = Object.assign(
+        Object.assign({}, soundEffects),
+        data[char].soundEffects
+      );
       data[char].blotter = blotter;
       resetChar(char);
       const scope = blotter.forText(text);
@@ -152,56 +160,39 @@ $("#logo").click(function() {
   location.assign("../");
 });
 
+function initializeEffects() {
+  pitchEffect = new Tone.PitchShift().toMaster();
+  wetEffect = new Tone.Effect(0).chain(pitchEffect);
+  distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
+}
+
 function initializeInstrument() {
   switch (instrument) {
     case "synth":
-      instrument = new Tone.Synth().connect(pitchEffect);
+      instrument = new Tone.Synth().connect(distortionEffect);
       break;
     case "metalSynth":
-      instrument = new Tone.MetalSynth().connect(pitchEffect);
+      instrument = new Tone.MetalSynth().connect(distortionEffect);
       break;
     case "AMSynth":
-      instrument = new Tone.AMSynth().connect(pitchEffect);
+      instrument = new Tone.AMSynth().connect(distortionEffect);
       break;
     default:
-      instrument = new Tone.Synth().connect(pitchEffect);
+      instrument = new Tone.Synth().connect(distortionhEffect);
       break;
   }
 }
 
-function initializeEffects() {
-  Object.keys(defaultSoundEffects).forEach(function(key, index) {
-    if (defaultSoundEffects[key]) {
-      if (key === "sPitchEffect") {
-        pitchEffect = new Tone.PitchShift().toMaster();
-      }
-      if (key === "sWetEffect") {
-        wetEffect = new Tone.Effect(0.9).chain(pitchEffect);
-      }
-      if (key === "sDistortionEffect") {
-        distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
-      }
+function updateEffects(soundEffects) {
+  Object.keys(soundEffects).forEach(function(key, index) {
+    if (key === "sPitchEffect") {
+      pitchEffect.pitch = soundEffects[key];
+    }
+    if (key === "sWetEffect") {
+      wetEffect.wet.value = soundEffects[key];
+    }
+    if (key === "sDistortionEffect") {
+      distortionEffect.distortion = soundEffects[key];
     }
   });
 }
-
-function updateEffects(soundEffects) {
-  Object.keys(soundEffects).forEach(function(key, index) {
-      if (key === "sPitchEffect") {
-        pitchEffect.pitch = soundEffects[key];
-      }
-      if (key === "sWetEffect") {
-        wetEffect.wet.value = soundEffects[key];
-      }
-      if (key === "sDistortionEffect") {
-        distortionEffect.distortion = soundEffects[key];
-      }
-  });
-}
-
-// var env = new Tone.Envelope({
-//   "attack": 0.5,
-//   "decay": 0.5,
-//   "sustain": 0.2,
-//   "release": 0.2,
-// });

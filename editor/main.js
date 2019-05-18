@@ -6,6 +6,7 @@ let instrument, pitchEffect, distortionEffect, wetEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
 initializeInstrument();
+
 data[char].uniforms = Object.assign(defaultUniforms, data[char].uniforms);
 data[char].soundEffects = Object.assign(defaultSoundEffects, data[char].soundEffects);
 
@@ -51,7 +52,6 @@ for (let inputElement of inputElements) {
         const {
             id: propKey
         } = currentTarget;
-        instrument.triggerAttackRelease(note, '4n');
         switch (propKey) {
             case 'uDistortPositionY': {
                 const [x, y] = material.uniforms.uDistortPosition.value;
@@ -71,6 +71,7 @@ for (let inputElement of inputElements) {
                 setCharDataUniform(propKey, currentValue);
                 pitchEffect.pitch = currentValue;
                 setCharDataSoundEffect("sPitchEffect", currentValue);
+                  
                 break;
             }
             case 'uSineDistortAmplitude':{
@@ -94,6 +95,8 @@ for (let inputElement of inputElements) {
                 setCharDataUniform(propKey, currentValue);
             }
         }
+        instrument.triggerAttackRelease(note, '4n');
+    
     })
 }
 
@@ -122,40 +125,33 @@ $(window).on("beforeunload", function () {
     localStorage.setItem('data', JSON.stringify(data));
 })
 
-$("button").click(function () {
+$("#back").click(function () {
     localStorage.setItem("data", JSON.stringify(data));
     location.assign("../menu");
 });
 
-function initializeInstrument() {
+
+  
+  function initializeEffects() {
+          pitchEffect = new Tone.PitchShift().toMaster();
+          wetEffect = new Tone.Effect(0).chain(pitchEffect);
+          distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
+  }
+  
+  function initializeInstrument() {
     switch (instrument) {
       case "synth":
-        instrument = new Tone.Synth().connect(pitchEffect);
+        instrument = new Tone.Synth().connect(distortionEffect);
         break;
       case "metalSynth":
-        instrument = new Tone.MetalSynth().connect(pitchEffect);
+        instrument = new Tone.MetalSynth().connect(distortionEffect);
         break;
       case "AMSynth":
-        instrument = new Tone.AMSynth().connect(pitchEffect);
+        instrument = new Tone.AMSynth().connect(distortionEffect);
         break;
       default:
-        instrument = new Tone.Synth().connect(pitchEffect);
+        instrument = new Tone.Synth().connect(distortionhEffect);
         break;
     }
   }
-  
-  function initializeEffects() {
-    Object.keys(defaultSoundEffects).forEach(function(key, index) {
-      if (defaultSoundEffects[key]) {
-        if (key === "sPitchEffect") {
-          pitchEffect = new Tone.PitchShift().toMaster();
-        }
-        if (key === "sWetEffect") {
-          wetEffect = new Tone.Effect(0.9).chain(pitchEffect);
-        }
-        if (key === "sDistortionEffect") {
-          distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
-        }
-      }
-    });
-  }
+
