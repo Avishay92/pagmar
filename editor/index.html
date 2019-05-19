@@ -22,12 +22,9 @@
     
 
     <div>
-
         <div id="inputs">
             <div>uSineDistortCycleCount</div>
             <input id="uSineDistortCycleCount" type="range" min="0" max="7" step="0.01">
-
-            
 
             <div>uSineDistortSpread</div>
             <input id="uSineDistortSpread" type="range" min="0" max="1" step="0.001">
@@ -61,6 +58,7 @@
     <div id="app" @mouseUp="unselectKnobs">
         <div class="page-container">
             <div class="rela-block container">
+
                 <div v-for="knob in knobs" :class="['rela-inline', 'knob', 'style'+knob.style]">
                     <div class="knob-active-light" :style="{'background-color': knob.active?knob.color:'#888'}"
                         @click="knob.active = !knob.active"></div>
@@ -77,10 +75,10 @@
                     <div class="rela-block knob-label" :style="{'color':knob.active?'#E4E8EA':'#888'}">{{knob.label}}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
     <script src="./main.js" defer></script>
     <script src="./knobs.js"></script>
