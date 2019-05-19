@@ -85,7 +85,6 @@ $("button").click(function() {
     }
   }
   defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] = selectedInstrument;
-  console.log(defaultSoundEffects[Object.keys(defaultSoundEffects)[0]]);
   localStorage.setItem("data", JSON.stringify(data));
   localStorage.setItem("defaultUniforms", JSON.stringify(defaultUniforms));
   localStorage.setItem(

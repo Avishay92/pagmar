@@ -12,11 +12,13 @@ let instrument,
   feedbackEffect,
   tremoloEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
+
 initializeEffects();
 initializeInstrument();
 
 data[char].uniforms = Object.assign(defaultUniforms, data[char].uniforms);
 data[char].soundEffects = Object.assign(defaultSoundEffects, data[char].soundEffects);
+const note = data[char].note;
 
 var text = new Blotter.Text(char, {
     family: "Frank Ruhl Libre",
@@ -42,94 +44,7 @@ var blotter = new Blotter(material, {
 var scope = blotter.forText(text);
 scope.appendTo(document.querySelector("#char"));
 
-const inputElements = document.querySelectorAll('input');
-const note = data[char].note;
-for (let inputElement of inputElements) {
-    inputElement.addEventListener('input', ({currentTarget}) => {
-        const currentValue = currentTarget.value;
-        const {
-            id: propKey
-        } = currentTarget;
-        switch (propKey) {
-            case 'uDistortPositionY': {
-                const [x, y] = material.uniforms.uDistortPosition.value;
-                material.uniforms.uDistortPosition.value = [x, Number(currentValue)];
-                setCharDataUniform("uDistortPosition", material.uniforms.uDistortPosition.value);
-                break;
-            }
-            case 'uDistortPositionX': {
-                const [x, y] = material.uniforms.uDistortPosition.value;
-                material.uniforms.uDistortPosition.value = [Number(currentValue), y];
-                setCharDataUniform("uDistortPosition", material.uniforms.uDistortPosition.value);
-                break;
-            }
 
-            case 'uNoiseDistortVolatility':{
-                material.uniforms[propKey].value = currentValue;
-                setCharDataUniform(propKey, currentValue);
-                pitchEffect.pitch = currentValue;
-                setCharDataSoundEffect("sPitchEffect", currentValue);
-                  
-                break;
-            }
-            case 'uSineDistortAmplitude':{
-                material.uniforms[propKey].value = currentValue;
-                setCharDataUniform(propKey, currentValue);
-                wetEffect.wet.value = currentValue;
-                setCharDataSoundEffect("sWetEffect", currentValue);
-                console.log(wetEffect.wet.value);
-                break;
-            }
-            case 'uNoiseDistortAmplitude':{
-                material.uniforms[propKey].value = currentValue;
-                setCharDataUniform(propKey, currentValue);
-                distortionEffect.distortion = currentValue;
-                setCharDataSoundEffect("sDistortionEffect", currentValue);
-                console.log(distortionEffect.distortion);
-                break;
-            }
-            default: {
-                material.uniforms[propKey].value = currentValue;
-                setCharDataUniform(propKey, currentValue);
-            }
-        }
-        instrument.triggerAttackRelease(note, '4n');
-    
-    })
-}
-
-
-$(document).ready(function () {
-    inputElements.forEach(function (inputElement) {
-        switch (inputElement.id) {
-            case 'uDistortPositionY': {
-                const [x, y] = data[char].uniforms.uDistortPosition;
-                inputElement.value = Number(y);
-                break;
-            }
-            case 'uDistortPositionX': {
-                const [x, y] = data[char].uniforms.uDistortPosition;
-                inputElement.value = Number(x);
-                break;
-            }
-            default: {
-                inputElement.value = Number(data[char].uniforms[inputElement.id]);
-            }
-        }
-    })
-});
-
-$(window).on("beforeunload", function () {
-    localStorage.setItem('data', JSON.stringify(data));
-})
-
-$("#back").click(function () {
-    localStorage.setItem("data", JSON.stringify(data));
-    location.assign("../menu");
-});
-
-
-  
 function initializeEffects() {
     autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
     phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
@@ -165,8 +80,9 @@ function initializeEffects() {
   }
 
   function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
-    visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
-    soundValue = convertValueToRange(minSound, maxSound, currentValue);
+    let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
+    let soundValue = convertValueToRange(minSound, maxSound, currentValue);
+    console.log(soundValue);
     data[char].uniforms[visualEffect] = visualValue;
     const [x, y] = material.uniforms.uDistortPosition.value;
     if (visualEffect==='uDistortPositionX' || visualEffect==='uDistortPositionY'){
@@ -192,6 +108,28 @@ function initializeEffects() {
 
 function setCharDataSoundEffect(soundEffect, value) {
     data[char].soundEffects[soundEffect] = value;
+}
+
+function convertValueToRange(min, max, value){
+    const controllerRange = 264;
+    let range, precent;
+    value += 132;
+    precent = parseFloat(value/controllerRange).toPrecision(3);
+    range = Math.abs(min) + Math.abs(max);
+    console.log(range);
+
+    value = parseFloat(range*precent).toPrecision(3);
+    if (min < 0){
+        value = min;
+        console.log("here");
+        console.log(value);
+
+    }
+    if (max < 0){
+        value -= max;
+    }
+    console.log(value);
+    return value;
 }
 
   var app = new Vue({
@@ -332,7 +270,7 @@ function setCharDataSoundEffect(soundEffect, value) {
                         break;
                     }
                     case 'uNoiseDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7, -24, 32);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7, -24, 24);
                         pitchEffect.pitch = currentValue;
                         break;
                     }
@@ -360,6 +298,7 @@ function setCharDataSoundEffect(soundEffect, value) {
                     }
                 }
                 instrument.triggerAttackRelease(note, '4n');
+                
                 // Setting Max rotation
                 if (selectedKnob.rotation >= 132) {
                     selectedKnob.rotation = 132;
@@ -378,16 +317,13 @@ function setCharDataSoundEffect(soundEffect, value) {
     }
 });
 
-function convertValueToRange(min, max, value){
-    const controllerRange = 264;
-    let range, precent;
-    value += 132;
-    precent = parseFloat(value/controllerRange).toPrecision(3);
-    min = Math.abs(min);
-    max = Math.abs(max);
-    range = min + max;
-    value = parseFloat(range*precent).toPrecision(3);
-    return value;
-}
-
 window.addEventListener('mousemove', app.mousemoveFunction);
+
+$(window).on("beforeunload", function () {
+    localStorage.setItem('data', JSON.stringify(data));
+})
+
+$("#back").click(function () {
+    localStorage.setItem("data", JSON.stringify(data));
+    location.assign("../menu");
+});

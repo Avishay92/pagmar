@@ -14,7 +14,6 @@ let instrument,
   tremoloEffect;
 //initializing instruments and sound effects
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
-console.log(instrument);
 initializeEffects();
 initializeInstrument();
 
