@@ -3,7 +3,15 @@ const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
-let instrument, pitchEffect, distortionEffect, wetEffect;
+let instrument,
+  autoWahEffect,
+  phaserEffect,
+  vibratoEffect,
+  reverbEffect,
+  pitchEffectEffect,
+  distortionEffect,
+  feedbackEffect,
+  tremoloEffect;
 //initializing instruments and sound effects
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 console.log(instrument);
@@ -121,9 +129,14 @@ $(document).ready(function() {
         texts: text
       });
       let soundEffects = {
+        sAutoWahEffect: f1,
+        sPhaserEffect: f1,
+        sVibratoEffect: f1,
+        sReverbEffect: f1,
         sPitchEffect: f1,
-        sWetEffect: f1,
-        sDistortionEffect: f1
+        sDistortionEffect: f1,
+        sFeedbackEffect: f1,
+        sTremoloEffect: f1
       };
       data[char].soundEffects = Object.assign(
         Object.assign({}, soundEffects),
@@ -161,44 +174,64 @@ $("#logo").click(function() {
 });
 
 function initializeEffects() {
-  pitchEffect = new Tone.PitchShift().toMaster();
-  wetEffect = new Tone.Effect(0).chain(pitchEffect);
-  distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
+  autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
+  phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
+  vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
+  // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
+  pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
+  distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
+  //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
+  tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
 }
 
 function initializeInstrument() {
   switch (instrument) {
     case "synth":
-      instrument = new Tone.Synth().connect(distortionEffect);
+      instrument = new Tone.Synth().connect(tremoloEffect);
       break;
     case "metalSynth":
-      instrument = new Tone.MetalSynth().connect(distortionEffect);
+      instrument = new Tone.MetalSynth().connect(tremoloEffect);
       break;
     case "AMSynth":
-      instrument = new Tone.AMSynth().connect(distortionEffect);
+      instrument = new Tone.AMSynth().connect(tremoloEffect);
       break;
     case "monoSynth":
-      instrument = new Tone.MonoSynth().connect(distortionEffect);
+      instrument = new Tone.MonoSynth().connect(tremoloEffect);
       break;
     case "polySynth":
-      instrument = new Tone.PolySynth().connect(distortionEffect);
+      instrument = new Tone.PolySynth().connect(tremoloEffect);
       break;
     default:
-      instrument = new Tone.Synth().connect(distortionhEffect);
+      instrument = new Tone.Synth().connect(tremoloEffect);
       break;
   }
 }
 
 function updateEffects(soundEffects) {
   Object.keys(soundEffects).forEach(function(key, index) {
-    if (key === "sPitchEffect") {
-      pitchEffect.pitch = soundEffects[key];
-    }
-    if (key === "sWetEffect") {
-      wetEffect.wet.value = soundEffects[key];
-    }
-    if (key === "sDistortionEffect") {
-      distortionEffect.distortion = soundEffects[key];
+    switch(key){
+      case "sAutoWahEffect":
+      autoWahEffect.octaves.value = soundEffects[key];
+        break;
+      case "sPhaserEffect":
+        phaserEffect.octaves = soundEffects[key];
+        break;
+      case "sVibratoEffect":
+        vibratoEffect.frequency = soundEffects[key];
+        break;
+      case "sReverbEffect":
+        break;
+      case "sPitchEffect":
+        pitchEffect.pitch = soundEffects[key];
+        break;
+      case "sDistortionEffect":
+        distortionEffect.distortion = soundEffects[key];
+        break;
+      case "sFeedbackEffect":
+        break;
+      case "sTremoloEffect":
+        tremoloEffect.frequency = soundEffects[key];
+        break;
     }
   });
 }

@@ -2,7 +2,15 @@ const char = localStorage.getItem("char");
 const data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(localStorage.getItem("defaultSoundEffects"));
-let instrument, pitchEffect, distortionEffect, wetEffect;
+let instrument,
+  autoWahEffect,
+  phaserEffect,
+  vibratoEffect,
+  reverbEffect,
+  pitchEffectEffect,
+  distortionEffect,
+  feedbackEffect,
+  tremoloEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
 initializeInstrument();
@@ -122,54 +130,60 @@ $("#back").click(function () {
 
 
   
-  function initializeEffects() {
-          pitchEffect = new Tone.PitchShift().toMaster();
-          wetEffect = new Tone.Effect(0).chain(pitchEffect);
-          distortionEffect = new Tone.Distortion(0.8).chain(wetEffect);
+function initializeEffects() {
+    autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
+    phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
+    vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
+    // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
+    pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
+    distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
+    //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
+    tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
   }
 
   function initializeInstrument() {
     switch (instrument) {
       case "synth":
-        instrument = new Tone.Synth().connect(distortionEffect);
+        instrument = new Tone.Synth().connect(tremoloEffect);
         break;
       case "metalSynth":
-        instrument = new Tone.MetalSynth().connect(distortionEffect);
+        instrument = new Tone.MetalSynth().connect(tremoloEffect);
         break;
       case "AMSynth":
-        instrument = new Tone.AMSynth().connect(distortionEffect);
+        instrument = new Tone.AMSynth().connect(tremoloEffect);
         break;
       case "monoSynth":
-        instrument = new Tone.MonoSynth().connect(distortionEffect);
+        instrument = new Tone.MonoSynth().connect(tremoloEffect);
         break;
       case "polySynth":
-        instrument = new Tone.PolySynth().connect(distortionEffect);
+        instrument = new Tone.PolySynth().connect(tremoloEffect);
         break;
       default:
-        instrument = new Tone.Synth().connect(distortionhEffect);
+        instrument = new Tone.Synth().connect(tremoloEffect);
         break;
     }
   }
 
-  function updateInputValue(visualEffect, soundEffect, currentValue, min, max){
-    currentValue = convertValueToRange(min, max, currentValue);
-    data[char].uniforms[visualEffect] = currentValue;
+  function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
+    visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
+    soundValue = convertValueToRange(minSound, maxSound, currentValue);
+    data[char].uniforms[visualEffect] = visualValue;
     const [x, y] = material.uniforms.uDistortPosition.value;
     if (visualEffect==='uDistortPositionX' || visualEffect==='uDistortPositionY'){
         if (visualEffect==='uDistortPositionX'){
-            material.uniforms.uDistortPosition.value = [Number(currentValue), y];
+            material.uniforms.uDistortPosition.value = [Number(visualValue), y];
         }
         if (visualEffect==='uDistortPositionY'){
-            material.uniforms.uDistortPosition.value = [x, Number(currentValue)];
+            material.uniforms.uDistortPosition.value = [x, Number(visualValue)];
         }
     }
     else{
-        material.uniforms[visualEffect].value = currentValue;
+        material.uniforms[visualEffect].value = visualValue;
     }
     if (soundEffect!=="none"){
-        data[char].soundEffects[soundEffect] = currentValue;
+        data[char].soundEffects[soundEffect] = soundValue;
     }
-    return currentValue;
+    return soundValue;
   }
 
   function setCharDataUniform(uniform, value) {
@@ -188,8 +202,8 @@ function setCharDataSoundEffect(soundEffect, value) {
         {
             id: 0,
             visualEffect: 'uSineDistortCycleCount',
-            soundEffect: 'none',
-            label: 'Effect',
+            soundEffect: 'sPhaserEffect',
+            label: 'Phaser',
             rotation: -132,
             color: '#23CDE8',
             active: true,
@@ -199,8 +213,8 @@ function setCharDataSoundEffect(soundEffect, value) {
         {
             id: 1,
             visualEffect: 'uSineDistortSpread',
-            soundEffect: 'none',
-            label: 'Effect',
+            soundEffect: 'sAutoWahEffect',
+            label: 'AutoWah',
             rotation: -132,
             color: '#23F376',
             active: true,
@@ -210,8 +224,8 @@ function setCharDataSoundEffect(soundEffect, value) {
         {
             id: 2,
             visualEffect: 'uSineDistortAmplitude',
-            soundEffect: 'sWetEffect',
-            label: 'Dry/Wet',
+            soundEffect: 'sVibratoEffect',
+            label: 'Vibrato',
             rotation: -132,
             color: '#FFFB43',
             active: true,
@@ -221,8 +235,8 @@ function setCharDataSoundEffect(soundEffect, value) {
         {
             id: 3,
             visualEffect: 'uNoiseDistortAmplitude',
-            soundEffect: 'sDistortionEffect',
-            label: 'Distortion',
+            soundEffect: 'sPitchEffect',
+            label: 'Pitch shift',
             rotation: -132,
             color: '#FA9C34',
             active: true,
@@ -232,8 +246,8 @@ function setCharDataSoundEffect(soundEffect, value) {
         {
             id: 4,
             visualEffect: 'uNoiseDistortVolatility',
-            soundEffect: 'sPitchEffect',
-            label: 'Pitch',
+            soundEffect: 'sReverbEffect',
+            label: 'Reverb',
             rotation: -132,
             color: '#21CD92',
             active: true,
@@ -242,9 +256,9 @@ function setCharDataSoundEffect(soundEffect, value) {
         },
         {
             id: 5,
-            visualEffect: 'uRotation',
+            visualEffect: 'uSpeed',
             soundEffect: 'none',
-            label: 'Effect',
+            label: 'Speed',
             rotation: -132,
             color: '#ED31A2',
             active: true,
@@ -253,9 +267,9 @@ function setCharDataSoundEffect(soundEffect, value) {
         },
         {
             id: 6,
-            visualEffect: 'uSpeed',
-            soundEffect: 'none',
-            label: 'Effect',
+            visualEffect: 'uDistortPositionX',
+            soundEffect: 'sDistortionEffect',
+            label: 'Distortion',
             rotation: -132,
             color: '#E22',
             active: true,
@@ -264,9 +278,9 @@ function setCharDataSoundEffect(soundEffect, value) {
         },
         {
             id: 7,
-            visualEffect: 'uNoiseDistortAmplitude',
-            soundEffect: 'none',
-            label: 'Effect',
+            visualEffect: 'uDistortPositionY',
+            soundEffect: 'sFeedbackEffect',
+            label: 'Feedback',
             rotation: -132,
             color: '#23CDE8',
             active: true,
@@ -275,22 +289,11 @@ function setCharDataSoundEffect(soundEffect, value) {
         },
         {
             id: 8,
-            visualEffect: 'uDistortPositionX',
-            soundEffect: 'none',
-            label: 'positionX',
+            visualEffect: 'uRotation',
+            soundEffect: 'sTremoloEffect',
+            label: 'Tremolo',
             rotation: -132,
-            color: '#23CDE8',
-            active: true,
-            selected: false,
-            style: 1
-        },
-        {
-            id: 9,
-            visualEffect: 'uDistortPositionY',
-            soundEffect: 'none',
-            label: 'positionY',
-            rotation: -132,
-            color: '#23CDE8',
+            color: '#23F376',
             active: true,
             selected: false,
             style: 1
@@ -314,42 +317,45 @@ function setCharDataSoundEffect(soundEffect, value) {
                 let currentValue = selectedKnob.rotation;
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7, 0, 8);
+                        autoWahEffect.octaves.value = currentValue;
                         break;
                     }
                     case 'uSineDistortSpread':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 8);
+                        phaserEffect.octaves = currentValue;
                         break;
                     }
                     case 'uSineDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1);
-                        wetEffect.wet.value = currentValue;
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0 ,10);
+                        vibratoEffect.frequency = currentValue;
                         break;
                     }
                     case 'uNoiseDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7);
-                        distortionEffect.distortion = currentValue;
-                        break;
-                    }
-                    case 'uNoiseDistortVolatility':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 25);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7, -24, 32);
                         pitchEffect.pitch = currentValue;
                         break;
                     }
+                    case 'uNoiseDistortVolatility':{
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 25, 0, 2);
+                        break;
+                    }
                     case 'uRotation':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 360);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 360, 0, 10);
+                        tremoloEffect.frequency = currentValue;
                         break;
                     }
                     case 'uSpeed':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 10);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 10, 0, 0);
                         break;
                     }
                     case 'uDistortPositionX': {
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 1);
+                        distortionEffect.distortion = currentValue;
                         break;
                     }
                     case 'uDistortPositionY': {
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 1);
                         break;
                     }
                 }
