@@ -188,8 +188,8 @@ function initializeInstrument() {
     case "synth":
       instrument = new Tone.Synth().connect(tremoloEffect);
       break;
-    case "metalSynth":
-      instrument = new Tone.MetalSynth().connect(tremoloEffect);
+    case "duoSynth":
+      instrument = new Tone.DuoSynth().connect(tremoloEffect);
       break;
     case "AMSynth":
       instrument = new Tone.AMSynth().connect(tremoloEffect);
