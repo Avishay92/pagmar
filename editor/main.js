@@ -22,7 +22,7 @@ const note = data[char].note;
 
 var text = new Blotter.Text(char, {
     family: "Frank Ruhl Libre",
-    size: 100,
+    size: 400,
     fill: "white",
 });
 
@@ -297,7 +297,7 @@ function convertValueToRange(min, max, value){
                         break;
                     }
                 }
-                instrument.triggerAttackRelease(note, '4n');
+                instrument.triggerAttackRelease(note, '8t');
                 
                 // Setting Max rotation
                 if (selectedKnob.rotation >= 132) {
