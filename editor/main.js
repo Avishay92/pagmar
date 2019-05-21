@@ -100,14 +100,6 @@ function initializeEffects() {
         data[char].soundEffects[soundEffect] = soundValue;
     }
     return soundValue;
-  }
-
-  function setCharDataUniform(uniform, value) {
-    data[char].uniforms[uniform] = value;
-}
-
-function setCharDataSoundEffect(soundEffect, value) {
-    data[char].soundEffects[soundEffect] = value;
 }
 
 function convertValueToRange(min, max, value){
@@ -116,19 +108,17 @@ function convertValueToRange(min, max, value){
     value += 132;
     precent = parseFloat(value/controllerRange).toPrecision(3);
     range = Math.abs(min) + Math.abs(max);
-    console.log(range);
-
     value = parseFloat(range*precent).toPrecision(3);
     if (min < 0){
-        value = min;
-        console.log("here");
-        console.log(value);
-
+        value =parseFloat(value)+parseFloat(min);
     }
     if (max < 0){
-        value -= max;
+        value =parseFloat(value)+parseFloat(max);
     }
-    console.log(value);
+
+    if (min===-24){
+    console.log("converted: "+value);
+    }   
     return value;
 }
 
@@ -272,10 +262,6 @@ function convertValueToRange(min, max, value){
                         tremoloEffect.frequency = currentValue;
                         break;
                     }
-                    // case 'uSpeed':{
-                    //     currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 10, 0, 0);
-                    //     break;
-                    // }
                     case 'uDistortPositionX': {
                         currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 1);
                         distortionEffect.distortion = currentValue;
