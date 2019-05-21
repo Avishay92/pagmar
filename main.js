@@ -59,9 +59,10 @@ const defaultUniforms = {
   uNoiseDistortVolatility: f1,
   uNoiseDistortAmplitude: f1,
   uRotation: f1,
-  uSpeed: f1,
+  uSpeed: 0.08,
   uDistortPosition: f2
 };
+
 
 let instrumentForm = document.querySelector("#instrument");
 let selectedInstrument = instrumentForm.elements[0].value;

@@ -61,8 +61,8 @@ function initializeEffects() {
       case "synth":
         instrument = new Tone.Synth().connect(tremoloEffect);
         break;
-      case "metalSynth":
-        instrument = new Tone.MetalSynth().connect(tremoloEffect);
+      case "duoSynth":
+        instrument = new Tone.DuoSynth().connect(tremoloEffect);
         break;
       case "AMSynth":
         instrument = new Tone.AMSynth().connect(tremoloEffect);
@@ -187,16 +187,16 @@ function convertValueToRange(min, max, value){
             soundEffect: 'sReverbEffect',
             label: 'Reverb',
             rotation: -132,
-            color: '#21CD92',
+            color: '#E22',
             active: true,
             selected: false,
             style: 1
         },
         {
             id: 5,
-            visualEffect: 'uSpeed',
-            soundEffect: 'none',
-            label: 'Speed',
+            visualEffect: 'uDistortPositionX',
+            soundEffect: 'sDistortionEffect',
+            label: 'Distortion',
             rotation: -132,
             color: '#ED31A2',
             active: true,
@@ -205,17 +205,6 @@ function convertValueToRange(min, max, value){
         },
         {
             id: 6,
-            visualEffect: 'uDistortPositionX',
-            soundEffect: 'sDistortionEffect',
-            label: 'Distortion',
-            rotation: -132,
-            color: '#E22',
-            active: true,
-            selected: false,
-            style: 1
-        },
-        {
-            id: 7,
             visualEffect: 'uDistortPositionY',
             soundEffect: 'sFeedbackEffect',
             label: 'Feedback',
@@ -226,12 +215,12 @@ function convertValueToRange(min, max, value){
             style: 1
         },
         {
-            id: 8,
+            id: 7,
             visualEffect: 'uRotation',
             soundEffect: 'sTremoloEffect',
             label: 'Tremolo',
             rotation: -132,
-            color: '#23F376',
+            color: '#21CD92',
             active: true,
             selected: false,
             style: 1
@@ -270,12 +259,12 @@ function convertValueToRange(min, max, value){
                         break;
                     }
                     case 'uNoiseDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7, -24, 24);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.008, 7, -24, 24);
                         pitchEffect.pitch = currentValue;
                         break;
                     }
                     case 'uNoiseDistortVolatility':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 25, 0, 2);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 1, 80, 0, 2);
                         break;
                     }
                     case 'uRotation':{
@@ -283,10 +272,10 @@ function convertValueToRange(min, max, value){
                         tremoloEffect.frequency = currentValue;
                         break;
                     }
-                    case 'uSpeed':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 10, 0, 0);
-                        break;
-                    }
+                    // case 'uSpeed':{
+                    //     currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 10, 0, 0);
+                    //     break;
+                    // }
                     case 'uDistortPositionX': {
                         currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 1);
                         distortionEffect.distortion = currentValue;

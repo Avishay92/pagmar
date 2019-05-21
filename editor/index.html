@@ -61,8 +61,6 @@
             <div class="rela-block container">
 
                 <div v-for="knob in knobs" :class="['rela-inline', 'knob', 'style'+knob.style]">
-                    <div class="knob-active-light" :style="{'background-color': knob.active?knob.color:'#888'}"
-                        @click="knob.active = !knob.active"></div>
                     <div class="rela-block knob-dial" :style="{'color':knob.active?knob.color:'#888'}">
                         <div class="abs-center dial-grip"
                             :style="{'transform': 'translate(-50%,-50%) rotate('+knob.rotation+'deg)'}"
