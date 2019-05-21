@@ -188,17 +188,17 @@ function initializeInstrument() {
     case "synth":
       instrument = new Tone.Synth().connect(tremoloEffect);
       break;
-    case "duoSynth":
+    case "DuoSynth":
       instrument = new Tone.DuoSynth().connect(tremoloEffect);
+      break;
+    case "MembraneSynth":
+      instrument = new Tone.MembraneSynth().connect(tremoloEffect);
       break;
     case "AMSynth":
       instrument = new Tone.AMSynth().connect(tremoloEffect);
       break;
-    case "monoSynth":
-      instrument = new Tone.MonoSynth().connect(tremoloEffect);
-      break;
-    case "polySynth":
-      instrument = new Tone.PolySynth().connect(tremoloEffect);
+    case "FMSynth":
+      instrument = new Tone.FMSynth().connect(tremoloEffect);
       break;
     default:
       instrument = new Tone.Synth().connect(tremoloEffect);
