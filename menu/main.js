@@ -86,7 +86,8 @@ function activateChar(char) {
     });
 
     blotter.needsUpdate = true;
-
+    
+    // scope.play();
     var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
     $(gridItem).css("opacity", "1");
   }

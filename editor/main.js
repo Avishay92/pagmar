@@ -234,15 +234,16 @@ function convertValueToRange(min, max, value){
                 let currentValue = selectedKnob.rotation;
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 7, 0, 8);
-                        autoWahEffect.octaves.value = currentValue;
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 60, 200, 0, 8);
+                        autoWahEffect.baseFrequency = currentValue;
                         break;
                     }
                     case 'uSineDistortSpread':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 8);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.067, 1, 0, 8);
                         phaserEffect.octaves = currentValue;
                         break;
                     }
+ 
                     case 'uSineDistortAmplitude':{
                         currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0 ,10);
                         vibratoEffect.frequency = currentValue;
@@ -272,7 +273,7 @@ function convertValueToRange(min, max, value){
                         break;
                     }
                 }
-                instrument.triggerAttackRelease(note, '8t');
+                instrument.triggerAttackRelease(note, '16n');
                 
                 // Setting Max rotation
                 if (selectedKnob.rotation >= 132) {
