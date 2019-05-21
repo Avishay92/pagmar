@@ -22,7 +22,7 @@ const note = data[char].note;
 
 var text = new Blotter.Text(char, {
     family: "Frank Ruhl Libre",
-    size: 400,
+    size: 450,
     fill: "white",
 });
 
@@ -125,7 +125,7 @@ function convertValueToRange(min, max, value){
   var app = new Vue({
     el: '#app',
     data: {
-        colorArray: ['#23CDE8', '#23F376', '#FFFB43', '#FA9C34', '#21CD92', '#ED31A2', '#E22'],
+        colorArray: ['#FF395D', '#23F376', '#FFFB43', '#FA9C34', '#21CD92', '#ED31A2', '#E22'],
         knobs: [
         {
             id: 0,
@@ -133,7 +133,7 @@ function convertValueToRange(min, max, value){
             soundEffect: 'sPhaserEffect',
             label: 'Phaser',
             rotation: -132,
-            color: '#23CDE8',
+            color: '#FF395D',
             active: true,
             selected: false,
             style: 1
@@ -144,7 +144,7 @@ function convertValueToRange(min, max, value){
             soundEffect: 'sAutoWahEffect',
             label: 'AutoWah',
             rotation: -132,
-            color: '#23F376',
+            color: '#01ED95',
             active: true,
             selected: false,
             style: 1
@@ -155,7 +155,7 @@ function convertValueToRange(min, max, value){
             soundEffect: 'sVibratoEffect',
             label: 'Vibrato',
             rotation: -132,
-            color: '#FFFB43',
+            color: '#69FFFE',
             active: true,
             selected: false,
             style: 1
@@ -166,7 +166,7 @@ function convertValueToRange(min, max, value){
             soundEffect: 'sPitchEffect',
             label: 'Pitch shift',
             rotation: -132,
-            color: '#FA9C34',
+            color: '#EDAC01',
             active: true,
             selected: false,
             style: 1
@@ -177,7 +177,7 @@ function convertValueToRange(min, max, value){
             soundEffect: 'sReverbEffect',
             label: 'Reverb',
             rotation: -132,
-            color: '#E22',
+            color: '#9256D7',
             active: true,
             selected: false,
             style: 1

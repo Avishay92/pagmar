@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "frankgbold";
+  src: url("frankgbold-webfont.woff2") format("woff2"),
+    url("frankgbold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --bar-height: 120px;
+  --bar-background: #202020;
+}
+
+body {
+  background: #161616;
+  color: white;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+}
+
+.mdl-textfield {
+  padding-left: 100;
+}
+
+.form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.form-text {
+  margin: 0 20px;
+  padding: 20px 0;
+  font-size: 16px;
+}
+
+.grid {
+  margin: 0 5%;
+  display: grid;
+  direction: rtl;
+  grid-template-columns: repeat(7, 1fr);
+  grid-row-start: -1;
+}
+
+.grid__item {
+  height: 190px;
+  position: relative;
+  justify-content: center;
+  display: flex;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.grid__item:hover {
+  opacity: 1;
+}
+
+#logo {
+  cursor: pointer;
+}
+
+/* top bar */
+
+.f-center {
+  display: flex;
+  align-items: center;
+}
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.top-bar {
+  --color: #a7a8ab;
+  height: var(--bar-height);
+  background-color: var(--bar-background);
+  padding: 0 50px 0 25px;
+  justify-content: space-between;
+  color: var(--color);
+  font-size: 12px;
+}
+
+
+.logo img {
+  width: 100%;
+}
+.top-bar-right,
+.top-bar-left {
+	width: 33.3%;
+}
+.top-bar-left .arrow {
+  margin-left: 45px;
+}
+
+.actions-container {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 100ms linear;
+  cursor: pointer;
+}
+
+.action-item:hover {
+  transform: scale(1.1);
+}
+
+.next span,
+.action-item span {
+  margin-top: 8px;
+}
+
+.action-item + .action-item {
+  margin-left: 90px;
+}
+
+.next {
+	flex-direction: column;
+	margin-left: auto;
+}
+
+.arrow {
+  cursor: pointer;
+}

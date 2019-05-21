@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="51px" height="50px" viewBox="0 0 51 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="toolbar-playground" transform="translate(-305.000000, -36.000000)" fill-rule="nonzero">
+            <g id="Group" transform="translate(305.530854, 36.000000)">
+                <circle id="Oval-Copy-2" fill="#01ED95" cx="25" cy="25" r="25"></circle>
+                <polygon id="Triangle" fill="#202020" transform="translate(28.500000, 25.000000) rotate(-270.000000) translate(-28.500000, -25.000000) " points="28.5 15.5 43.5 34.5 13.5 34.5"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

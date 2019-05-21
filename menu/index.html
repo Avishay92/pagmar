@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link rel="stylesheet" href="../fonts/stylesheet.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -8,48 +9,59 @@
       rel="stylesheet"
       href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css"
     />
-    <link rel="stylesheet" href="./main.css" />
-    <link rel="stylesheet" href="../style/material-theme.css" />
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="./menu.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre"
-      
-			rel="stylesheet"
+      rel="stylesheet"
     />
-   
   </head>
 
   <body>
     <!-- row -->
-    <div style="display: flex;justify-content: space-between; margin: 0 30px">
-      <!-- left part -->
-      <div style="display: flex;">
-        <image id="logo" src="../images/logo.svg"></image>
-      </div>
-      <!-- right part -->
-      <div class="form">
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="sample1" />
-          <label class="mdl-textfield__label" for="sample1"
-            >Name your font</label
-          >
+    <nav class="top-bar f-center">
+      <div class="top-bar-left f-center">
+        <div class="logo">
+          <a href="/">
+            <img src="../assets/icons/logocreateICN.svg" alt="" />
+          </a>
         </div>
-        <div class="form-text">based on</div>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="sample1" />
-          <label class="mdl-textfield__label" for="sample1">FrankG</label>
-        </div>
-        <div
-          style="display:flex; justify-content: center; flex-direction: column "
-        >
-          <image
-            src="../images/download.png"
-            style="height:20px; width: auto; margin-left:20px"
-          ></image>
+        <div class="arrow">
+          <img src="../assets/icons/arrowICN.svg" alt="" />
         </div>
       </div>
-    </div>
+      <div class="top-bar-center f-center">
+        <div class="actions-container f-center">
+          <div class="action-item">
+            <img src="../assets/icons/fomtICN.svg" alt="" />
+            <span>Frank Ruhl</span>
+          </div>
+          <div class="action-item">
+            <img src="../assets/icons/synthICN.svg" alt="" />
+            <span>Duo Synth</span>
+          </div>
+          <div class="action-item">
+            <img src="../assets/icons/modeICN.svg" alt="" />
+            <span>Dark Mode</span>
+          </div>
+          <div class="action-item">
+            <img src="../assets/icons/rsetICN.svg" alt="" />
+            <span>Reset</span>
+          </div>
+          <div class="action-item">
+            <img src="../assets/icons/infoICN.svg" alt="" />
+            <span>How to play</span>
+          </div>
+        </div>
+      </div>
+      <div class="top-bar-right f-center">
+        <div class="next f-center">
+          <div class="arrow rotate-180">
+            <img src="../assets/icons/arrowICN.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </nav>
     <div class="grid"></div>
 
     <script src="../blotter/blotter.min.js"></script>
