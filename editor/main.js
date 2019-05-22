@@ -27,12 +27,12 @@ const effectRanges = {
         max: 1,
     },
     uNoiseDistortVolatility: {
-        min: 0.008,
-        max: 30,
-    },
-    uNoiseDistortAmplitude: {
         min: 1,
         max: 80,
+    },
+    uNoiseDistortAmplitude: {
+        min: 0.008,
+        max: 1,
     },
     uRotation: {
         min: 0,
@@ -117,7 +117,6 @@ function initializeEffects() {
   function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
     let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
     let soundValue = convertValueToRange(minSound, maxSound, currentValue);
-    console.log(soundValue);
     data[char].uniforms[visualEffect] = visualValue;
     const [x, y] = material.uniforms.uDistortPosition.value;
     if (visualEffect==='uDistortPositionX' || visualEffect==='uDistortPositionY'){
@@ -157,14 +156,20 @@ function convertValueToRange(min, max, value){
     return value;
 }
 
-function convertVisualValueToRotation(effect){
+function convertValueToRotation(effect){
     const controllerRange = 264;
     const min = effectRanges[effect].min;
     const max = effectRanges[effect].max;
     let range, precent, currValue;
-  
-    currValue = data[char].uniforms[effect];
-    // console.log("val: "+ currValue + "min" + min + "max" + max);
+    if(effect === 'uDistortPositionX'){
+        currValue = data[char].uniforms["uDistortPosition"][0];
+    }
+    else if(effect === 'uDistortPositionY'){
+        currValue = data[char].uniforms["uDistortPosition"][1];
+    }
+    else {
+         currValue = data[char].uniforms[effect];
+    }
     if (min < 0){
         currValue =parseFloat(currValue)-parseFloat(min);
     }
@@ -175,18 +180,6 @@ function convertVisualValueToRotation(effect){
     precent = parseFloat(currValue/range).toPrecision(3);
     currValue = parseFloat(controllerRange*precent).toPrecision(3);
     currValue -= 132;
-    // console.log("converted: "+ currValue);
-    if(effect === 'uDistortPositionX'){
-        console.log(data[char].uniforms[effect]);
-    console.log("converted: "+ currValue);
-
-    }
-    if(effect === 'uDistortPositionY'){
-        console.log(data[char].uniforms[effect]);
-    console.log("converted: "+ currValue);
-
-    }
-  
     return currValue;
 }
 
@@ -318,7 +311,7 @@ var app = new Vue({
                         break;
                     }
                     case 'uNoiseDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.008, 7, 0, 24);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.008, 1, 0, 24);
                         pitchEffect.pitch = currentValue;
                         break;
                     }
@@ -353,9 +346,18 @@ var app = new Vue({
         },
         initializeContorllers: function(e){
             app.knobs.forEach(function(knob){
-                let rotationValue = convertVisualValueToRotation(knob.visualEffect);
+                let rotationValue = convertValueToRotation(knob.visualEffect);
                 knob.rotation = rotationValue;
-                })
+                console.log(rotationValue);
+                if(knob.visualEffect === 'uDistortPositionX'){
+                    data[char].uniforms["uDistortPosition"][0] = rotationValue;
+                    console.log(knob.rotation);
+                }
+                if(knob.visualEffect === 'uDistortPositionY'){
+                    data[char].uniforms["uDistortPosition"][1] = rotationValue;
+                }
+
+            })
         }
     },
     methods: {
@@ -367,7 +369,6 @@ var app = new Vue({
     }
 });
 
-// document.addEventListener("click", app.initializeContorllers);
 app.initializeContorllers();
 window.addEventListener('mousemove', app.mousemoveFunction);
 
