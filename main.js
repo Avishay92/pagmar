@@ -70,8 +70,6 @@ const defaultUniforms = {
  uDistortPosition: initValueDistortPosition
 };
 
-
-
 let instrumentForm = document.querySelector("#instrument");
 let selectedInstrument = instrumentForm.elements[0].value;
 let defaultSoundEffects = {
