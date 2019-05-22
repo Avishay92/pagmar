@@ -3,6 +3,7 @@ const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
+let playButton = document.querySelector("#play");
 let instrument,
   autoWahEffect,
   phaserEffect,
@@ -87,8 +88,7 @@ function activateChar(char) {
 
     blotter.needsUpdate = true;
     
-    // scope.play();
-    var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+  var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
     $(gridItem).css("opacity", "1");
   }
 
@@ -156,6 +156,11 @@ $(document).ready(function() {
         localStorage.setItem("char", char);
         location.assign("../editor");
       });
+      $(playButton).click(function() {
+        localStorage.setItem("char", char);
+        location.assign("../play");
+      });
+
     });
 });
 
