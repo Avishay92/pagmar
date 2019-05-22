@@ -13,6 +13,41 @@ let instrument,
   tremoloEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
+const effectRanges = {
+    uSineDistortCycleCount: {
+        min: 60,
+        max: 200,
+    },
+    uSineDistortSpread:{
+        min: 0.067,
+        max: 1,
+    },
+    uSineDistortAmplitude: {
+        min: 0,
+        max: 1,
+    },
+    uNoiseDistortVolatility: {
+        min: 0.008,
+        max: 30,
+    },
+    uNoiseDistortAmplitude: {
+        min: 1,
+        max: 80,
+    },
+    uRotation: {
+        min: 0,
+        max: 360,
+    },
+    uDistortPositionX:{
+        min: 0,
+        max: 1,
+    },
+    uDistortPositionY:{
+        min: 0,
+        max: 1,
+    },
+}
+
 initializeEffects();
 initializeInstrument();
 
@@ -122,7 +157,40 @@ function convertValueToRange(min, max, value){
     return value;
 }
 
-  var app = new Vue({
+function convertVisualValueToRotation(effect){
+    const controllerRange = 264;
+    const min = effectRanges[effect].min;
+    const max = effectRanges[effect].max;
+    let range, precent, currValue;
+  
+    currValue = data[char].uniforms[effect];
+    // console.log("val: "+ currValue + "min" + min + "max" + max);
+    if (min < 0){
+        currValue =parseFloat(currValue)-parseFloat(min);
+    }
+    if (max < 0){
+        currValue =parseFloat(currValue)-parseFloat(max);
+    }
+    range = Math.abs(min) + Math.abs(max);
+    precent = parseFloat(currValue/range).toPrecision(3);
+    currValue = parseFloat(controllerRange*precent).toPrecision(3);
+    currValue -= 132;
+    // console.log("converted: "+ currValue);
+    if(effect === 'uDistortPositionX'){
+        console.log(data[char].uniforms[effect]);
+    console.log("converted: "+ currValue);
+
+    }
+    if(effect === 'uDistortPositionY'){
+        console.log(data[char].uniforms[effect]);
+    console.log("converted: "+ currValue);
+
+    }
+  
+    return currValue;
+}
+
+var app = new Vue({
     el: '#app',
     data: {
         colorArray: ['#FF395D', '#23F376', '#FFFB43', '#FA9C34', '#21CD92', '#ED31A2', '#E22'],
@@ -215,7 +283,7 @@ function convertValueToRange(min, max, value){
             selected: false,
             style: 1
         },
-     ],
+        ],
         currentY: 0,
         mousemoveFunction: function (e) {
             var selectedKnob = app.knobs.filter(function (i) {
@@ -250,7 +318,7 @@ function convertValueToRange(min, max, value){
                         break;
                     }
                     case 'uNoiseDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.008, 7, -24, 24);
+                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.008, 7, 0, 24);
                         pitchEffect.pitch = currentValue;
                         break;
                     }
@@ -283,6 +351,12 @@ function convertValueToRange(min, max, value){
                 }
             }
         },
+        initializeContorllers: function(e){
+            app.knobs.forEach(function(knob){
+                let rotationValue = convertVisualValueToRotation(knob.visualEffect);
+                knob.rotation = rotationValue;
+                })
+        }
     },
     methods: {
         unselectKnobs: function () {
@@ -293,6 +367,8 @@ function convertValueToRange(min, max, value){
     }
 });
 
+// document.addEventListener("click", app.initializeContorllers);
+app.initializeContorllers();
 window.addEventListener('mousemove', app.mousemoveFunction);
 
 $(window).on("beforeunload", function () {
