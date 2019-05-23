@@ -31,6 +31,7 @@ const gridElement = (document.querySelector(
 ).innerHTML = letterElements);
 
 function resetChar(char) {
+  console.log("resetChar");
   let blotter = data[char] && data[char].blotter;
   let soundEffects = data[char] && data[char].soundEffects;
   if (blotter) {
@@ -47,7 +48,8 @@ function resetChar(char) {
         }
       }
     });
-    blotter.needsUpdate = true;
+    Object.values(blotter._scopes)[0].render();
+
     var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
     $(gridItem).css("opacity", "0.2");
   }
@@ -64,6 +66,7 @@ function resetChar(char) {
 }
 
 function activateChar(char) {
+  console.log("activateChar");
   let blotter = data[char] && data[char].blotter;
   let soundEffects = data[char] && data[char].soundEffects;
   if (blotter) {
@@ -86,9 +89,9 @@ function activateChar(char) {
       }
     });
 
-    blotter.needsUpdate = true;
-    
-  var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+    Object.values(blotter._scopes)[0].render();
+
+    var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
     $(gridItem).css("opacity", "1");
   }
 
@@ -160,7 +163,6 @@ $(document).ready(function() {
         localStorage.setItem("char", char);
         location.assign("../play");
       });
-
     });
 });
 
@@ -183,7 +185,7 @@ function initializeEffects() {
   phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
   vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
   // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
-  pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
+  pitchEffect = new Tone.PitchShift().chain(vibratoEffect);
   distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
   //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
   tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
@@ -214,9 +216,9 @@ function initializeInstrument() {
 
 function updateEffects(soundEffects) {
   Object.keys(soundEffects).forEach(function(key, index) {
-    switch(key){
+    switch (key) {
       case "sAutoWahEffect":
-      autoWahEffect.octaves.value = soundEffects[key];
+        autoWahEffect.octaves.value = soundEffects[key];
         break;
       case "sPhaserEffect":
         phaserEffect.octaves = soundEffects[key];

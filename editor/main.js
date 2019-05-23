@@ -2,6 +2,7 @@ const char = localStorage.getItem("char");
 const data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(localStorage.getItem("defaultSoundEffects"));
+
 let instrument,
   autoWahEffect,
   phaserEffect,
@@ -12,15 +13,6 @@ let instrument,
   feedbackEffect,
   tremoloEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
-
-const f1 = parseFloat(0).toPrecision(2);
-const f2 = [f1, f1];
-const initValueCycleCount= parseFloat(2).toPrecision(2);
-const initValueSineDistortAmplitude= parseFloat(0.13).toPrecision(2);
-const initValueuNoiseDistortVolatility= parseFloat(20).toPrecision(2);
-const initValueuNoiseDistortAmplitude= parseFloat(0.01).toPrecision(2);
-const f3= parseFloat(0.5).toPrecision(2);
-const initValueDistortPosition= [f3,f3];
 
 const effectRanges = {
     uSineDistortSpread:{   //autoWah
@@ -75,8 +67,8 @@ const effectRanges = {
 initializeEffects();
 initializeInstrument();
 
-data[char].uniforms = Object.assign(defaultUniforms, data[char].uniforms);
-data[char].soundEffects = Object.assign(defaultSoundEffects, data[char].soundEffects);
+data[char].uniforms = Object.assign(Object.assign({} , defaultUniforms) , data[char].uniforms);
+data[char].soundEffects = Object.assign(Object.assign({} , defaultSoundEffects), data[char].soundEffects);
 const note = data[char].note;
 
 var text = new Blotter.Text(char, {
@@ -151,7 +143,6 @@ function initializeEffects() {
             material.uniforms.uDistortPosition.value[1] = Number(visualValue);
             data[char].uniforms.uDistortPosition[1] = Number(visualValue);
         }
-        data[char].uniforms[visualEffect] = Number(visualValue);
     }
     else{
         material.uniforms[visualEffect].value = visualValue;
@@ -317,7 +308,7 @@ var app = new Vue({
                     effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
                     effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound,
                     );
-                    console.log(material.uniforms);
+                    // console.log(material.uniforms);
 
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
@@ -345,8 +336,8 @@ var app = new Vue({
                         break;
                     }
                     case 'uDistortPositionX': {
-                        console.log(currentValue);
-                        console.log(data[char].uniforms.uDistortPosition);
+                        // console.log(currentValue);
+                        // console.log(data[char].uniforms.uDistortPosition);
 
                         distortionEffect.distortion = currentValue;
                         break;
@@ -394,45 +385,21 @@ $("#back").click(function () {
 });
 
 $("#reset").click(function () {
-    Object.keys(data[char].soundEffects).forEach(function(key){
-       data[char].soundEffects[key]= f1;
-   })
-
-   Object.keys(data[char].uniforms).forEach(function(key){
-       switch(key){
-           case 'uSineDistortCycleCount':{
-               data[char].uniforms[key] = initValueCycleCount;
-               break;
-           }
-           case 'uSineDistortAmplitude':{
-               data[char].uniforms[key] = initValueSineDistortAmplitude;
-               break;
-           }
-           case 'uNoiseDistortAmplitude':{
-               data[char].uniforms[key] = initValueuNoiseDistortAmplitude;
-               break;
-           }
-           case 'uNoiseDistortVolatility':{
-               data[char].uniforms[key] = initValueuNoiseDistortVolatility;
-               break;
-           }
-           case 'uDistortPositionY': {
-               data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
-               break;
-           }
-           case 'uDistortPositionX': {
-            data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
-            break;
+    data[char].soundEffects = defaultSoundEffects;
+    data[char].uniforms = defaultUniforms;
+    // app.initializeContorllers();
+    // app.mousemoveFunction();
+    Object.keys(blotter.material.uniforms).forEach(function(key, index) {
+        if (defaultUniforms[key]) {
+          if (key === "uDistortPosition") {
+            blotter.material.uniforms[key].value = [
+              Number(defaultUniforms[key][0]),
+              Number(defaultUniforms[key][1])
+            ];
+          } else {
+            blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
+          }
         }
-            default: {
-               data[char].uniforms[key] = f1;
-               break;
-           }
-           
-       }
-   })
-   console.log(data[char].uniforms);
-   app.initializeContorllers();
-   app.mousemoveFunction();
-   blotter.needsUpdate = true;
-});
+      });
+      Object.values(blotter._scopes)[0].render();
+    });

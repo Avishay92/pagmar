@@ -66,7 +66,7 @@ const defaultUniforms = {
  uNoiseDistortVolatility: initValueuNoiseDistortVolatility,
  uNoiseDistortAmplitude: initValueuNoiseDistortAmplitude,
  uRotation: f1,
- uSpeed: f1,
+ uSpeed: parseFloat(0.08).toPrecision(2),
  uDistortPosition: initValueDistortPosition
 };
 
@@ -83,6 +83,7 @@ let defaultSoundEffects = {
   sFeedbackEffect: f1,
   sTremoloEffect: f1
 };
+
 
 $("button").click(function() {
   for (let i = 0; i < instrumentForm.elements.length; i++) {
