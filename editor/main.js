@@ -23,40 +23,55 @@ const f3= parseFloat(0.5).toPrecision(2);
 const initValueDistortPosition= [f3,f3];
 
 const effectRanges = {
-    uSineDistortCycleCount: {
-        min: 60,
-        max: 200,
+    uSineDistortSpread:{   //autoWah
+        minVisual: 0.067,
+        maxVisual: 1,
+        minSound: 0,
+        maxSound: 8,
     },
-    uSineDistortSpread:{
-        min: 0.067,
-        max: 1,
+    uSineDistortCycleCount: { //phaser
+        minVisual: 60,
+        maxVisual: 200,
+        minSound: 0,
+        maxSound: 8,
     },
-    uSineDistortAmplitude: {
-        min: 0,
-        max: 1,
+    uSineDistortAmplitude: { //vibrato
+        minVisual: 0,
+        maxVisual: 1,
+        minSound: 0,
+        maxSound: 10,
     },
-    uNoiseDistortVolatility: {
-        min: 1,
-        max: 80,
+    uNoiseDistortVolatility: { //reverb
+        minVisual: 1,
+        maxVisual: 80,
+        minSound: 0,
+        maxSound: 2,
     },
-    uNoiseDistortAmplitude: {
-        min: 0.008,
-        max: 1,
+    uNoiseDistortAmplitude: { //pitch
+        minVisual: 0.008,
+        maxVisual: 1,
+        minSound: 0,
+        maxSound: 24,
     },
-    uRotation: {
-        min: 0,
-        max: 360,
+    uRotation: { //tremolo
+        minVisual: 0,
+        maxVisual: 360,
+        minSound: 0,
+        maxSound: 10,
     },
-    uDistortPositionX:{
-        min: 0,
-        max: 1,
+    uDistortPositionX:{ //Distortion
+        minVisual: 0,
+        maxVisual: 1,
+        minSound: 0,
+        maxSound: 1,
     },
-    uDistortPositionY:{
-        min: 0,
-        max: 1,
+    uDistortPositionY:{ //Feedback
+        minVisual: 0,
+        maxVisual: 1,
+        minSound: 0,
+        maxSound: 1,
     },
 }
-
 initializeEffects();
 initializeInstrument();
 
@@ -167,8 +182,8 @@ function convertValueToRange(min, max, value){
 
 function convertValueToRotation(effect){
     const controllerRange = 264;
-    const min = effectRanges[effect].min;
-    const max = effectRanges[effect].max;
+    const min = effectRanges[effect].minVisual;
+    const max = effectRanges[effect].maxVisual;
     let range, precent, currValue;
     if(effect === 'uDistortPositionX'){
         currValue = data[char].uniforms["uDistortPosition"][0];
@@ -302,44 +317,40 @@ var app = new Vue({
                 let knobVisualEffect= selectedKnob.visualEffect;
                 let knobSoundEffect= selectedKnob.soundEffect;
                 let currentValue = selectedKnob.rotation;
+                currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue,
+                    effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
+                    effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound,
+                    );
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 60, 200, 0, 8);
                         autoWahEffect.baseFrequency = currentValue;
                         break;
                     }
                     case 'uSineDistortSpread':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.067, 1, 0, 8);
                         phaserEffect.octaves = currentValue;
                         break;
                     }
  
                     case 'uSineDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0 ,10);
                         vibratoEffect.frequency = currentValue;
                         break;
                     }
                     case 'uNoiseDistortAmplitude':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0.008, 1, 0, 24);
                         pitchEffect.pitch = currentValue;
                         break;
                     }
                     case 'uNoiseDistortVolatility':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 1, 80, 0, 2);
                         break;
                     }
                     case 'uRotation':{
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 360, 0, 10);
                         tremoloEffect.frequency = currentValue;
                         break;
                     }
                     case 'uDistortPositionX': {
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 1);
                         distortionEffect.distortion = currentValue;
                         break;
                     }
                     case 'uDistortPositionY': {
-                        currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue, 0, 1, 0, 1);
                         break;
                     }
                 }
