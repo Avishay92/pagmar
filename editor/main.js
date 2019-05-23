@@ -317,11 +317,8 @@ var app = new Vue({
                     effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
                     effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound,
                     );
-                    console.log(data[char].uniforms['uDistortPositionX']);
-                    console.log(data[char].uniforms['uDistortPositionY']);
-                    console.log(data[char].uniforms['uDistortPosition']);
+                    console.log(material.uniforms);
 
-                    console.log(currentValue);
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
                         autoWahEffect.baseFrequency = currentValue;
@@ -396,46 +393,46 @@ $("#back").click(function () {
     location.assign("../menu");
 });
 
-// $("#reset").click(function () {
-//     Object.keys(data[char].soundEffects).forEach(function(key){
-//        data[char].soundEffects[key]= f1;
-//    })
+$("#reset").click(function () {
+    Object.keys(data[char].soundEffects).forEach(function(key){
+       data[char].soundEffects[key]= f1;
+   })
 
-//    Object.keys(data[char].uniforms).forEach(function(key){
-//        switch(key){
-//            case 'uSineDistortCycleCount':{
-//                data[char].uniforms[key] = initValueCycleCount;
-//                break;
-//            }
-//            case 'uSineDistortAmplitude':{
-//                data[char].uniforms[key] = initValueSineDistortAmplitude;
-//                break;
-//            }
-//            case 'uNoiseDistortAmplitude':{
-//                data[char].uniforms[key] = initValueuNoiseDistortAmplitude;
-//                break;
-//            }
-//            case 'uNoiseDistortVolatility':{
-//                data[char].uniforms[key] = initValueuNoiseDistortVolatility;
-//                break;
-//            }
-//            case 'uDistortPositionY': {
-//                data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
-//                break;
-//            }
-//            case 'uDistortPositionX': {
-//             data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
-//             break;
-//         }
-//             default: {
-//                data[char].uniforms[key] = f1;
-//                break;
-//            }
+   Object.keys(data[char].uniforms).forEach(function(key){
+       switch(key){
+           case 'uSineDistortCycleCount':{
+               data[char].uniforms[key] = initValueCycleCount;
+               break;
+           }
+           case 'uSineDistortAmplitude':{
+               data[char].uniforms[key] = initValueSineDistortAmplitude;
+               break;
+           }
+           case 'uNoiseDistortAmplitude':{
+               data[char].uniforms[key] = initValueuNoiseDistortAmplitude;
+               break;
+           }
+           case 'uNoiseDistortVolatility':{
+               data[char].uniforms[key] = initValueuNoiseDistortVolatility;
+               break;
+           }
+           case 'uDistortPositionY': {
+               data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
+               break;
+           }
+           case 'uDistortPositionX': {
+            data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
+            break;
+        }
+            default: {
+               data[char].uniforms[key] = f1;
+               break;
+           }
            
-//        }
-//    })
-//    console.log(data[char].uniforms);
-//    app.initializeContorllers();
-//    app.mousemoveFunction();
-
-// });
+       }
+   })
+   console.log(data[char].uniforms);
+   app.initializeContorllers();
+   app.mousemoveFunction();
+   blotter.needsUpdate = true;
+});
