@@ -141,21 +141,21 @@ function initializeEffects() {
   function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
     let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
     let soundValue = convertValueToRange(minSound, maxSound, currentValue);
-    data[char].uniforms[visualEffect] = visualValue;
     const [x, y] = material.uniforms.uDistortPosition.value;
     if (visualEffect==='uDistortPositionX' || visualEffect==='uDistortPositionY'){
         if (visualEffect==='uDistortPositionX'){
-            material.uniforms.uDistortPosition.value = [Number(visualValue), y];
+            material.uniforms.uDistortPosition.value[0] = Number(visualValue);
+            data[char].uniforms.uDistortPosition[0] = Number(visualValue);
         }
         if (visualEffect==='uDistortPositionY'){
-            material.uniforms.uDistortPosition.value = [x, Number(visualValue)];
+            material.uniforms.uDistortPosition.value[1] = Number(visualValue);
+            data[char].uniforms.uDistortPosition[1] = Number(visualValue);
         }
+        data[char].uniforms[visualEffect] = Number(visualValue);
     }
     else{
         material.uniforms[visualEffect].value = visualValue;
-    }
-    if (soundEffect!=="none"){
-        data[char].soundEffects[soundEffect] = soundValue;
+        data[char].uniforms[visualEffect] = visualValue;
     }
     return soundValue;
 }
@@ -173,10 +173,6 @@ function convertValueToRange(min, max, value){
     if (max < 0){
         value =parseFloat(value)+parseFloat(max);
     }
-
-    if (min===-24){
-    console.log("converted: "+value);
-    }   
     return value;
 }
 
@@ -321,6 +317,11 @@ var app = new Vue({
                     effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
                     effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound,
                     );
+                    console.log(data[char].uniforms['uDistortPositionX']);
+                    console.log(data[char].uniforms['uDistortPositionY']);
+                    console.log(data[char].uniforms['uDistortPosition']);
+
+                    console.log(currentValue);
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
                         autoWahEffect.baseFrequency = currentValue;
@@ -347,6 +348,9 @@ var app = new Vue({
                         break;
                     }
                     case 'uDistortPositionX': {
+                        console.log(currentValue);
+                        console.log(data[char].uniforms.uDistortPosition);
+
                         distortionEffect.distortion = currentValue;
                         break;
                     }
@@ -368,15 +372,6 @@ var app = new Vue({
             app.knobs.forEach(function(knob){
                 let rotationValue = convertValueToRotation(knob.visualEffect);
                 knob.rotation = rotationValue;
-                console.log(rotationValue);
-                if(knob.visualEffect === 'uDistortPositionX'){
-                    data[char].uniforms["uDistortPosition"][0] = rotationValue;
-                    console.log(knob.rotation);
-                }
-                if(knob.visualEffect === 'uDistortPositionY'){
-                    data[char].uniforms["uDistortPosition"][1] = rotationValue;
-                }
-
             })
         }
     },
@@ -424,18 +419,23 @@ $("#back").click(function () {
 //                data[char].uniforms[key] = initValueuNoiseDistortVolatility;
 //                break;
 //            }
-//            case 'uDistortPositionX',
-//            'uDistortPositionY': {
+//            case 'uDistortPositionY': {
 //                data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
 //                break;
 //            }
+//            case 'uDistortPositionX': {
+//             data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
+//             break;
+//         }
 //             default: {
 //                data[char].uniforms[key] = f1;
 //                break;
 //            }
+           
 //        }
 //    })
 //    console.log(data[char].uniforms);
-//     app.mousemoveFunction();
 //    app.initializeContorllers();
+//    app.mousemoveFunction();
+
 // });
