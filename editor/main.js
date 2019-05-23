@@ -13,6 +13,15 @@ let instrument,
   tremoloEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
+const f1 = parseFloat(0).toPrecision(2);
+const f2 = [f1, f1];
+const initValueCycleCount= parseFloat(2).toPrecision(2);
+const initValueSineDistortAmplitude= parseFloat(0.13).toPrecision(2);
+const initValueuNoiseDistortVolatility= parseFloat(20).toPrecision(2);
+const initValueuNoiseDistortAmplitude= parseFloat(0.01).toPrecision(2);
+const f3= parseFloat(0.5).toPrecision(2);
+const initValueDistortPosition= [f3,f3];
+
 const effectRanges = {
     uSineDistortCycleCount: {
         min: 60,
@@ -380,3 +389,42 @@ $("#back").click(function () {
     localStorage.setItem("data", JSON.stringify(data));
     location.assign("../menu");
 });
+
+// $("#reset").click(function () {
+//     Object.keys(data[char].soundEffects).forEach(function(key){
+//        data[char].soundEffects[key]= f1;
+//    })
+
+//    Object.keys(data[char].uniforms).forEach(function(key){
+//        switch(key){
+//            case 'uSineDistortCycleCount':{
+//                data[char].uniforms[key] = initValueCycleCount;
+//                break;
+//            }
+//            case 'uSineDistortAmplitude':{
+//                data[char].uniforms[key] = initValueSineDistortAmplitude;
+//                break;
+//            }
+//            case 'uNoiseDistortAmplitude':{
+//                data[char].uniforms[key] = initValueuNoiseDistortAmplitude;
+//                break;
+//            }
+//            case 'uNoiseDistortVolatility':{
+//                data[char].uniforms[key] = initValueuNoiseDistortVolatility;
+//                break;
+//            }
+//            case 'uDistortPositionX',
+//            'uDistortPositionY': {
+//                data[char].uniforms["uDistortPosition"] = initValueDistortPosition;
+//                break;
+//            }
+//             default: {
+//                data[char].uniforms[key] = f1;
+//                break;
+//            }
+//        }
+//    })
+//    console.log(data[char].uniforms);
+//     app.mousemoveFunction();
+//    app.initializeContorllers();
+// });
