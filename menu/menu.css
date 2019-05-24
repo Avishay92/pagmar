@@ -35,7 +35,7 @@ body {
 }
 
 .grid {
-  margin: 0 5%;
+  margin: 35 5%;
   display: grid;
   direction: rtl;
   grid-template-columns: repeat(7, 1fr);
@@ -43,11 +43,11 @@ body {
 }
 
 .grid__item {
-  height: 190px;
+  height: 150px;
   position: relative;
   justify-content: center;
   display: flex;
-  opacity: 0.7;
+  opacity: 0.5;
   cursor: pointer;
 }
 

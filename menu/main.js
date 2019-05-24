@@ -121,9 +121,8 @@ $(document).ready(function() {
     .forEach(function(gridItemElement) {
       const style = {
         family: "Frank Ruhl Libre",
-        //weight: "bold",
-        fill: "#fff",
-        size: 100
+        fill: "#F4F6FA",
+        size: 94
       };
       const char = gridItemElement.dataset.blotter;
       let material = new Blotter.RollingDistortMaterial();
