@@ -2,7 +2,7 @@ let data = {};
 let noteIndex = 0;
 
 const notes = ["C", "D", "E", "F", "G", "A", "B"];
-let octave = 4;
+let octave = 3;
 const alphabeth = [
   "א",
   "ב",
