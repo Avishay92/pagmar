@@ -21,23 +21,26 @@ $(".back").click(function() {
   initializeEffects();
   initializeInstrument();
 
-  let input;
+  let input, playOn = 1;
   let sequence = [];
+
   var seq = new Tone.Sequence(function(time, note){
     instrument.triggerAttackRelease(note, "1n");
     console.log(note);
   }, sequence);
  
   $('#play').click(function(){
-    seq.stop();
+    var playMode;
+    if (playOn){
     let note;
+    playMode = "Stop";
     input = document.querySelector("#input-text").value;
     for (let i =0; i<input.length; i++){
       let char = input[i];
       note = data[char].note;
       sequence.push(note);
 
-      updateEffects(data[char].soundEffects);
+      // updateEffects(data[char].soundEffects);
       }
       seq = new Tone.Sequence(function(time, note){
         instrument.triggerAttackRelease(note, "16n");
@@ -45,13 +48,14 @@ $(".back").click(function() {
       seq.start();
       Tone.Transport.start();
       emptySequence(input)
+    }
+    else{
+      seq.stop();
+      playMode = "Play";
+    }
+    $('#play span').text(playMode);
+    playOn = !playOn;
   })
-
-
-  $('#stop').click(function(){
-    instrument.volume = "-10db";
-    seq.stop();
-   })
 
    function emptySequence(input){
     for (let i =0; i<input.length; i++){

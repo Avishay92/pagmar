@@ -174,7 +174,6 @@ $(document).ready(function() {
         data[char].soundEffects
       );
       data[char].blotter = blotter;
-      data[char].uniforms = Object.assign(Object.assign({} , defaultUniforms) , data[char].uniforms);
       resetChar(char);
       const scope = blotter.forText(text);
       scope.appendTo(gridItemElement);
