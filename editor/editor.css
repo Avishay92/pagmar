@@ -17,12 +17,6 @@ button {
   left: 20%;
 }
 
-/* body > div{
-  display: flex;
-  justify-content: space-between;
-  margin: 0 10%;
-} */
-
 #char {
   display: flex;
   justify-content: center;
@@ -39,7 +33,9 @@ canvas{
   margin-top: 3%;
   height: 500px !important;
   width:180px !important;
+  z-index: -20;
 }
+
 /* button{
   background: #00BAC6 !important;
   font-family: 'Frank Ruhl Libre'

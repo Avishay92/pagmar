@@ -69,7 +69,7 @@ body {
 }
 
 .top-bar {
-  --color: #a7a8ab;
+  --cgre;
   height: var(--bar-height);
   background-color: var(--bar-background);
   padding: 0 50px 0 25px;
@@ -127,3 +127,23 @@ body {
   padding: 20px;
 }
 
+#input-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 45%;
+  width: 60%;
+  margin-top: 3%;
+  margin-bottom: 1%;
+  margin-left: 20%;
+  background:none;
+  border: #202020;
+  color: white;
+  font-size: 100;
+  text-align: center;
+}
+
+::placeholder{
+  color: rgb(37, 36, 36);
+}

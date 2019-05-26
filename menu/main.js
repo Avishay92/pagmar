@@ -3,6 +3,7 @@ const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
+let darkModeOn = 0;
 let playButton = document.querySelector("#play");
 let instrument,
   autoWahEffect,
@@ -31,7 +32,6 @@ const gridElement = (document.querySelector(
 ).innerHTML = letterElements);
 
 function resetChar(char) {
-  console.log("resetChar");
   let blotter = data[char] && data[char].blotter;
   let soundEffects = data[char] && data[char].soundEffects;
   if (blotter) {
@@ -66,7 +66,6 @@ function resetChar(char) {
 }
 
 function activateChar(char) {
-  console.log("activateChar");
   let blotter = data[char] && data[char].blotter;
   let soundEffects = data[char] && data[char].soundEffects;
   if (blotter) {
@@ -179,3 +178,48 @@ $(document).keyup(function(event) {
 $("#logo").click(function() {
   location.assign("../");
 });
+
+$("#darkMode").click(function(){
+  var body = document.querySelector("body");
+
+  var filter, background, mode;
+  if(darkModeOn==0){
+    filter = "invert(1)";
+    background = "white";
+    mode = "Dark Mode"
+  }
+  if(darkModeOn==1){
+    filter = "none";
+    background = "black";
+    mode = "Bright Mode"
+  }
+  $(body).css("filter", filter);
+  $(body).css("background", background);
+  $('#darkMode span').text(mode);
+  darkModeOn = !darkModeOn;
+})
+
+$("#resetAll").click(function () {
+  console.log("here");
+  Object.keys(data).forEach(function (currChar){
+    data[currChar].soundEffects = defaultSoundEffects;
+    data[currChar].uniforms = defaultUniforms;
+    let blotter= data[currChar].blotter;
+    Object.keys(blotter.material.uniforms).forEach(function(key, index) {
+        if (defaultUniforms[key]) {
+          if (key === "uDistortPosition") {
+            blotter.material.uniforms[key].value = [
+              Number(defaultUniforms[key][0]),
+              Number(defaultUniforms[key][1])
+            ];
+          } else {
+            blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
+          }
+        }
+      });
+      Object.values(blotter._scopes)[0].render();
+    });
+  }
+
+  )
+ 

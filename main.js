@@ -66,7 +66,8 @@ const defaultUniforms = {
  uNoiseDistortVolatility: initValueuNoiseDistortVolatility,
  uNoiseDistortAmplitude: initValueuNoiseDistortAmplitude,
  uRotation: f1,
- uSpeed: parseFloat(0.08).toPrecision(2),
+ uSpeed: f1,
+//  parseFloat(0.08).toPrecision(2),
  uDistortPosition: initValueDistortPosition
 };
 

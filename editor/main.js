@@ -276,7 +276,7 @@ var app = new Vue({
 
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
-                        autoWahEffect.baseFrequency = currentValue;
+                        autoWahEffect.baseFrequency.value = currentValue;
                         break;
                     }
                     case 'uSineDistortSpread':{
@@ -348,23 +348,11 @@ $("#back").click(function () {
     location.assign("../menu");
 });
 
-$("#reset").click(function () {
-    data[char].soundEffects = defaultSoundEffects;
-    data[char].uniforms = defaultUniforms;
-    app.initializeContorllers();
-    // app.mousemoveFunction();
-    Object.keys(blotter.material.uniforms).forEach(function(key, index) {
-        if (defaultUniforms[key]) {
-          if (key === "uDistortPosition") {
-            blotter.material.uniforms[key].value = [
-              Number(defaultUniforms[key][0]),
-              Number(defaultUniforms[key][1])
-            ];
-          } else {
-            blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
-          }
-        }
-      });
 
-      Object.values(blotter._scopes)[0].render();
-    });
+
+$("#applyAll").click(function () {
+    Object.keys(data).forEach(function (currChar){
+        data[currChar].uniforms = data[char].uniforms;
+        data[currChar].soundEffects = data[char].soundEffects;
+    })
+});
