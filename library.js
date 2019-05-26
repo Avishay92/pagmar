@@ -37,7 +37,7 @@ function initializeInstrument() {
     Object.keys(soundEffects).forEach(function(key, index) {
       switch (key) {
         case "sAutoWahEffect":
-          autoWahEffect.octaves.value = soundEffects[key];
+          autoWahEffect.baseFrequency.value = soundEffects[key];
           break;
         case "sPhaserEffect":
           phaserEffect.octaves = soundEffects[key];
@@ -62,11 +62,24 @@ function initializeInstrument() {
     });
   }
 
-  $("#applyAll").click(function () {
-    console.log(data);
-    Object.keys(data).forEach(function (currChar){
-        data[currChar].uniforms = data[char].uniforms;
-        data[currChar].soundEffects = data[char].soundEffects;
-    })
-  });
+  $("#reset").click(function () {
+    data[char].soundEffects = defaultSoundEffects;
+    data[char].uniforms = defaultUniforms;
+    app.initializeContorllers();
+    // app.mousemoveFunction();
+    Object.keys(blotter.material.uniforms).forEach(function(key, index) {
+        if (defaultUniforms[key]) {
+          if (key === "uDistortPosition") {
+            blotter.material.uniforms[key].value = [
+              Number(defaultUniforms[key][0]),
+              Number(defaultUniforms[key][1])
+            ];
+          } else {
+            blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
+          }
+        }
+      });
+
+      Object.values(blotter._scopes)[0].render();
+    });
 
