@@ -18,7 +18,7 @@ let instrument,
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
 initializeInstrument();
-
+console.log(data['א']);
 //html string for all letters
 let letterElements = Object.values(data)
   .map(function(value, index) {
@@ -30,6 +30,35 @@ let letterElements = Object.values(data)
 const gridElement = (document.querySelector(
   ".grid"
 ).innerHTML = letterElements);
+
+function updateEffects(soundEffects) {
+  Object.keys(soundEffects).forEach(function(key, index) {
+    switch (key) {
+      case "sAutoWahEffect":
+        autoWahEffect.baseFrequency.value = soundEffects[key];
+        break;
+      case "sPhaserEffect":
+        phaserEffect.octaves = soundEffects[key];
+        break;
+      case "sVibratoEffect":
+        vibratoEffect.frequency = soundEffects[key];
+        break;
+      case "sReverbEffect":
+        break;
+      case "sPitchEffect":
+        pitchEffect.pitch = soundEffects[key];
+        break;
+      case "sDistortionEffect":
+        distortionEffect.distortion = soundEffects[key];
+        break;
+      case "sFeedbackEffect":
+        break;
+      case "sTremoloEffect":
+        tremoloEffect.frequency = soundEffects[key];
+        break;
+    }
+  });
+}
 
 function resetChar(char) {
   let blotter = data[char] && data[char].blotter;
@@ -145,6 +174,7 @@ $(document).ready(function() {
         data[char].soundEffects
       );
       data[char].blotter = blotter;
+      data[char].uniforms = Object.assign(Object.assign({} , defaultUniforms) , data[char].uniforms);
       resetChar(char);
       const scope = blotter.forText(text);
       scope.appendTo(gridItemElement);

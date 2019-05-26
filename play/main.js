@@ -37,11 +37,10 @@ $(".back").click(function() {
       note = data[char].note;
       sequence.push(note);
 
-      // updateEffects(data[char].soundEffects);
+      updateEffects(data[char].soundEffects);
       }
       seq = new Tone.Sequence(function(time, note){
         instrument.triggerAttackRelease(note, "16n");
-        console.log(note);
       }, sequence);
       seq.start();
       Tone.Transport.start();
