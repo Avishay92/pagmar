@@ -12,58 +12,9 @@ let instrument,
   distortionEffect,
   feedbackEffect,
   tremoloEffect;
+
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
-const effectRanges = {
-    uSineDistortSpread:{   //autoWah
-        minVisual: 0.067,
-        maxVisual: 1,
-        minSound: 0,
-        maxSound: 8,
-    },
-    uSineDistortCycleCount: { //phaser
-        minVisual: 60,
-        maxVisual: 200,
-        minSound: 0,
-        maxSound: 8,
-    },
-    uSineDistortAmplitude: { //vibrato
-        minVisual: 0,
-        maxVisual: 1,
-        minSound: 0,
-        maxSound: 10,
-    },
-    uNoiseDistortVolatility: { //reverb
-        minVisual: 1,
-        maxVisual: 80,
-        minSound: 0,
-        maxSound: 2,
-    },
-    uNoiseDistortAmplitude: { //pitch
-        minVisual: 0.008,
-        maxVisual: 1,
-        minSound: 0,
-        maxSound: 24,
-    },
-    uRotation: { //tremolo
-        minVisual: 0,
-        maxVisual: 360,
-        minSound: 0,
-        maxSound: 10,
-    },
-    uDistortPositionX:{ //Distortion
-        minVisual: 0,
-        maxVisual: 1,
-        minSound: 0,
-        maxSound: 1,
-    },
-    uDistortPositionY:{ //Feedback
-        minVisual: 0,
-        maxVisual: 1,
-        minSound: 0,
-        maxSound: 1,
-    },
-}
 initializeEffects();
 initializeInstrument();
 
@@ -300,8 +251,6 @@ var app = new Vue({
                         break;
                     }
                     case 'uDistortPositionX': {
-                        // console.log(currentValue);
-                        // console.log(data[char].uniforms.uDistortPosition);
 
                         distortionEffect.distortion = currentValue;
                         break;
@@ -356,3 +305,25 @@ $("#applyAll").click(function () {
         data[currChar].soundEffects = data[char].soundEffects;
     })
 });
+
+$("#reset").click(function () {
+    data[char].soundEffects = defaultSoundEffects;
+    data[char].uniforms = defaultUniforms;
+    console.log(defaultUniforms);
+    app.initializeContorllers();
+    // app.mousemoveFunction();
+    Object.keys(blotter.material.uniforms).forEach(function(key, index) {
+        if (defaultUniforms[key]) {
+          if (key === "uDistortPosition") {
+            blotter.material.uniforms[key].value = [
+              Number(defaultUniforms[key][0]),
+              Number(defaultUniforms[key][1])
+            ];
+          } else {
+            blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
+          }
+        }
+      });
+  
+      Object.values(blotter._scopes)[0].render();
+    });

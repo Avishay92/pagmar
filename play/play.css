@@ -147,3 +147,27 @@ body {
 ::placeholder{
   color: rgb(37, 36, 36);
 }
+
+.dot {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  background: black;
+  font-size: 25;
+  text-align: center;
+  /* align-items: center; */
+  /* align-content: center; */
+}
+
+#font-size{
+  color:  rgb(255, 47, 99);
+}
+
+#letter-spacing{
+  color: rgb(166, 34, 255);
+}
+
+#word-spacing{
+  color: rgb(57, 103, 255);
+}
