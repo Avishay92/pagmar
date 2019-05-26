@@ -90,7 +90,6 @@ function resetChar(char) {
       }
     });
   }
-  updateEffects(soundEffects);
   instrument.triggerRelease();
 }
 
@@ -188,7 +187,6 @@ $(document).ready(function() {
         location.assign("../editor");
       });
       $(playButton).click(function() {
-        localStorage.setItem("char", char);
         location.assign("../play");
       });
     });
