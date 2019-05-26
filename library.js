@@ -33,7 +33,34 @@ function initializeInstrument() {
     tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
   }
 
-  
+  function updateEffects(soundEffects) {
+    Object.keys(soundEffects).forEach(function(key, index) {
+      switch (key) {
+        case "sAutoWahEffect":
+          autoWahEffect.baseFrequency.value = soundEffects[key];
+          break;
+        case "sPhaserEffect":
+          phaserEffect.octaves = soundEffects[key];
+          break;
+        case "sVibratoEffect":
+          vibratoEffect.frequency = soundEffects[key];
+          break;
+        case "sReverbEffect":
+          break;
+        case "sPitchEffect":
+          pitchEffect.pitch = soundEffects[key];
+          break;
+        case "sDistortionEffect":
+          distortionEffect.distortion = soundEffects[key];
+          break;
+        case "sFeedbackEffect":
+          break;
+        case "sTremoloEffect":
+          tremoloEffect.frequency = soundEffects[key];
+          break;
+      }
+    });
+  }
 
   const effectRanges = {
     uSineDistortSpread:{   //autoWah
@@ -68,7 +95,7 @@ function initializeInstrument() {
     },
     uRotation: { //tremolo
         minVisual: 0,
-        maxVisual: 360,
+        maxVisual: 180,
         minSound: 0,
         maxSound: 10,
     },

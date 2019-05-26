@@ -128,7 +128,7 @@ body {
 }
 
 #input-text {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -141,7 +141,7 @@ body {
   border: #202020;
   color: white;
   font-size: 100;
-  text-align: center;
+  text-align: center; */
 }
 
 ::placeholder{
@@ -170,4 +170,9 @@ body {
 
 #word-spacing{
   color: rgb(57, 103, 255);
+}
+
+.char-view {
+  display: flex;
+  flex-direction: row-reverse;
 }
