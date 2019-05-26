@@ -63,6 +63,8 @@ scope.appendTo(document.querySelector("#char"));
         material.uniforms[visualEffect].value = visualValue;
         data[char].uniforms[visualEffect] = visualValue;
     }
+    data[char].soundEffects[soundEffect] = soundValue
+    console.log(data[char].soundEffects); 
     return soundValue;
 }
 
@@ -268,6 +270,8 @@ var app = new Vue({
                     selectedKnob.rotation = -132;
                 }
             }
+console.log(data[char].soundEffects); 
+
         },
         initializeContorllers: function(e){
             app.knobs.forEach(function(knob){
