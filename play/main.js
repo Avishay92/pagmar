@@ -102,12 +102,15 @@ $(document).ready(function() {
 
   $(document).keydown(function(event) {
     const key = event.keyCode;
-    console.log('delete', key);
     if (key == 8 || key == 46) {
       $('.word').children().last().remove();
+      if ($('.word').children().length === 0){
+        document.querySelector('.word').innerHTML = "<div>Type Something</div>";
+      }
     } else {
       var char = data[event.key]; // charCode will contain the code of the character inputted
       if (char) {
+        $('.word > div').remove();
         let material = new Blotter.RollingDistortMaterial();
         let uniforms = Object.assign(
           Object.assign({}, defaultUniforms),
