@@ -43,7 +43,7 @@ $("#play").click(function() {
       note = data[char].note;
       sequence.push(note);
       updateEffects(data[char].soundEffects);
-     }
+    }
     seq = new Tone.Sequence(function(time, note) {
       instrument.triggerAttackRelease(note, "16n");
     }, sequence);
@@ -100,11 +100,13 @@ $(document).ready(function() {
     size: 94
   };
 
-  $("#input-text").on("input", function() {
-    const { value } = this;
-    $(".word").empty();
-    for (let i = 0; i < value.length; i++) {
-      let char = data[value[i]];
+  $(document).keydown(function(event) {
+    const key = event.keyCode;
+    console.log('delete', key);
+    if (key == 8 || key == 46) {
+      $('.word').children().last().remove();
+    } else {
+      var char = data[event.key]; // charCode will contain the code of the character inputted
       if (char) {
         let material = new Blotter.RollingDistortMaterial();
         let uniforms = Object.assign(
