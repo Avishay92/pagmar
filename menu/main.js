@@ -18,7 +18,6 @@ let instrument,
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
 initializeInstrument();
-console.log(data['א']);
 //html string for all letters
 let letterElements = Object.values(data)
   .map(function(value, index) {
@@ -222,14 +221,13 @@ $("#darkMode").click(function(){
     background = "black";
     mode = "Bright Mode"
   }
-  $(body).css("filter", filter);
+  $('.grid').css("filter", filter);
   $(body).css("background", background);
   $('#darkMode span').text(mode);
   darkModeOn = !darkModeOn;
 })
 
 $("#resetAll").click(function () {
-  console.log("here");
   Object.keys(data).forEach(function (currChar){
     data[currChar].soundEffects = defaultSoundEffects;
     data[currChar].uniforms = defaultUniforms;

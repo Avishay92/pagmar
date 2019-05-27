@@ -128,20 +128,16 @@ body {
 }
 
 #input-text {
-  /* display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  height: 45%;
-  width: 60%;
-  margin-top: 3%;
-  margin-bottom: 1%;
-  margin-left: 20%;
-  background:none;
-  border: #202020;
-  color: white;
-  font-size: 100;
-  text-align: center; */
+  width: 100%;
+  height: 100%;
+  font-family: "ploni_dl_1.1_aaamedium";
+  text-align: center;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  outline-color: transparent;
+  outline-width: 0;
+  font-size: 110px;
 }
 
 ::placeholder{
@@ -172,7 +168,22 @@ body {
   color: rgb(57, 103, 255);
 }
 
-.char-view {
+.word{
+  position: absolute;
   display: flex;
+  margin: auto;
+  margin-top: 125px;
+  justify-content: center;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  justify-content: center;
   flex-direction: row-reverse;
+}
+
+.word > canvas{
+  margin: auto 0;
 }

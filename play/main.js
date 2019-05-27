@@ -1,4 +1,3 @@
-const char = localStorage.getItem("char");
 const data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
@@ -29,7 +28,6 @@ let sequence = [];
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
-  console.log(note);
 }, sequence);
 
 $("#play").click(function() {
@@ -40,10 +38,8 @@ $("#play").click(function() {
     const input = document.querySelector("#input-text").innerText;
 
     for (let i = 0; i < input.length; i++) {
-
       note = data[char].note;
       sequence.push(note);
-      
 
       // updateEffects(data[char].soundEffects);
     }
@@ -118,26 +114,44 @@ function activateChar(char) {
 }
 
 $(document).ready(function() {
-
   const style = {
     family: "Frank Ruhl Libre",
     //weight: "bold",
     fill: "#F4F6FA",
     size: 94
   };
-  
+
   $("#input-text").on("input", function() {
     const { value } = this;
-    $('.char-view').empty();
-
-    for(let i = 0; i < value.length; i++){
-      let char = value[i];
-      let material = new Blotter.RollingDistortMaterial();
-      const text = new Blotter.Text(char, style);
-      const blotter = new Blotter(material, { texts: text });
-      activateChar(char);
-      const scope = blotter.forText(text);
-      scope.appendTo($('.char-view'));
+    $(".word").empty();
+    for (let i = 0; i < value.length; i++) {
+      let char = data[value[i]];
+      if (char) {
+        let material = new Blotter.RollingDistortMaterial();
+        let uniforms = Object.assign(
+          Object.assign({}, defaultUniforms),
+          char.uniforms
+        );
+        Object.keys(material.uniforms).forEach(function(key, index) {
+          if (defaultUniforms[key]) {
+            if (key === "uDistortPosition") {
+              material.uniforms[key].value = [
+                Number(uniforms[key][0]),
+                Number(uniforms[key][1])
+              ];
+            } else {
+              material.uniforms[key].value = Number(uniforms[key]);
+            }
+          }
+        });
+        const text = new Blotter.Text(char.char, style);
+        const blotter = new Blotter(material, {
+          texts: text
+        });
+        const scope = blotter.forText(text);
+        scope.appendTo($(".word"));
+        Object.values(blotter._scopes)[0].render();
+      }
     }
   });
 });

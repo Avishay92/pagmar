@@ -17,6 +17,7 @@ body {
   color: white;
   font-family: "ploni_dl_1.1_aaamedium" !important;
   z-index: -10;
+  margin: 0;
 }
 
 .mdl-textfield {
