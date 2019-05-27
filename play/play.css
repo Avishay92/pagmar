@@ -175,8 +175,8 @@ body {
 .word > div{
     background: transparent;
     border-color: transparent;
-    color: white;
-    font-size: 110px;
+    color: #1C1C1C;
+    font-size: 90px;
     display: flex;
     justify-content: center;
     flex-direction: column;
