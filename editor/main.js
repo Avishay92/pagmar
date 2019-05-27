@@ -63,8 +63,7 @@ scope.appendTo(document.querySelector("#char"));
         material.uniforms[visualEffect].value = visualValue;
         data[char].uniforms[visualEffect] = visualValue;
     }
-    data[char].soundEffects[soundEffect] = soundValue
-    console.log(data[char].soundEffects); 
+    data[char].soundEffects[soundEffect] = soundValue;
     return soundValue;
 }
 

@@ -35,14 +35,15 @@ $("#play").click(function() {
   if (playOn) {
     let note;
     playMode = "Stop";
-    const input = document.querySelector("#input-text").innerText;
+    const input = document.querySelector("#input-text").value;
+    console.log(input);
 
     for (let i = 0; i < input.length; i++) {
+      let char = input[i];
       note = data[char].note;
       sequence.push(note);
-
-      // updateEffects(data[char].soundEffects);
-    }
+      updateEffects(data[char].soundEffects);
+     }
     seq = new Tone.Sequence(function(time, note) {
       instrument.triggerAttackRelease(note, "16n");
     }, sequence);
@@ -67,8 +68,6 @@ function emptySequence(input) {
 
 function activateChar(char) {
   let blotter = data[char] && data[char].blotter;
-  let soundEffects = data[char] && data[char].soundEffects;
-
   if (blotter) {
     let material = blotter.material;
     let uniforms = Object.assign(
@@ -90,27 +89,7 @@ function activateChar(char) {
     });
 
     Object.values(blotter._scopes)[0].render();
-
-    var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
-    $(gridItem).css("opacity", "1");
   }
-
-  if (soundEffects) {
-    let savedSoundEffects = Object.assign(
-      Object.assign({}, defaultSoundEffects),
-      data[char].soundEffects
-    );
-    Object.keys(soundEffects).forEach(function(key, index) {
-      if (defaultSoundEffects[key]) {
-        soundEffects[key] = Number(savedSoundEffects[key]);
-      }
-    });
-  }
-  updateEffects(soundEffects);
-  const note = data[char].note;
-  Tone.context.resume().then(() => {
-    instrument.triggerAttackRelease(note);
-  });
 }
 
 $(document).ready(function() {
