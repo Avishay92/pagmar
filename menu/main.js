@@ -148,13 +148,16 @@ $(document).ready(function() {
         family: "Frank Ruhl Libre",
         //weight: "bold",
         fill: "#F4F6FA",
-        size: 94
+        size: 94,
+        paddingLeft:60,
+        paddingRight: 60
+
       };
       const char = gridItemElement.dataset.blotter;
       let material = new Blotter.RollingDistortMaterial();
       const text = new Blotter.Text(char, style);
       const blotter = new Blotter(material, {
-        texts: text
+        texts: text,
       });
       let soundEffects = {
         sAutoWahEffect: f1,

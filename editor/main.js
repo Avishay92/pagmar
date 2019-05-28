@@ -25,6 +25,11 @@ var text = new Blotter.Text(char, {
     family: "Frank Ruhl Libre",
     size: 450,
     fill: "white",
+    paddingLeft: 300,
+    paddingRight: 300,
+    // paddingTop: 60,
+    // paddingBottom: 60,
+
 });
 
 
