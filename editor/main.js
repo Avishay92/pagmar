@@ -2,7 +2,6 @@ const char = localStorage.getItem("char");
 const data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(localStorage.getItem("defaultSoundEffects"));
-
 let instrument,
   autoWahEffect,
   phaserEffect,
@@ -209,6 +208,7 @@ var app = new Vue({
         ],
         currentY: 0,
         mousemoveFunction: function (e) {
+            $("#apply-all-button").attr("src","../assets/icons/applyICN.svg");
             var selectedKnob = app.knobs.filter(function (i) {
                 return i.selected === true;
             }
@@ -310,6 +310,7 @@ $("#applyAll").click(function () {
         data[currChar].uniforms = data[char].uniforms;
         data[currChar].soundEffects = data[char].soundEffects;
     })
+    $("#apply-all-button").attr("src","../assets/icons/apply2ICN.svg");
 });
 
 $("#reset").click(function () {

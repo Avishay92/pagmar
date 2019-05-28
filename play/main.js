@@ -33,23 +33,18 @@ var seq = new Tone.Sequence(function(time, note) {
 
 $("#play").click(function() {
   const input = $('.word').children();
-  if (input.length > 0){
+  let img;
+  if (input.length !== 0){ //check if empty!
   var playMode;
   let char;
   if (playOn) {
     let note;
+    img = "../assets/icons/stopICN.svg";
     playMode = "Stop";
     for (let i = 0; i < input.length; i++) {
       char = input[i].innerHTML;
       note = data[char].note;
       sequence.push(note);
-      // console.log(autoWahEffect.baseFrequency.value + ", "+
-      //   phaserEffect.octaves + ", "+
-      //   vibratoEffect.frequency + ", "+
-      //   pitchEffect.pitch+ ", "+
-      //   distortionEffect.distortion+ ", "+
-      //   tremoloEffect.frequency);
-      // updateEffects(data[char].soundEffects);
     }
     seq = new Tone.Sequence(function(time, note) {
       char = data[input[index].innerHTML];
@@ -67,9 +62,12 @@ $("#play").click(function() {
     seq.stop();
     playMode = "Play";
     index=0;
+    img = "../assets/icons/playICN.svg";
   }
   $("#play span").text(playMode);
   playOn = !playOn;
+  $("#play-button").attr("src",img);
+
 }
 });
 
