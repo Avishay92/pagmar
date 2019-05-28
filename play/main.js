@@ -25,6 +25,7 @@ initializeInstrument();
 let input,
   playOn = 1;
 let sequence = [];
+let index=0;
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -47,10 +48,15 @@ $("#play").click(function() {
       //   pitchEffect.pitch+ ", "+
       //   distortionEffect.distortion+ ", "+
       //   tremoloEffect.frequency);
-      updateEffects(data[char].soundEffects);
+      // updateEffects(data[char].soundEffects);
     }
     seq = new Tone.Sequence(function(time, note) {
       instrument.triggerAttackRelease(note, "16n");
+      updateEffects(data[input[index].innerHTML].soundEffects);
+      index++;
+      if (index===input.length){
+        index=0;
+      }
     }, sequence);
     seq.start();
     Tone.Transport.start();
@@ -58,6 +64,7 @@ $("#play").click(function() {
   } else {
     seq.stop();
     playMode = "Play";
+    index=0;
   }
   $("#play span").text(playMode);
   playOn = !playOn;
