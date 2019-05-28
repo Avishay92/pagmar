@@ -113,6 +113,7 @@ function initializeInstrument() {
     },
 }
 
+const f1 = parseFloat(0).toPrecision(2);
 
 
 

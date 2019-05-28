@@ -138,7 +138,6 @@ function activateChar(char) {
     instrument.triggerAttackRelease(note);
   });
 }
-const f1 = parseFloat(0).toPrecision(2);
 
 //builds blotter and insert pointers to data
 $(document).ready(function() {

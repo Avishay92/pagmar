@@ -47,7 +47,8 @@ var blotter = new Blotter(material, {
 
 var scope = blotter.forText(text);
 scope.appendTo(document.querySelector("#char"));
-  function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
+
+function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
     let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
     let soundValue = convertValueToRange(minSound, maxSound, currentValue);
     const [x, y] = material.uniforms.uDistortPosition.value;

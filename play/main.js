@@ -35,11 +35,12 @@ $("#play").click(function() {
   const input = $('.word').children();
   if (input.length > 0){
   var playMode;
+  let char;
   if (playOn) {
     let note;
     playMode = "Stop";
     for (let i = 0; i < input.length; i++) {
-      let char = input[i].innerHTML;
+      char = input[i].innerHTML;
       note = data[char].note;
       sequence.push(note);
       // console.log(autoWahEffect.baseFrequency.value + ", "+
@@ -51,8 +52,9 @@ $("#play").click(function() {
       // updateEffects(data[char].soundEffects);
     }
     seq = new Tone.Sequence(function(time, note) {
+      char = data[input[index].innerHTML];
       instrument.triggerAttackRelease(note, "16n");
-      updateEffects(data[input[index].innerHTML].soundEffects);
+      updateEffects(char.soundEffects);
       index++;
       if (index===input.length){
         index=0;
@@ -101,6 +103,7 @@ function activateChar(char) {
 
     Object.values(blotter._scopes)[0].render();
   }
+
 }
 
 $(document).ready(function() {
@@ -121,6 +124,7 @@ $(document).ready(function() {
     } else {
       var char = data[event.key]; // charCode will contain the code of the character inputted
       if (char) {
+       
         $('.word > div').remove();
         let material = new Blotter.RollingDistortMaterial();
         let uniforms = Object.assign(
@@ -146,7 +150,24 @@ $(document).ready(function() {
         const scope = blotter.forText(text);
         scope.appendTo($(".word"));
         Object.values(blotter._scopes)[0].render();
+
+        let soundEffects = {
+          sAutoWahEffect: f1,
+          sPhaserEffect: f1,
+          sVibratoEffect: f1,
+          sReverbEffect: f1,
+          sPitchEffect: f1,
+          sDistortionEffect: f1,
+          sFeedbackEffect: f1,
+          sTremoloEffect: f1
+        };
+        soundEffects = Object.assign(
+          Object.assign({}, defaultSoundEffects),
+          data[char.char].soundEffects);
+        console.log(data[char.char]);
+        data[char.char].soundEffects = soundEffects;
       }
+  
     }
   });
 });

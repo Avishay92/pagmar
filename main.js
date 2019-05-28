@@ -30,7 +30,7 @@ const alphabeth = [
   "ק",
   "ר",
   "ש",
-  "ת"
+  "ת",
 ];
 
 //fills data with letter and note
