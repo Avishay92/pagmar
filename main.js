@@ -54,7 +54,7 @@ const f1 = parseFloat(0).toPrecision(2);
 const f2 = [f1, f1];
 const initValueCycleCount= parseFloat(2).toPrecision(2);
 const initValueSineDistortAmplitude= parseFloat(0.13).toPrecision(2);
-const initValueuNoiseDistortVolatility= parseFloat(20).toPrecision(2);
+const initValueuNoiseDistortVolatility= parseFloat(7).toPrecision(2);
 const initValueuNoiseDistortAmplitude= parseFloat(0.01).toPrecision(2);
 const f3= parseFloat(0.5).toPrecision(2);
 const initValueDistortPosition= [f3,f3];
@@ -63,11 +63,11 @@ const defaultUniforms = {
  uSineDistortCycleCount: initValueCycleCount,
  uSineDistortSpread: f1,
  uSineDistortAmplitude: initValueSineDistortAmplitude,
- uNoiseDistortVolatility: initValueuNoiseDistortVolatility,
+ uNoiseDistortVolatility: f1,
  uNoiseDistortAmplitude: initValueuNoiseDistortAmplitude,
  uRotation: f1,
- //uSpeed: f1,
- uSpeed: parseFloat(f1).toPrecision(2),
+ uSpeed: f1,
+//  uSpeed: parseFloat(f1).toPrecision(2),
  uDistortPosition: initValueDistortPosition
 };
 

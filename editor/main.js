@@ -213,12 +213,13 @@ var app = new Vue({
         ],
         currentY: 0,
         mousemoveFunction: function (e) {
-            $("#apply-all-button").attr("src","../assets/icons/applyICN.svg");
             var selectedKnob = app.knobs.filter(function (i) {
                 return i.selected === true;
             }
             )[0];
             if (selectedKnob) {
+            $("#apply-all-button").attr("src","../assets/icons/applyICN.svg");
+
                 // Knob Rotation
                 if (e.pageY - app.currentY !== 0) {
                     selectedKnob.rotation -= (e.pageY - app.currentY);
