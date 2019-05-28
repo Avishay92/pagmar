@@ -13,7 +13,7 @@ let instrument,
   phaserEffect,
   vibratoEffect,
   reverbEffect,
-  pitchEffectEffect,
+  pitchEffect,
   distortionEffect,
   feedbackEffect,
   tremoloEffect;
@@ -31,17 +31,22 @@ var seq = new Tone.Sequence(function(time, note) {
 }, sequence);
 
 $("#play").click(function() {
+  const input = $('.word').children();
+  if (input.length > 0){
   var playMode;
   if (playOn) {
     let note;
     playMode = "Stop";
-    const input = document.querySelector("#input-text").value;
-    console.log(input);
-
     for (let i = 0; i < input.length; i++) {
-      let char = input[i];
+      let char = input[i].innerHTML;
       note = data[char].note;
       sequence.push(note);
+      // console.log(autoWahEffect.baseFrequency.value + ", "+
+      //   phaserEffect.octaves + ", "+
+      //   vibratoEffect.frequency + ", "+
+      //   pitchEffect.pitch+ ", "+
+      //   distortionEffect.distortion+ ", "+
+      //   tremoloEffect.frequency);
       updateEffects(data[char].soundEffects);
     }
     seq = new Tone.Sequence(function(time, note) {
@@ -49,20 +54,19 @@ $("#play").click(function() {
     }, sequence);
     seq.start();
     Tone.Transport.start();
-    emptySequence(input);
+    emptySequence(input.length);
   } else {
     seq.stop();
     playMode = "Play";
   }
   $("#play span").text(playMode);
   playOn = !playOn;
+}
 });
 
-function emptySequence(input) {
-  for (let i = 0; i < input.length; i++) {
-    let char = input[i];
-    note = data[char].note;
-    sequence.pop();
+function emptySequence(length) {
+  for (let i = 0; i < length; i++) {
+     sequence.pop();
   }
 }
 

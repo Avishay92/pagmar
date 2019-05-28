@@ -32,7 +32,7 @@ button {
 canvas{
   margin-top: 3%;
   height: 500px !important;
-  width:180px !important;
+  width:170px !important;
   z-index: -20;
 }
 

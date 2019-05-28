@@ -10,7 +10,7 @@ let instrument,
   phaserEffect,
   vibratoEffect,
   reverbEffect,
-  pitchEffectEffect,
+  pitchEffect,
   distortionEffect,
   feedbackEffect,
   tremoloEffect;

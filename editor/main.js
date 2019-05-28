@@ -8,7 +8,7 @@ let instrument,
   phaserEffect,
   vibratoEffect,
   reverbEffect,
-  pitchEffectEffect,
+  pitchEffect,
   distortionEffect,
   feedbackEffect,
   tremoloEffect;
@@ -27,6 +27,8 @@ var text = new Blotter.Text(char, {
     size: 450,
     fill: "white",
 });
+
+
 
 var material = new Blotter.RollingDistortMaterial();
 Object.keys(material.uniforms).forEach(function (key, index) {
