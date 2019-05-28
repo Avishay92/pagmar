@@ -69,15 +69,13 @@ body {
 }
 
 .top-bar {
-  --cgre;
-  position: fixed
+  color: #a7a8ab;
   height: var(--bar-height);
   background-color: var(--bar-background);
   padding: 0 50px 0 25px;
   justify-content: space-between;
-  color: var(--color);
   font-size: 12px;
-  width: 100%;
+}
 }
 
 
@@ -139,7 +137,7 @@ body {
   border-radius: 50%;
   display: inline-block;
   background: black;
-  font-size: 25;
+  font-size: 16;
   text-align: center;
   /* align-items: center; */
   /* align-content: center; */

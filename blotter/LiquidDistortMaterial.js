@@ -40,7 +40,7 @@
         init : function () {
           this.mainImage = _mainImageSrc();
           this.uniforms = {
-            uSpeed : { type : "1f", value : 1.0 },
+            uSpeed : { type : "1f", value : 0.0 },
             uVolatility : { type : "1f", value : 0.15 },
             uSeed : { type : "1f", value : 0.1 }
           };
