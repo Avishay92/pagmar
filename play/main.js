@@ -97,7 +97,7 @@ $(document).ready(function() {
     family: "Frank Ruhl Libre",
     //weight: "bold",
     fill: "#F4F6FA",
-    size: 94
+    size: 200
   };
 
   $(document).keydown(function(event) {
