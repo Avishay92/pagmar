@@ -199,11 +199,12 @@ body {
   margin: auto 0;
 }
 
+
 .increase-button,
 .decrease-button{
   display: inherit;
   flex: inherit;
-  padding: 5px;
+  padding: 10px;
   align-items: center;
   text-align: center;
   background: none;
@@ -214,10 +215,17 @@ body {
 }
 
 .decrease-button{
-  margin-right : 5px;
+  margin-left : 40px;
+  margin-right :5px;
 }
 
 
 .increase-button{
-  margin-left : 5px;
+  margin-right : 40px;
+  margin-left :5px;
+}
+
+#long-text{
+  margin-left: -15px;
+  margin-right: -15px;
 }

@@ -7,9 +7,6 @@ $(".back").click(function() {
   localStorage.setItem("data", JSON.stringify(data));
   location.assign("../menu");
 });
-let fontSize = 16;
-let letterSpace = 8;
-let wordSpace = 8;
 
 let instrument,
   autoWahEffect,
@@ -28,45 +25,69 @@ initializeInstrument();
 let input,
   playOn = 1;
 let sequence = [];
+let inputData = [];
 let index=0;
+let fontSize = 200;
+let letterSpace = 8;
+let wordSpace = 8;
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
 }, sequence);
+let blotter, char;
 
-// $("#increase-font-size").click(function(){
-//   fontSize++;
-//   $('#font-size span').text(fontSize.toString());
-//   $('.number-button').css("font-size", fontSize.toString() + "px");
-//   Object.keys(material.uniforms).forEach(function(key, index) {
-//     let material = 
-//     if (defaultUniforms[key]) {
-//     }
-//   });
+$("#increase-font-size").click(function(){
+  fontSize+=10;
+  $('#font-size span').text(fontSize.toString());
+  const input = $('.word').children();
+  for (let i = 0; i < input.length; i++) {
+    blotter = inputData[i];
+    blotter.texts[0].properties.size = fontSize;
+    blotter.needsUpdate= true;
+  }
+})
 
-// })
+$("#decrease-font-size").click(function(){
+  if (fontSize!==0){
+    fontSize -=10;
+  }
+  $('#font-size span').text(fontSize.toString());
+  const input = $('.word').children();
+  for (let i = 0; i < input.length; i++) {
+    blotter = inputData[i];
+    blotter.texts[0].properties.size = fontSize;
+    blotter.needsUpdate= true;
+  }
+})
 
-// $("#decrease-font-size").click(function(){
-//   if (fontSize!==0){
-//     fontSize--;
-//   }
-//   $('#font-size span').text(fontSize.toString());
-//   $('.number-button').css("font-size", fontSize.toString() + "px");
-// })
+$("#increase-letter-space").click(function(){
+  letterSpace+=5;
+  $('#letter-spacing span').text(letterSpace.toString());
+  const input = $('.word').children();
+  for (let i = 0; i < input.length; i++) {
+    blotter = inputData[i];
+    blotter.texts[0].properties.paddingRight = letterSpace;
+    blotter.texts[0].properties.paddingLeft = letterSpace;
+    blotter.needsUpdate= true;
+  }
+})
 
-// $("#increase-letter-space").click(function(){
-//   letterSpace++;
-//   $('#letter-spacing span').text(letterSpace.toString());
-//   $(".word span").css("letter-spacing", letterSpace);
-// })
-
-// $("#decrease-letter-space").click(function(){
-// if (letterSpace!==0){
-//   letterSpace--;
-// }
-//   $('#letter-spacing span').text(letterSpace.toString());
-//   $(".word span").css("letter-spacing", letterSpace);
-// })
+$("#decrease-letter-space").click(function(){
+if (letterSpace!==0){
+  letterSpace-=5;
+  if (letterSpace < 0){
+    letterSpace = 0;
+  }
+}
+  $('#letter-spacing span').text(letterSpace.toString());
+  const input = $('.word').children();
+  for (let i = 0; i < input.length; i++) {
+    blotter = inputData[i];
+    blotter.texts[0].properties.paddingRight = letterSpace;
+    blotter.texts[0].properties.paddingLeft = letterSpace; 
+    blotter.needsUpdate= true;
+  }
+})
 
 // $("#increase-word-space").click(function(){
 //   wordSpace++;
@@ -84,7 +105,6 @@ var seq = new Tone.Sequence(function(time, note) {
 
 
 $("#play").click(function() {
-  console.log("hree");
   const input = $('.word').children();
   let img;
   if (input.length !== 0){ //check if empty!
@@ -102,7 +122,7 @@ $("#play").click(function() {
     seq = new Tone.Sequence(function(time, note) {
       char = data[input[index].innerHTML];
       instrument.triggerAttackRelease(note, "16n");
-      updateEffects(char.soundEffects);
+      updateEffects(inputData[index].soundEffects);
       index++;
       if (index===input.length){
         index=0;
@@ -141,6 +161,10 @@ $(document).ready(function() {
 
   $(document).keydown(function(event) {
     const key = event.keyCode;
+    if (key == 8){
+      inputData.pop();
+      console.log(inputData);
+    }
     if (key == 8 || key == 46) {
       $('.word').children().last().remove();
       if ($('.word').children().length === 0){
@@ -173,9 +197,7 @@ $(document).ready(function() {
           texts: text
         });
         const scope = blotter.forText(text);
-        scope.appendTo($(".word"));
-        Object.values(blotter._scopes)[0].render();
-
+        
         let soundEffects = {
           sAutoWahEffect: f1,
           sPhaserEffect: f1,
@@ -187,11 +209,22 @@ $(document).ready(function() {
           sTremoloEffect: f1
         };
         soundEffects = Object.assign(
-          Object.assign({}, defaultSoundEffects),
-          data[char.char].soundEffects);
-        data[char.char].soundEffects = soundEffects;
+        Object.assign({}, defaultSoundEffects),
+        data[char.char].soundEffects);
+        blotter.soundEffects = soundEffects;
+        blotter.texts[0].properties.size = fontSize;
+        blotter.texts[0].properties.paddingRight = letterSpace;
+        blotter.texts[0].properties.paddingLeft = letterSpace;
+
+
+
+        inputData.push(blotter)
+      console.log(inputData);
+
+        scope.appendTo($(".word"));
+        Object.values(blotter._scopes)[0].render();
+
       }
-  
     }
   });
 });
