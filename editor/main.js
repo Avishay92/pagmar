@@ -27,7 +27,7 @@ var text = new Blotter.Text(char, {
     fill: "white",
     paddingLeft: 300,
     paddingRight: 300,
-    // paddingTop: 60,
+    //paddingTop: 0,
     // paddingBottom: 60,
 
 });
