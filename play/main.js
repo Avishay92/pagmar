@@ -7,6 +7,7 @@ $(".back").click(function() {
   localStorage.setItem("data", JSON.stringify(data));
   location.assign("../menu");
 });
+$('.word').children().length = 0;
 
 let instrument,
   autoWahEffect,
@@ -40,10 +41,12 @@ $("#increase-font-size").click(function(){
   fontSize+=10;
   $('#font-size span').text(fontSize.toString());
   const input = $('.word').children();
-  for (let i = 0; i < input.length; i++) {
-    blotter = inputData[i];
-    blotter.texts[0].properties.size = fontSize;
-    blotter.needsUpdate= true;
+  if (inputData.length !== 0){
+    for (let i = 0; i < input.length; i++) {
+      blotter = inputData[i];
+      blotter.texts[0].properties.size = fontSize;
+      blotter.needsUpdate= true;
+    }
   }
 })
 
@@ -53,10 +56,12 @@ $("#decrease-font-size").click(function(){
   }
   $('#font-size span').text(fontSize.toString());
   const input = $('.word').children();
-  for (let i = 0; i < input.length; i++) {
-    blotter = inputData[i];
-    blotter.texts[0].properties.size = fontSize;
-    blotter.needsUpdate= true;
+  if (inputData.length !== 0){
+    for (let i = 0; i < input.length; i++) {
+      blotter = inputData[i];
+      blotter.texts[0].properties.size = fontSize;
+      blotter.needsUpdate= true;
+    }
   }
 })
 
@@ -64,11 +69,13 @@ $("#increase-letter-space").click(function(){
   letterSpace+=5;
   $('#letter-spacing span').text(letterSpace.toString());
   const input = $('.word').children();
-  for (let i = 0; i < input.length; i++) {
-    blotter = inputData[i];
-    blotter.texts[0].properties.paddingRight = letterSpace;
-    blotter.texts[0].properties.paddingLeft = letterSpace;
-    blotter.needsUpdate= true;
+  if (inputData.length !== 0){
+    for (let i = 0; i < input.length; i++) {
+      blotter = inputData[i];
+      blotter.texts[0].properties.paddingRight = letterSpace;
+      blotter.texts[0].properties.paddingLeft = letterSpace;
+      blotter.needsUpdate= true;
+    }
   }
 })
 
@@ -81,11 +88,13 @@ if (letterSpace!==0){
 }
   $('#letter-spacing span').text(letterSpace.toString());
   const input = $('.word').children();
-  for (let i = 0; i < input.length; i++) {
-    blotter = inputData[i];
-    blotter.texts[0].properties.paddingRight = letterSpace;
-    blotter.texts[0].properties.paddingLeft = letterSpace; 
-    blotter.needsUpdate= true;
+  if (inputData.length !== 0){
+    for (let i = 0; i < input.length; i++) {
+      blotter = inputData[i];
+      blotter.texts[0].properties.paddingRight = letterSpace;
+      blotter.texts[0].properties.paddingLeft = letterSpace;
+      blotter.needsUpdate= true;
+    }
   }
 })
 
@@ -106,8 +115,10 @@ if (letterSpace!==0){
 
 $("#play").click(function() {
   const input = $('.word').children();
+  // const word = document.querySelector('.word').innerHTML;
   let img;
-  if (input.length !== 0){ //check if empty!
+  console.log(inputData.length);
+  if (inputData.length !== 0){ //check if empty!
   var playMode;
   let char;
   if (playOn) {
@@ -163,7 +174,6 @@ $(document).ready(function() {
     const key = event.keyCode;
     if (key == 8){
       inputData.pop();
-      console.log(inputData);
     }
     if (key == 8 || key == 46) {
       $('.word').children().last().remove();
