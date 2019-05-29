@@ -36,6 +36,13 @@
 .rela-inline {
   display: inline-block;
   position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-right: 10px;
+  margin-left: 10px;
+
+
+
 }
 .left {
   position: relative;

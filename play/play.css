@@ -80,10 +80,12 @@ body {
 .logo img {
   width: 100%;
 }
+
 .top-bar-right,
 .top-bar-left {
-	width: 33.3%;
+	width: 28%;
 }
+
 .top-bar-left .arrow {
   margin-left: 45px;
 }
@@ -149,10 +151,11 @@ body {
   align-items: center;
   text-align: center;
   font-size: 16;
+  z-index: 10;
 }
 
 .number-button:hover {
-  transform: none !important;
+  transform: rotate(0deg) !important;
 }
 
 #font-size{
@@ -196,7 +199,8 @@ body {
   margin: auto 0;
 }
 
-.increase-button{
+.increase-button,
+.decrease-button{
   display: inherit;
   flex: inherit;
   padding: 5px;
@@ -207,4 +211,13 @@ body {
   border: none;
   margin-bottom: 26px;
   cursor: pointer;
+}
+
+.decrease-button{
+  margin-right : 5px;
+}
+
+
+.increase-button{
+  margin-left : 5px;
 }

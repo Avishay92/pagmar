@@ -7,6 +7,9 @@ $(".back").click(function() {
   localStorage.setItem("data", JSON.stringify(data));
   location.assign("../menu");
 });
+let fontSize = 16;
+let letterSpace = 8;
+let wordSpace = 8;
 
 let instrument,
   autoWahEffect,
@@ -31,7 +34,57 @@ var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
 }, sequence);
 
+// $("#increase-font-size").click(function(){
+//   fontSize++;
+//   $('#font-size span').text(fontSize.toString());
+//   $('.number-button').css("font-size", fontSize.toString() + "px");
+//   Object.keys(material.uniforms).forEach(function(key, index) {
+//     let material = 
+//     if (defaultUniforms[key]) {
+//     }
+//   });
+
+// })
+
+// $("#decrease-font-size").click(function(){
+//   if (fontSize!==0){
+//     fontSize--;
+//   }
+//   $('#font-size span').text(fontSize.toString());
+//   $('.number-button').css("font-size", fontSize.toString() + "px");
+// })
+
+// $("#increase-letter-space").click(function(){
+//   letterSpace++;
+//   $('#letter-spacing span').text(letterSpace.toString());
+//   $(".word span").css("letter-spacing", letterSpace);
+// })
+
+// $("#decrease-letter-space").click(function(){
+// if (letterSpace!==0){
+//   letterSpace--;
+// }
+//   $('#letter-spacing span').text(letterSpace.toString());
+//   $(".word span").css("letter-spacing", letterSpace);
+// })
+
+// $("#increase-word-space").click(function(){
+//   wordSpace++;
+//   $('#word-spacing span').text(wordSpace.toString());
+//   $('.number-button').css("word-spacing", wordSpace);
+// })
+
+// $("#decrease-word-space").click(function(){
+//   if (wordSpace){
+//     wordSpace--;
+//   }
+//   $('#word-spacing span').text(wordSpace.toString());
+//   $('.number-button').css("word-spacing", wordSpace);
+// })
+
+
 $("#play").click(function() {
+  console.log("hree");
   const input = $('.word').children();
   let img;
   if (input.length !== 0){ //check if empty!
@@ -77,32 +130,6 @@ function emptySequence(length) {
   }
 }
 
-function activateChar(char) {
-  let blotter = data[char] && data[char].blotter;
-  if (blotter) {
-    let material = blotter.material;
-    let uniforms = Object.assign(
-      Object.assign({}, defaultUniforms),
-      data[char].uniforms
-    );
-
-    Object.keys(material.uniforms).forEach(function(key, index) {
-      if (defaultUniforms[key]) {
-        if (key === "uDistortPosition") {
-          material.uniforms[key].value = [
-            Number(uniforms[key][0]),
-            Number(uniforms[key][1])
-          ];
-        } else {
-          material.uniforms[key].value = Number(uniforms[key]);
-        }
-      }
-    });
-
-    Object.values(blotter._scopes)[0].render();
-  }
-
-}
 
 $(document).ready(function() {
   const style = {
@@ -162,7 +189,6 @@ $(document).ready(function() {
         soundEffects = Object.assign(
           Object.assign({}, defaultSoundEffects),
           data[char.char].soundEffects);
-        console.log(data[char.char]);
         data[char.char].soundEffects = soundEffects;
       }
   
