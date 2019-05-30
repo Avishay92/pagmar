@@ -31,6 +31,7 @@ const alphabeth = [
   "ר",
   "ש",
   "ת",
+  " "
 ];
 
 //fills data with letter and note

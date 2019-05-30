@@ -77,9 +77,10 @@ function resetChar(char) {
       }
     });
     Object.values(blotter._scopes)[0].render();
-
-    var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
-    $(gridItem).css("opacity", "0.2");
+    if (char!== " "){
+      var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+      $(gridItem).css("opacity", "0.2");
+    }
   }
   if (soundEffects) {
     Object.keys(soundEffects).forEach(function(key, index) {
@@ -116,9 +117,10 @@ function activateChar(char) {
     });
 
     Object.values(blotter._scopes)[0].render();
-
-    var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
-    $(gridItem).css("opacity", "1");
+    if (char!== " "){
+      var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+      $(gridItem).css("opacity", "1");
+    }
   }
 
   if (soundEffects) {

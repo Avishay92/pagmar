@@ -30,7 +30,7 @@ let inputData = [];
 let index=0;
 let fontSize = 200;
 let letterSpace = 8;
-let wordSpace = 8;
+let wordSpace = 50;
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -98,19 +98,41 @@ if (letterSpace!==0){
   }
 })
 
-// $("#increase-word-space").click(function(){
-//   wordSpace++;
-//   $('#word-spacing span').text(wordSpace.toString());
-//   $('.number-button').css("word-spacing", wordSpace);
-// })
+$("#increase-word-space").click(function(){
+  wordSpace+=5;
+  $('#word-spacing span').text(wordSpace.toString());
+  const input = $('.word').children();
+  if (inputData.length !== 0){
+    for (let i = 0; i < input.length; i++) {
+      blotter = inputData[i];
+      if (blotter.texts[0].value===" "){
+      //  inputData[i+1].texts[0].properties.paddingRight = wordSpace;
+      //  inputData[i+1].needsUpdate= true;
+       inputData[i-1].texts[0].properties.paddingLeft = wordSpace;
+       inputData[i-1].needsUpdate= true;
+      }
+    }
+  }
+})
 
-// $("#decrease-word-space").click(function(){
-//   if (wordSpace){
-//     wordSpace--;
-//   }
-//   $('#word-spacing span').text(wordSpace.toString());
-//   $('.number-button').css("word-spacing", wordSpace);
-// })
+$("#decrease-word-space").click(function(){
+  if (wordSpace){
+    wordSpace-=5;
+  }
+  $('#word-spacing span').text(wordSpace.toString());
+  const input = $('.word').children();
+  if (inputData.length !== 0){
+    for (let i = 0; i < input.length; i++) {
+      blotter = inputData[i];
+      if (blotter.texts[0].value===" "){
+      //  inputData[i+1].texts[0].properties.paddingRight = wordSpace;
+      //  inputData[i+1].needsUpdate= true;
+       inputData[i-1].texts[0].properties.paddingLeft = wordSpace;
+       inputData[i-1].needsUpdate= true;
+      }
+    }
+  }
+})
 
 
 $("#play").click(function() {
@@ -127,8 +149,10 @@ $("#play").click(function() {
     playMode = "Stop";
     for (let i = 0; i < input.length; i++) {
       char = input[i].innerHTML;
-      note = data[char].note;
-      sequence.push(note);
+      if (char!==" "){
+        note = data[char].note;
+        sequence.push(note);
+      }
     }
     seq = new Tone.Sequence(function(time, note) {
       char = data[input[index].innerHTML];
@@ -172,18 +196,16 @@ $(document).ready(function() {
 
   $(document).keydown(function(event) {
     const key = event.keyCode;
-    if (key == 8){
-      inputData.pop();
-    }
+    let size = inputData.length;
     if (key == 8 || key == 46) {
       $('.word').children().last().remove();
       if ($('.word').children().length === 0){
         document.querySelector('.word').innerHTML = "<div>Type Something</div>";
       }
+      inputData.pop();
     } else {
       var char = data[event.key]; // charCode will contain the code of the character inputted
       if (char) {
-       
         $('.word > div').remove();
         let material = new Blotter.RollingDistortMaterial();
         let uniforms = Object.assign(
@@ -226,14 +248,16 @@ $(document).ready(function() {
         blotter.texts[0].properties.paddingRight = letterSpace;
         blotter.texts[0].properties.paddingLeft = letterSpace;
 
-
-
         inputData.push(blotter)
-      console.log(inputData);
-
         scope.appendTo($(".word"));
         Object.values(blotter._scopes)[0].render();
-
+        if (char.char === " "){
+          console.log(size);
+          console.log(inputData[size-1].texts[0]);
+          inputData[size-1].texts[0].properties.paddingLeft = wordSpace;
+          inputData[size-1].needsUpdate= true;
+          inputData[size].needsUpdate= true;
+        }
       }
     }
   });
