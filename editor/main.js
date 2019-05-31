@@ -71,6 +71,7 @@ function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, ma
         data[char].uniforms[visualEffect] = visualValue;
     }
     data[char].soundEffects[soundEffect] = soundValue;
+    console.log(defaultSoundEffects);
     return soundValue;
 }
 
@@ -217,6 +218,7 @@ var app = new Vue({
                 return i.selected === true;
             }
             )[0];
+            
             if (selectedKnob) {
             $("#apply-all-button").attr("src","../assets/icons/applyICN.svg");
 
@@ -229,6 +231,7 @@ var app = new Vue({
                 let knobVisualEffect= selectedKnob.visualEffect;
                 let knobSoundEffect= selectedKnob.soundEffect;
                 let currentValue = selectedKnob.rotation;
+
                 currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue,
                     effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
                     effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound,
@@ -278,8 +281,6 @@ var app = new Vue({
                     selectedKnob.rotation = -132;
                 }
             }
-console.log(data[char].soundEffects); 
-
         },
         initializeContorllers: function(e){
             app.knobs.forEach(function(knob){
@@ -318,13 +319,15 @@ $("#applyAll").click(function () {
     })
     $("#apply-all-button").attr("src","../assets/icons/apply2ICN.svg");
 });
+let counter = 0;
 
 $("#reset").click(function () {
-    data[char].soundEffects = defaultSoundEffects;
-    data[char].uniforms = defaultUniforms;
-    console.log(defaultUniforms);
+
+    data[char].soundEffects = Object.assign({} , defaultSoundEffects);
+    data[char].uniforms = Object.assign({} , defaultUniforms);
+    counter++;
     app.initializeContorllers();
-    // app.mousemoveFunction();
+    console.log(data[char].soundEffects);
     Object.keys(blotter.material.uniforms).forEach(function(key, index) {
         if (defaultUniforms[key]) {
           if (key === "uDistortPosition") {
@@ -337,6 +340,6 @@ $("#reset").click(function () {
           }
         }
       });
-  
+    
       Object.values(blotter._scopes)[0].render();
     });

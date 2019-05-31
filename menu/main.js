@@ -231,8 +231,8 @@ $("#darkMode").click(function(){
 
 $("#resetAll").click(function () {
   Object.keys(data).forEach(function (currChar){
-    data[currChar].soundEffects = defaultSoundEffects;
-    data[currChar].uniforms = defaultUniforms;
+    data[currChar].soundEffects = Object.assign({} , defaultSoundEffects);
+    data[currChar].uniforms = Object.assign({} , defaultUniforms);
     let blotter= data[currChar].blotter;
     Object.keys(blotter.material.uniforms).forEach(function(key, index) {
         if (defaultUniforms[key]) {

@@ -72,8 +72,15 @@ $("#increase-letter-space").click(function(){
   if (inputData.length !== 0){
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
-      blotter.texts[0].properties.paddingRight = letterSpace;
-      blotter.texts[0].properties.paddingLeft = letterSpace;
+      
+      if(i < input.length-1 && inputData[i+1].texts[0].value !== " "){
+        console.log("before space: chnage right", i);
+        blotter.texts[0].properties.paddingRight = letterSpace;
+      }
+      if(i > 0 && inputData[i-1].texts[0].value !== " "){
+        console.log("after space: chnage left", i);
+        blotter.texts[0].properties.paddingLeft = letterSpace;
+      }
       blotter.needsUpdate= true;
     }
   }
