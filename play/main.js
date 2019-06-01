@@ -31,7 +31,7 @@ let index=0;
 let fontSize = 200;
 let letterSpace = 8;
 let wordSpace = 50;
-let tempo = "16n";
+let tempo = 100;
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -90,8 +90,8 @@ $("#increase-letter-space").click(function(){
 $("#decrease-letter-space").click(function(){
 if (letterSpace!==0){
   letterSpace-=5;
-  if (letterSpace < 0){
-    letterSpace = 0;
+  if (letterSpace < -30){
+    letterSpace = -30;
   }
 }
   $('#letter-spacing span').text(letterSpace.toString());
@@ -142,6 +142,14 @@ $("#decrease-word-space").click(function(){
   }
 })
 
+let tempoRange = document.querySelector('#tempo'); 
+  tempoRange.addEventListener("input", function() {
+  tempo = event.target.value;
+  Tone.Transport.bpm.value = tempo;
+});
+
+
+
 
 $("#play").click(switchPlayMode);
 
@@ -162,9 +170,10 @@ function switchPlayMode() {
         sequence.push(note);
       }
     }
-    seq = new Tone.Sequence(function(time, note) {
+      Tone.Transport.bpm.value = tempo;
+      seq = new Tone.Sequence(function(time, note) {
       char = data[input[index].innerHTML];
-      instrument.triggerAttackRelease(note, tempo);
+      instrument.triggerAttackRelease(note, "16n");
       updateEffects(inputData[index].soundEffects);
       index++;
       if (index===input.length){
@@ -193,6 +202,7 @@ function emptySequence(length) {
 }
 
 
+
 $(document).ready(function() {
   const style = {
     family: "Frank Ruhl Libre",
@@ -215,6 +225,7 @@ $(document).ready(function() {
           playPressed=!playPressed;
           seq.stop();
           index=0;
+          Tone.Transport.bpm.value = tempo;
         }
         switchPlayMode();
       }
