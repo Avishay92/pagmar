@@ -327,7 +327,6 @@ $("#reset").click(function () {
     data[char].uniforms = Object.assign({} , defaultUniforms);
     counter++;
     app.initializeContorllers();
-    console.log(data[char].soundEffects);
     Object.keys(blotter.material.uniforms).forEach(function(key, index) {
         if (defaultUniforms[key]) {
           if (key === "uDistortPosition") {

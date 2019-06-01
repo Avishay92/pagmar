@@ -142,18 +142,21 @@ $("#decrease-word-space").click(function(){
 })
 
 
-$("#play").click(function() {
+$("#play").click(switchPlayMode);
+
+function switchPlayMode() {
   const input = $('.word').children();
   // const word = document.querySelector('.word').innerHTML;
   let img;
-  console.log(inputData.length);
-  if (inputData.length !== 0){ //check if empty!
-  var playMode;
+  if (inputData.length !== 0 || !playOn){ //check if empty!
+  var playModeText;
   let char;
   if (playOn) {
+    console.log("here");
+
     let note;
     img = "../assets/icons/stopICN.svg";
-    playMode = "Stop";
+    playModeText = "Stop";
     for (let i = 0; i < input.length; i++) {
       char = input[i].innerHTML;
       if (char!==" "){
@@ -175,16 +178,15 @@ $("#play").click(function() {
     emptySequence(input.length);
   } else {
     seq.stop();
-    playMode = "Play";
+    playModeText = "Play";
     index=0;
     img = "../assets/icons/playICN.svg";
   }
-  $("#play span").text(playMode);
+  $("#play span").text(playModeText);
   playOn = !playOn;
   $("#play-button").attr("src",img);
-
+  }
 }
-});
 
 function emptySequence(length) {
   for (let i = 0; i < length; i++) {
@@ -210,6 +212,9 @@ $(document).ready(function() {
         document.querySelector('.word').innerHTML = "<div>Type Something</div>";
       }
       inputData.pop();
+      if (!playOn){
+        switchPlayMode();
+      }
     } else {
       var char = data[event.key]; // charCode will contain the code of the character inputted
       if (char) {

@@ -211,7 +211,6 @@ $("#logo").click(function() {
 
 $("#darkMode").click(function(){
   var body = document.querySelector("body");
-
   var filter, background, mode;
   if(darkModeOn==0){
     filter = "invert(1)";
@@ -230,7 +229,7 @@ $("#darkMode").click(function(){
 })
 
 $("#resetAll").click(function () {
-  Object.keys(data).forEach(function (currChar){
+  Object.keys(data).forEach(function (currChar, index){
     data[currChar].soundEffects = Object.assign({} , defaultSoundEffects);
     data[currChar].uniforms = Object.assign({} , defaultUniforms);
     let blotter= data[currChar].blotter;
@@ -245,10 +244,8 @@ $("#resetAll").click(function () {
             blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
           }
         }
-      });
-      Object.values(blotter._scopes)[0].render();
     });
-  }
-
-  )
+    Object.values(blotter._scopes)[0].render();
+  });
+})
  
