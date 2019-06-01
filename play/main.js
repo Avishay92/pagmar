@@ -24,13 +24,14 @@ initializeEffects();
 initializeInstrument();
 
 let input,
-  playOn = 1;
+  playPressed = 1;
 let sequence = [];
 let inputData = [];
 let index=0;
 let fontSize = 200;
 let letterSpace = 8;
 let wordSpace = 50;
+let tempo = "16n";
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -146,14 +147,11 @@ $("#play").click(switchPlayMode);
 
 function switchPlayMode() {
   const input = $('.word').children();
-  // const word = document.querySelector('.word').innerHTML;
   let img;
-  if (inputData.length !== 0 || !playOn){ //check if empty!
+  if (inputData.length !== 0 || !playPressed){ //check if empty!
   var playModeText;
   let char;
-  if (playOn) {
-    console.log("here");
-
+  if (playPressed) {
     let note;
     img = "../assets/icons/stopICN.svg";
     playModeText = "Stop";
@@ -166,7 +164,7 @@ function switchPlayMode() {
     }
     seq = new Tone.Sequence(function(time, note) {
       char = data[input[index].innerHTML];
-      instrument.triggerAttackRelease(note, "16n");
+      instrument.triggerAttackRelease(note, tempo);
       updateEffects(inputData[index].soundEffects);
       index++;
       if (index===input.length){
@@ -182,8 +180,8 @@ function switchPlayMode() {
     index=0;
     img = "../assets/icons/playICN.svg";
   }
+  playPressed = !playPressed;
   $("#play span").text(playModeText);
-  playOn = !playOn;
   $("#play-button").attr("src",img);
   }
 }
@@ -212,7 +210,12 @@ $(document).ready(function() {
         document.querySelector('.word').innerHTML = "<div>Type Something</div>";
       }
       inputData.pop();
-      if (!playOn){
+      if (!playPressed){
+        if (inputData.length !== 0){
+          playPressed=!playPressed;
+          seq.stop();
+          index=0;
+        }
         switchPlayMode();
       }
     } else {
