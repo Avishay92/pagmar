@@ -1,8 +1,7 @@
-
 @font-face {
-  font-family: "frankgbold";
-  src: url("frankgbold-webfont.woff2") format("woff2"),
-    url("frankgbold-webfont.woff") format("woff");
+  font-family: 'frankgbold';
+  src: url('../fonts/frankgbold-webfont.woff2') format('woff2'),
+       url('../fonts/frankgbold-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

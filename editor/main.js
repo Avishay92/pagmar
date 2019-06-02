@@ -23,13 +23,11 @@ const note = data[char].note;
 
 var text = new Blotter.Text(char, {
     family: "Frank Ruhl Libre",
+    weight: "bold",
+    fill: "#F4F6FA",
     size: 450,
-    fill: "white",
-    paddingLeft: 300,
-    paddingRight: 300,
-    //paddingTop: 0,
-    // paddingBottom: 60,
-
+    paddingLeft:60,
+    paddingRight: 60,
 });
 
 

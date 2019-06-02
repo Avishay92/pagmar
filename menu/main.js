@@ -148,7 +148,7 @@ $(document).ready(function() {
     .forEach(function(gridItemElement) {
       const style = {
         family: "Frank Ruhl Libre",
-        //weight: "bold",
+        weight: "bold",
         fill: "#F4F6FA",
         size: 94,
         paddingLeft:60,
@@ -219,7 +219,7 @@ $("#darkMode").click(function(){
   }
   if(darkModeOn==1){
     filter = "none";
-    background = "black";
+    background = "#161616";
     mode = "Bright Mode"
   }
   $('.grid').css("filter", filter);
