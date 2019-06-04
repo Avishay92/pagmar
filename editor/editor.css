@@ -33,6 +33,7 @@ button {
 }
 
 canvas{
+  z-index: -1;
   /* margin-top: 0; */
   /* height: 450px !important;
   width:600px !important;

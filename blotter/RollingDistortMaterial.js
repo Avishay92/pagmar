@@ -164,7 +164,7 @@
             uNoiseDistortAmplitude : { type : "1f", value : 0.01 },
             uDistortPosition : { type : "2f", value : [0.5, 0.5] },
             uRotation : { type : "1f", value :  170.0 },
-            uSpeed : { type : "1f", value : 0.00 }
+            uSpeed : { type : "1f", value : 0.08 }
         };
       }
     };
