@@ -1,21 +1,52 @@
-body{
-    background: #171618;
+body {
     color: #828385;
+    background: #161616 !important;
+    color: white;
+    font-family: "ploni_dl_1.1_aaamedium" !important;
+    margin: 0;
 }
 
-.entry{
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    flex-direction: column;
+#title {
+    font-family: 'ploni_dl_1.1_aaabold';
+    font-size: 150px;
 }
 
-.entry > div{
+#menu {
     text-align: center;
-    margin: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#about {
+    text-align: right;
+    margin: 20px;
+    color: gray;
+    text-decoration: none;
+    position: absolute;
+    margin: 20px;
+    right: 0;
 }
 
 button{
-    background: #00BAC6 !important;
-    font-family: 'Frank Ruhl Libre'
+    background: #202020;
+    width: 150px;
+    line-height: 40px;
+    font-size: 18px;
+    border-color: transparent;
+    font-family: "ploni_dl_1.1_aaamedium" !important;
+    color: #828385;
+    border-radius: 50px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button:focus{
+    outline: none !important;
+}
+
+button.accent{
+    background: #0057FF;
+    color: white;
 }

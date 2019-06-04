@@ -87,7 +87,7 @@ let defaultSoundEffects = {
 };
 
 
-$("button").click(function() {
+$("button#next").click(function() {
   for (let i = 0; i < instrumentForm.elements.length; i++) {
     if (instrumentForm.elements[i].checked) {
       selectedInstrument = instrumentForm.elements[i].value;
@@ -101,7 +101,4 @@ $("button").click(function() {
     "defaultSoundEffects",
     JSON.stringify(defaultSoundEffects)
   );
-  location.assign("../menu");
 });
-
-
