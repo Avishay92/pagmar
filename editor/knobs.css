@@ -33,11 +33,18 @@
   position: relative;
   text-align: center;
 }
+
+.rela-block .container{
+  background: #202020;
+  border-radius: 10px;
+  margin: 20px 60px;
+}
+
 .rela-inline {
   display: inline-block;
   position: relative;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   margin-right: 10px;
   margin-left: 10px;
 
