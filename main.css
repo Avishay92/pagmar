@@ -1,21 +1,4 @@
 body{
-    background: #171618;
+    background: #161616;
     color: #828385;
-}
-
-.entry{
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.entry > div{
-    text-align: center;
-    margin: 60px;
-}
-
-button{
-    background: #00BAC6 !important;
-    font-family: 'Frank Ruhl Libre'
 }

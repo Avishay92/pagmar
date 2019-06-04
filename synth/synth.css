@@ -1,0 +1,131 @@
+:root {
+  --clr-Synth: #ffbc00;
+  --clr-MembraneSynth: #0ed09b;
+  --clr-AMSynth: #0057ff;
+  --clr-FMSynth: #6e00ff;
+  --clr-DuoSynth: #ff395d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #161616;
+  color: #828385;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+}
+.container {
+    padding: 0 180px;
+}
+
+.step {
+    font-size: 12px;
+    color: #828385;
+    margin-top: 45px;
+}
+.title {
+    font-size: 45px;
+    line-height: 1.1;
+    color: #f4f6fa;
+    margin: 10px 0 100px 0;
+}
+
+.logo {
+ margin-left: 45px;
+ margin-top: 45px;   
+}
+.entry {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+button {
+  background: #00bac6 !important;
+  font-family: "Frank Ruhl Libre";
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(5, 200px);
+  margin: auto;
+  grid-gap: 20px;
+
+}
+
+#Synth:checked + .card,
+label.Synth .card:hover {
+  background-color: var(--clr-Synth);
+}
+
+#MembraneSynth:checked + .card,
+label.MembraneSynth .card:hover {
+  background-color: var(--clr-MembraneSynth);
+}
+
+#AMSynth:checked + .card,
+label.AMSynth .card:hover {
+  background-color: var(--clr-AMSynth);
+}
+
+#FMSynth:checked + .card,
+label.FMSynth .card:hover {
+  background-color: var(--clr-FMSynth);
+}
+
+#DuoSynth:checked + .card,
+label.DuoSynth .card:hover {
+  background-color: var(--clr-DuoSynth);
+}
+
+.card {
+  height: 226px;
+  width: 200px;
+  background-color: #202020;
+  color: #f4f6fa;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 75px 20px 30px 20px;
+  transition: background-color 0.1s ease-in,
+  transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.04);
+
+}
+
+.cards-container input {
+  display: none;
+}
+.card-title {
+  margin: auto 0 0 0 !important;
+  align-self: center;
+  font-size: 14px;
+}
+
+.cards-container label {
+  cursor: pointer;
+}
+
+.synth-icon.MembraneSynth {
+  margin-top: 17px;
+}
+
+.synth-icon.Synth {
+  margin-top: 2px;
+}
+
+.synth-icon.FMSynth {
+  margin-top: 26px;
+}
+.synth-icon.DuoSynth {
+  margin-top: 17px;
+}
+
+.mdl-button--raised.mdl-button--colored {
+    margin-top: 110px;
+    max-width: 150px;
+}
