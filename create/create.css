@@ -1,0 +1,25 @@
+body {
+    color: #828385;
+    background: #161616 !important;
+    color: white;
+    font-family: "ploni_dl_1.1_aaamedium" !important;
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tiny{
+    font-size:10px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    color: #E4E6EA;
+}
+
+#menu{
+    display: flex;
+    flex-direction: column;
+}
+
+#footer{
+    flex: 1;
+}

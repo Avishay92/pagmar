@@ -101,7 +101,7 @@ $("button").click(function() {
     "defaultSoundEffects",
     JSON.stringify(defaultSoundEffects)
   );
-  location.assign("../menu");
+  location.assign("../../menu");
 });
 
 
