@@ -3,7 +3,7 @@ body {
     color: #828385;
     background: #161616 !important;
     color: white;
-    font-family: "ploni_dl_1.1_aaamedium" !important;
+    font-family: "ploni_dl_1.1_aaaregular" !important;
     margin: 0;
 }
 
@@ -36,7 +36,7 @@ button{
     line-height: 40px;
     font-size: 18px;
     border-color: transparent;
-    font-family: "ploni_dl_1.1_aaamedium" !important;
+    font-family: "ploni_dl_1.1_aaaregular" !important;
     color: #828385;
     border-radius: 50px;
     margin: 10px;

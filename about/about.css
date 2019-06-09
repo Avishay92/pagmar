@@ -1,5 +1,16 @@
+
 body {
-    color: white;
-    background: #161616;
+    color: #828385;
+    background: #161616 !important;
+    color: #ADAEB1;
+    font-family: "ploni_dl_1.1_aaalight" !important;
+    font-size: 40px;
+    margin: 80 140;
+}
+
+#back {
     font-family: "ploni_dl_1.1_aaaregular" !important;
+    font-size: 20px;
+    color: gray;
+   
 }
