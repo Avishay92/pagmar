@@ -1,6 +1,6 @@
 let data = {};
 let noteIndex = 0;
-
+let instruments = [];
 const notes = ["C", "D", "E", "F", "G", "A", "B"];
 let octave = 3;
 const alphabeth = [
@@ -51,6 +51,14 @@ alphabeth.forEach(function(value, index) {
   }
 });
 
+function initializeInstrument() {
+      instruments.push(new Tone.Synth().toMaster());
+      instruments.push(new Tone.DuoSynth().toMaster());
+      instruments.push(new Tone.MembraneSynth().toMaster());
+      instruments.push(new Tone.AMSynth().toMaster());
+      instruments.push(new Tone.FMSynth().toMaster());
+}
+
 const f1 = parseFloat(0).toPrecision(2);
 const f2 = [f1, f1];
 const initValueCycleCount= parseFloat(2).toPrecision(2);
@@ -86,6 +94,7 @@ let defaultSoundEffects = {
   sTremoloEffect: f1
 };
 
+initializeInstrument();
 
 $("button").click(function() {
   for (let i = 0; i < instrumentForm.elements.length; i++) {
@@ -104,4 +113,11 @@ $("button").click(function() {
   location.assign("../../menu");
 });
 
+var instrumentHovered = document.querySelectorAll(".card");
 
+instrumentHovered.forEach(function(value, index) {
+  $(value).mouseenter(function() {
+    let id =value.id;
+    instruments[id].triggerAttackRelease("C4", "4n");
+  });
+});
