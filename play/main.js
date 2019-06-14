@@ -29,7 +29,7 @@ let sequence = [];
 let inputData = [];
 let index=0;
 let fontSize = 200;
-let letterSpace = 8;
+let letterSpace = 3;
 let wordSpace = 50;
 let tempo = 100;
 
@@ -114,8 +114,6 @@ $("#increase-word-space").click(function(){
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
       if (blotter.texts[0].value===" "){
-      //  inputData[i+1].texts[0].properties.paddingRight = wordSpace;
-      //  inputData[i+1].needsUpdate= true;
        inputData[i-1].texts[0].properties.paddingLeft = wordSpace;
        inputData[i-1].needsUpdate= true;
       }
@@ -133,8 +131,6 @@ $("#decrease-word-space").click(function(){
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
       if (blotter.texts[0].value===" "){
-      //  inputData[i+1].texts[0].properties.paddingRight = wordSpace;
-      //  inputData[i+1].needsUpdate= true;
        inputData[i-1].texts[0].properties.paddingLeft = wordSpace;
        inputData[i-1].needsUpdate= true;
       }
@@ -165,10 +161,8 @@ function switchPlayMode() {
     playModeText = "Stop";
     for (let i = 0; i < input.length; i++) {
       char = input[i].innerHTML;
-      if (char!==" "){
-        note = data[char].note;
-        sequence.push(note);
-      }
+      note = data[char].note;
+      sequence.push(note);
     }
       Tone.Transport.bpm.value = tempo;
       seq = new Tone.Sequence(function(time, note) {
@@ -274,12 +268,18 @@ $(document).ready(function() {
         blotter.texts[0].properties.paddingRight = letterSpace;
         blotter.texts[0].properties.paddingLeft = letterSpace;
 
-        inputData.push(blotter)
+        inputData.push(blotter);
+
         scope.appendTo($(".word"));
         Object.values(blotter._scopes)[0].render();
+        if (!playPressed){
+          playPressed=!playPressed;
+          seq.stop();
+          index=0;
+          Tone.Transport.bpm.value = tempo;
+        switchPlayMode();
+      }
         if (char.char === " "){
-          console.log(size);
-          console.log(inputData[size-1].texts[0]);
           inputData[size-1].texts[0].properties.paddingLeft = wordSpace;
           inputData[size-1].needsUpdate= true;
           inputData[size].needsUpdate= true;

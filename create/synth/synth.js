@@ -49,6 +49,11 @@ alphabeth.forEach(function(value, index) {
   } else {
     noteIndex++;
   }
+  if (value===" "){
+    data[" "].note = null;
+    console.log(data);
+
+  }
 });
 
 function initializeInstrument() {
