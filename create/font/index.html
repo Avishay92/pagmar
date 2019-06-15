@@ -1,17 +1,101 @@
 <html>
-
-<head>
+  <head>
     <link rel="stylesheet" href="../../fonts/stylesheet.css" />
-    <link rel="stylesheet" href="../create.css" />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css"
+    />
+    <link rel="stylesheet" href="./font.css" />
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  </head>
 
-<body>
-    <div id="header"><span id="logo">Fortune</span><span class="tiny">/</span><span class="tiny">create</span></div>
-    <div id="menu">
-        <div id="step">Step 1</div>
-        <div id="title">Select base font</div>
+  <body>
+    <div class="logo">
+      <a href="/">
+        <!-- <img src="../assets/icons/logocreateICN.png" alt="" /> -->
+      </a>
     </div>
-    <div id="footer"><button id="next" onclick="location.assign('../synth')">Next </button></div>
-</body>
+    <div class="container">
+      <div class="entry">
+        <div class="step">STEP 1</div>
+        <div class="title">
+          Select <br />
+          Font
+        </div>
+        <form action="" id="alphabet" class="cards-container">
+          <label for="Taamula" class="Taamula">
+            <input
+              type="radio"
+              name="alphabetChar"
+              value="Taamula"
+              id="Taamula"
+            />
+            <div class="card Taamula" id="0">
+              <div class="icon-a-taamula card-icon"></div>
+              <p class="card-title">Taamula</p>
+            </div>
+          </label>
+          <label for="Arbel" class="Arbel">
+            <input type="radio" name="alphabetChar" value="Arbel" id="Arbel" />
+            <div class="card Arbel" id="1">
+              <div class="icon-a-arbel card-icon"></div>
+              <p class="card-title">Arbel</p>
+            </div>
+          </label>
 
+          <label for="Hadassa" class="Hadassa">
+            <input
+              type="radio"
+              name="alphabetChar"
+              value="Hadassa"
+              id="Hadassa"
+            />
+            <div class="card" id="2">
+              <div class="icon-a-hadassa card-icon"></div>
+              <p class="card-title">Hadassa</p>
+            </div>
+          </label>
+          <label for="Haim" class="Haim">
+            <input type="radio" name="alphabetChar" value="Haim" id="Haim" />
+            <div class="card" id="4">
+              <div class="icon-a-haim card-icon"></div>
+              <p class="card-title">Haim</p>
+            </div>
+          </label>
+          <label for="Frank" class="Frank">
+            <input type="radio" name="alphabetChar" value="Frank" id="Frank" />
+
+            <div class="card" id="3">
+              <div class="icon-a-frank card-icon"></div>
+              <p class="card-title">Frank Rehul</p>
+            </div>
+          </label>
+        </form>
+        <div class="nav-controls-container">
+          <div class="back-btn-container">
+            <button id="backBtn" class="nav-btn back-btn icon-arrow">
+              Back
+            </button>
+          </div>
+          <div class="next-btn-container disable">
+            <button id="nextBtn" class="nav-btn icon-arrow">Next</button>
+            <span class="next-btn-text">Select synth</span>
+          </div>
+        </div>
+        <!-- 
+              <button
+                class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+              >
+                התחל
+              </button> -->
+      </div>
+    </div>
+    <script src="https://tonejs.github.io/build/Tone.js"></script>
+    <script src="./font.js"></script>
+  </body>
 </html>

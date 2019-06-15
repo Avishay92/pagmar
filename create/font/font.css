@@ -68,41 +68,11 @@ body {
   flex-direction: column;
 }
 
-button {
-  /* background: #00bac6 !important;
-  font-family: "Frank Ruhl Libre"; */
-}
-
 .cards-container {
   display: grid;
   grid-template-columns: repeat(5, 200px);
   margin: auto;
   grid-gap: 20px;
-}
-
-#Synth:checked + .card,
-label.Synth .card:hover {
-  background-color: var(--clr-Synth);
-}
-
-#MembraneSynth:checked + .card,
-label.MembraneSynth .card:hover {
-  background-color: var(--clr-MembraneSynth);
-}
-
-#AMSynth:checked + .card,
-label.AMSynth .card:hover {
-  background-color: var(--clr-AMSynth);
-}
-
-#FMSynth:checked + .card,
-label.FMSynth .card:hover {
-  background-color: var(--clr-FMSynth);
-}
-
-#DuoSynth:checked + .card,
-label.DuoSynth .card:hover {
-  background-color: var(--clr-DuoSynth);
 }
 
 .card {
@@ -113,20 +83,33 @@ label.DuoSynth .card:hover {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  padding: 75px 20px 30px 20px;
+  padding: 68px 20px 30px 20px;
   transition: background-color 0.1s ease-in, transform 0.3s ease-in-out;
   font-family: "ploni_dl_1.1_aaaregular" !important;
+  font-size: 80px;
+}
+
+.card.Taamula {
+    font-size: 100px;
+    padding: 43px 20px 30px 20px;
 }
 
 .card:hover {
   transform: scale(1.04);
+  background-color: var(--clr-white);
+  color: var(--clr-black);
 }
 
 .cards-container input {
   display: none;
 }
+
+.card-icon {
+  text-align: center;
+}
 .card-title {
   margin: auto 0 0 0 !important;
+  /* margin-top: 35px !important; */
   align-self: center;
   font-size: 14px;
 }
@@ -135,35 +118,19 @@ label.DuoSynth .card:hover {
   cursor: pointer;
 }
 
-.synth-icon.MembraneSynth {
-  margin-top: 17px;
-}
-
-.synth-icon.Synth {
-  margin-top: 2px;
-}
-
-.synth-icon.FMSynth {
-  margin-top: 26px;
-}
-.synth-icon.DuoSynth {
-  margin-top: 17px;
-}
-
 .nav-controls-container {
   display: flex;
   align-content: center;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .next-btn-container {
- display: flex;
- flex-direction: column;
- align-content: center; 
-
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
-.next-btn-container.disable .nav-btn{
+.next-btn-container.disable .nav-btn {
   background-color: transparent;
   border: transparent;
   pointer-events: none;
@@ -197,7 +164,6 @@ label.DuoSynth .card:hover {
   color: var(--clr-black);
   transition: all 400ms;
   cursor: pointer;
-  
 }
 
 .next-btn-text {
@@ -205,6 +171,7 @@ label.DuoSynth .card:hover {
   color: var(--clr-grey);
   margin-top: 7px;
   opacity: 1;
+  text-align: center;
 }
 
 .back-btn {
@@ -213,8 +180,8 @@ label.DuoSynth .card:hover {
   color: var(--clr-grey-dark);
   font-size: 12px;
 }
-.back-btn:hover{
-   color: var(--clr-white);
+.back-btn:hover {
+  color: var(--clr-white);
 }
 
 .back-btn.icon-arrow:after {
@@ -226,7 +193,36 @@ label.DuoSynth .card:hover {
   transform: rotate(180deg);
 }
 
+.icon-a-taamula:before {
+  content: "\0042";
+}
+.icon-a-arbel:before {
+  content: "\0043";
+}
+.icon-a-hadassa:before {
+  content: "\0044";
+}
+.icon-a-haim:before {
+  content: "\0045";
+}
+.icon-a-frank:before {
+  content: "\0046";
+}
+
 .icon-arrow:after {
   content: "\0041";
   margin-left: 9px;
 }
+
+input:checked + .card,
+label .card:hover {
+    background-color: var(--clr-white);
+    color: var(--clr-black);
+}
+
+/* 
+Frank
+Arbel
+Hadassa
+Haim
+Taamula */

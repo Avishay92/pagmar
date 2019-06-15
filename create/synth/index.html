@@ -22,10 +22,14 @@
     </div>
     <div class="container">
       <div class="entry">
-          <div class="step">STEP 2</div>
-          <div class="title">Select <br> Synth</div>
+        <div class="step">STEP 2</div>
+        <div class="title">
+          Select <br />
+          Synth
+        </div>
         <form action="" id="instrument" class="cards-container">
           <label for="Synth" class="Synth">
+            <input type="radio" name="instrument" value="Synth" id="Synth" />
             <div class="card" id="0">
               <div class="synth-icon Synth">
                 <?xml version="1.0" encoding="UTF-8"?>
@@ -314,11 +318,21 @@
             </div>
           </label>
         </form>
+        <div class="nav-controls-container">
+          <div class="back-btn-container">
+            <button id="backBtn" class="nav-btn back-btn icon-arrow">Back</button>
+          </div>
+          <div class="next-btn-container disable">
+            <button id="nextBtn" class="nav-btn icon-arrow">Next</button>
+            <span class="next-btn-text">Design your font</span>
+          </div>
+        </div>
+        <!-- 
         <button
           class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
         >
           התחל
-        </button>
+        </button> -->
       </div>
     </div>
     <script src="https://tonejs.github.io/build/Tone.js"></script>
