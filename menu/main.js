@@ -59,6 +59,7 @@ let instrument,
   
 //initializing instruments and sound effects
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
+$('#instrument span').text(instrument);
 initializeEffects();
 initializeInstrument();
 //html string for all letters

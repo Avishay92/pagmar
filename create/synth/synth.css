@@ -105,6 +105,15 @@ label.DuoSynth .card:hover {
   background-color: var(--clr-DuoSynth);
 }
 
+/* #DuoSynth:not(:checked) + .card {
+  background-color: #202020;
+}*/
+/* 
+#DuoSynth:not(checked){
+  background-color: #202020 !important;
+
+}  */
+
 .card {
   height: 226px;
   width: 200px;

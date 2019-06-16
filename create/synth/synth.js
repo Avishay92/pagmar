@@ -3,6 +3,7 @@ let noteIndex = 0;
 let instruments = [];
 const notes = ["C", "D", "E", "F", "G", "A", "B"];
 let octave = 3;
+let grey = "#202020";
 const alphabeth = [
   "א",
   "ב",
@@ -109,10 +110,46 @@ instrumentHovered.forEach(function(value, index) {
     instruments[id].triggerAttackRelease("C4", "4n");
   });
 });
+// --clr-Synth: #ffbc00;
+// --clr-MembraneSynth: #0ed09b;
+// --clr-AMSynth: #0057ff;
+// --clr-FMSynth: #6e00ff;
+// --clr-DuoSynth: #ff395d;
+
+let isCardAlreadyChecked = 
+// [true, true, true, true, true];
+{
+  
+  0:{
+    tag: "Synth",
+    checked: true,
+    color:"#ffbc00"
+  },
+  1:{
+    tag: "MembraneSynth",
+    checked: true,
+    color:"#0ed09b"
+  },
+  2:{
+    tag: "AMSynth",
+    checked: true,
+    color:"#0057ff"
+  },
+  3:{
+    tag: "FMSynth",
+    checked: true,
+    color:"#6e00ff"
+  },
+  4:{
+    tag: "DuoSynth",
+    checked: true,
+    color:"#ff395d"
+  },
+}
+  
 
 $(document).ready(function() {
   let isNextActive = false;
-  let isCardSelected = false;
   const $btnContainer = $('.next-btn-container');
 
   const $inputs = $('#instrument input');
@@ -121,16 +158,6 @@ $(document).ready(function() {
   const $labels = $('#instrument label');
   const label = $labels.toArray();
 
-  // $(document).on('click', 'label', function() {
-  //   const currentInput = $(this).find('input');
-  //   if (isCardSelected) {
-  //     currentInput.checked = false;
-  //   }
-
-  //   // if (currentInput[0].checked) {
-  //   //   currentInput[0].checked = false;
-  //   // }
-  // })
 
 
     
@@ -164,3 +191,29 @@ $(document).ready(function() {
     $btnContainer.removeClass('disable');
   })
 });
+
+let oldCheck;
+
+$(".card").on('click', function() {
+  for (let i = 0; i < instrumentForm.elements.length; i++) {
+    console.log(isCardAlreadyChecked[i].color);     
+
+    if (instrumentForm.elements[i].checked) {
+      oldCheck=isCardAlreadyChecked[i].checked;
+      if (oldCheck){
+        isCardAlreadyChecked[i].checked = false;
+        instrumentForm.elements[i].checked = false;
+        console.log('#'+isCardAlreadyChecked[i].tag);
+        $('#'+i).css("background-color",grey);
+
+      } 
+      else {
+        isCardAlreadyChecked[i] = true;
+
+        // $('#'+i).css("background-color",isCardAlreadyChecked[i].color);
+      }
+      break;  
+    }
+  }
+
+})
