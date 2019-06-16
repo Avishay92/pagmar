@@ -3,6 +3,48 @@ const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
+let blotters = {};
+const alphabeth = [
+  "א",
+  "ב",
+  "ג",
+  "ד",
+  "ה",
+  "ו",
+  "ז",
+  "ח",
+  "ט",
+  "י",
+  "כ",
+  "ך",
+  "ל",
+  "מ",
+  "ם",
+  "נ",
+  "ן",
+  "ס",
+  "ע",
+  "פ",
+  "ף",
+  "צ",
+  "ץ",
+  "ק",
+  "ר",
+  "ש",
+  "ת",
+  " "
+];
+
+//fills data with letter and note
+alphabeth.forEach(function(value, index) {
+  Object.assign(blotters, {
+    [value]: {
+      blotter: null
+    }
+  });
+});
+
+
 let darkModeOn = 0;
 let playButton = document.querySelector("#play");
 let instrument,
@@ -14,6 +56,7 @@ let instrument,
   distortionEffect,
   feedbackEffect,
   tremoloEffect;
+  
 //initializing instruments and sound effects
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
@@ -60,8 +103,12 @@ function updateEffects(soundEffects) {
 }
 
 function resetChar(char) {
-  let blotter = data[char] && data[char].blotter;
-  let soundEffects = data[char] && data[char].soundEffects;
+  let blotter;
+  let soundEffects;
+  if (data[char]){
+    blotter = blotters[char].blotter;
+    soundEffects =data[char].soundEffects;
+  } 
   if (blotter) {
     let material = blotter.material;
     Object.keys(material.uniforms).forEach(function(key, index) {
@@ -94,8 +141,12 @@ function resetChar(char) {
 }
 
 function activateChar(char) {
-  let blotter = data[char] && data[char].blotter;
-  let soundEffects = data[char] && data[char].soundEffects;
+  let blotter;
+  let soundEffects;
+  if (data[char]){
+    blotter = blotters[char].blotter;
+    soundEffects =data[char].soundEffects;
+  } 
   if (blotter) {
     let material = blotter.material;
     let uniforms = Object.assign(
@@ -175,7 +226,9 @@ $(document).ready(function() {
         Object.assign({}, soundEffects),
         data[char].soundEffects
       );
-      data[char].blotter = blotter;
+      // data[char].blotter = blotter;
+      blotters[char].blotter = blotter;
+
       resetChar(char);
       const scope = blotter.forText(text);
       scope.appendTo(gridItemElement);
@@ -186,7 +239,10 @@ $(document).ready(function() {
         resetChar(char);
       });
       $(gridItemElement).click(function() {
+        console.log(data[char]);
         localStorage.setItem("char", char);
+        localStorage.setItem('data', JSON.stringify(data));
+
         location.assign("../editor");
       });
       $(playButton).click(function() {
@@ -194,6 +250,12 @@ $(document).ready(function() {
       });
     });
 });
+
+
+$(window).on("beforeunload", function () {
+  localStorage.setItem('data', JSON.stringify(data));
+})
+
 
 $(document).keydown(function(event) {
   var char = event.key; // charCode will contain the code of the character inputted
@@ -232,7 +294,7 @@ $("#resetAll").click(function () {
   Object.keys(data).forEach(function (currChar, index){
     data[currChar].soundEffects = Object.assign({} , defaultSoundEffects);
     data[currChar].uniforms = Object.assign({} , defaultUniforms);
-    let blotter= data[currChar].blotter;
+    let blotter= blotters[currChar].blotter;
     Object.keys(blotter.material.uniforms).forEach(function(key, index) {
         if (defaultUniforms[key]) {
           if (key === "uDistortPosition") {
