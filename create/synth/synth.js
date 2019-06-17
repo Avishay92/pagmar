@@ -52,7 +52,6 @@ alphabeth.forEach(function(value, index) {
   }
   if (value === " ") {
     data[" "].note = null;
-    console.log(data);
   }
 });
 
@@ -110,47 +109,44 @@ instrumentHovered.forEach(function(value, index) {
     instruments[id].triggerAttackRelease("C4", "4n");
   });
 });
-// --clr-Synth: #ffbc00;
-// --clr-MembraneSynth: #0ed09b;
-// --clr-AMSynth: #0057ff;
-// --clr-FMSynth: #6e00ff;
-// --clr-DuoSynth: #ff395d;
-
 let isCardAlreadyChecked = 
 // [true, true, true, true, true];
 {
   
   0:{
     tag: "Synth",
-    checked: true,
+    checked: false,
     color:"#ffbc00"
   },
   1:{
     tag: "MembraneSynth",
-    checked: true,
+    checked: false,
     color:"#0ed09b"
   },
   2:{
     tag: "AMSynth",
-    checked: true,
+    checked: false,
     color:"#0057ff"
   },
   3:{
     tag: "FMSynth",
-    checked: true,
+    checked: false,
     color:"#6e00ff"
   },
   4:{
     tag: "DuoSynth",
-    checked: true,
+    checked: false,
     color:"#ff395d"
-  },
+  }
 }
-  
+// let isCardAlreadyChecked = 
+// [false, false, false, false, false];
+
+let colors= ["#ffbc00","#0ed09b","#0057ff", "#6e00ff", "#ff395d"]
+const $btnContainer = $('.next-btn-container');
 
 $(document).ready(function() {
   let isNextActive = false;
-  const $btnContainer = $('.next-btn-container');
 
   const $inputs = $('#instrument input');
   const inputs = $inputs.toArray();
@@ -158,9 +154,6 @@ $(document).ready(function() {
   const $labels = $('#instrument label');
   const label = $labels.toArray();
 
-
-
-    
   $('#backBtn').click(() => {
     location.assign("/");
   });
@@ -168,9 +161,9 @@ $(document).ready(function() {
   $("#nextBtn").click(({ target }) => {
     const $target = $(target);
 
-    for (let i = 0; i < instrumentForm.elements.length; i++) {
-      if (instrumentForm.elements[i].checked) {
-        selectedInstrument = instrumentForm.elements[i].value;
+    for (let i = 0; i < 5; i++) {
+      if (isCardAlreadyChecked[i].checked) {
+        selectedInstrument = isCardAlreadyChecked[i].tag;
         break;
       }
     }
@@ -187,33 +180,46 @@ $(document).ready(function() {
   });
 
 
-  $(instrumentForm).change( () => {
-    $btnContainer.removeClass('disable');
-  })
+
 });
 
+$(instrumentForm).change( () => {
+  $btnContainer.removeClass('disable');
+})
 let oldCheck;
 
-$(".card").on('click', function() {
-  for (let i = 0; i < instrumentForm.elements.length; i++) {
-    console.log(isCardAlreadyChecked[i].color);     
+$("#0").on('click', function(){
+  toggleColor(0);
+});
+$("#1").on('click', function(){
+  toggleColor(1);
+});
+$("#2").on('click', function(){
+  toggleColor(2);
+});
+$("#3").on('click', function(){
+  toggleColor(3);
+});
+$("#4").on('click', function(){
+  toggleColor(4);
+});
 
-    if (instrumentForm.elements[i].checked) {
-      oldCheck=isCardAlreadyChecked[i].checked;
-      if (oldCheck){
-        isCardAlreadyChecked[i].checked = false;
-        instrumentForm.elements[i].checked = false;
-        console.log('#'+isCardAlreadyChecked[i].tag);
-        $('#'+i).css("background-color",grey);
 
-      } 
-      else {
-        isCardAlreadyChecked[i] = true;
-
-        // $('#'+i).css("background-color",isCardAlreadyChecked[i].color);
+function toggleColor(i){
+  oldCheck=isCardAlreadyChecked[i].checked;
+    if (!oldCheck){
+      isCardAlreadyChecked[i].checked = true;
+      $('#'+i).css("background-color", colors[i]);
+      for (let j=0; j<5;j++){
+        if (j!==i){
+            $('#'+j).css("background-color",grey);
+            isCardAlreadyChecked[j].checked = false;
+        }
       }
-      break;  
+    } 
+    else {
+      isCardAlreadyChecked[i].checked = false;
+      $('#'+i).css("background-color",grey);
     }
   }
-
-})
+  
