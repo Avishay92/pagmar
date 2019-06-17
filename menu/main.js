@@ -4,6 +4,7 @@ const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
 let blotters = {};
+let lastChar = null;
 const alphabeth = [
   "א",
   "ב",
@@ -234,7 +235,7 @@ $(document).ready(function() {
       const scope = blotter.forText(text);
       scope.appendTo(gridItemElement);
       $(gridItemElement).mouseenter(function() {
-        activateChar(char);
+        activateChar(char);          
       });
       $(gridItemElement).mouseleave(function() {
         resetChar(char);
@@ -260,7 +261,18 @@ $(window).on("beforeunload", function () {
 
 $(document).keydown(function(event) {
   var char = event.key; // charCode will contain the code of the character inputted
-  activateChar(char);
+  if ('א' <= char && char <= 'ת'){
+    console.log("here");
+  if (defaultSoundEffects[Object.keys(defaultSoundEffects)[0]]==="MembraneSynth"){
+    if (lastChar !== char){
+      activateChar(char);
+      lastChar = char;
+    }
+  }
+  else{
+    activateChar(char);
+  }
+  }
 });
 
 $(document).keyup(function(event) {
