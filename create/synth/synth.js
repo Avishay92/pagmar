@@ -170,6 +170,7 @@ $(document).ready(function() {
     defaultSoundEffects[
       Object.keys(defaultSoundEffects)[0]
     ] = selectedInstrument;
+    localStorage.setItem("synth", selectedInstrument);
     localStorage.setItem("data", JSON.stringify(data));
     localStorage.setItem("defaultUniforms", JSON.stringify(defaultUniforms));
     localStorage.setItem(

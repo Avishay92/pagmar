@@ -68,11 +68,6 @@ body {
   flex-direction: column;
 }
 
-button {
-  /* background: #00bac6 !important;
-  font-family: "Frank Ruhl Libre"; */
-}
-
 .cards-container {
   display: grid;
   grid-template-columns: repeat(5, 200px);

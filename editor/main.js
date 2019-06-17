@@ -21,9 +21,10 @@ data[char].uniforms = Object.assign(Object.assign({} , defaultUniforms) , data[c
 data[char].soundEffects = Object.assign(Object.assign({} , defaultSoundEffects), data[char].soundEffects);
 const note = data[char].note;
 
+const font = localStorage.getItem("font");
 var text = new Blotter.Text(char, {
-    family: "Frank Ruhl Libre",
-    weight: "bold",
+    family: font,
+    weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
     fill: "#F4F6FA",
     size: 450,
     paddingLeft:60,
@@ -69,7 +70,6 @@ function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, ma
         data[char].uniforms[visualEffect] = visualValue;
     }
     data[char].soundEffects[soundEffect] = soundValue;
-    console.log(defaultSoundEffects);
     return soundValue;
 }
 
@@ -234,7 +234,6 @@ var app = new Vue({
                     effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
                     effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound,
                     );
-                    // console.log(material.uniforms);
 
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{

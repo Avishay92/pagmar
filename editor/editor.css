@@ -44,3 +44,9 @@ canvas{
   background: #00BAC6 !important;
   font-family: 'Frank Ruhl Libre'
 } */
+
+.knob-container{
+  background: #202020 !important;
+  margin: 40px !important;
+  border-radius: 20px !important;
+}

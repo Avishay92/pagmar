@@ -45,7 +45,6 @@ alphabeth.forEach(function(value, index) {
   });
 });
 
-
 let darkModeOn = 0;
 let playButton = document.querySelector("#play");
 let instrument,
@@ -57,10 +56,10 @@ let instrument,
   distortionEffect,
   feedbackEffect,
   tremoloEffect;
-  
+
 //initializing instruments and sound effects
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
-$('#instrument span').text(instrument);
+$("#instrument span").text(instrument);
 initializeEffects();
 initializeInstrument();
 //html string for all letters
@@ -107,10 +106,10 @@ function updateEffects(soundEffects) {
 function resetChar(char) {
   let blotter;
   let soundEffects;
-  if (data[char]){
+  if (data[char]) {
     blotter = blotters[char].blotter;
-    soundEffects =data[char].soundEffects;
-  } 
+    soundEffects = data[char].soundEffects;
+  }
   if (blotter) {
     let material = blotter.material;
     Object.keys(material.uniforms).forEach(function(key, index) {
@@ -126,8 +125,10 @@ function resetChar(char) {
       }
     });
     Object.values(blotter._scopes)[0].render();
-    if (char!== " "){
-      var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+    if (char !== " ") {
+      var gridItem = document.querySelector(
+        `[data-blotter=${data[char].char}]`
+      );
       $(gridItem).css("opacity", "0.2");
     }
   }
@@ -145,10 +146,10 @@ function resetChar(char) {
 function activateChar(char) {
   let blotter;
   let soundEffects;
-  if (data[char]){
+  if (data[char]) {
     blotter = blotters[char].blotter;
-    soundEffects =data[char].soundEffects;
-  } 
+    soundEffects = data[char].soundEffects;
+  }
   if (blotter) {
     let material = blotter.material;
     let uniforms = Object.assign(
@@ -170,8 +171,10 @@ function activateChar(char) {
     });
 
     Object.values(blotter._scopes)[0].render();
-    if (char!== " "){
-      var gridItem = document.querySelector(`[data-blotter=${data[char].char}]`);
+    if (char !== " ") {
+      var gridItem = document.querySelector(
+        `[data-blotter=${data[char].char}]`
+      );
       $(gridItem).css("opacity", "1");
     }
   }
@@ -194,121 +197,124 @@ function activateChar(char) {
   });
 }
 
-//builds blotter and insert pointers to data
-$(document).ready(function() {
-  document
-    .querySelectorAll("[data-blotter]")
-    .forEach(function(gridItemElement) {
-      const style = {
-        family: "Frank Ruhl Libre",
-        weight: "bold",
-        fill: "#F4F6FA",
-        size: 94,
-        paddingLeft:60,
-        paddingRight: 60
+document.fonts.ready.then(function() {
+  //builds blotter and insert pointers to data
+  $(document).ready(function() {
 
-      };
-      const char = gridItemElement.dataset.blotter;
-      let material = new Blotter.RollingDistortMaterial();
-      const text = new Blotter.Text(char, style);
-      const blotter = new Blotter(material, {
-        texts: text,
-      });
-      let soundEffects = {
-        sAutoWahEffect: f1,
-        sPhaserEffect: f1,
-        sVibratoEffect: f1,
-        sReverbEffect: f1,
-        sPitchEffect: f1,
-        sDistortionEffect: f1,
-        sFeedbackEffect: f1,
-        sTremoloEffect: f1
-      };
-      data[char].soundEffects = Object.assign(
-        Object.assign({}, soundEffects),
-        data[char].soundEffects
-      );
-      // data[char].blotter = blotter;
-      blotters[char].blotter = blotter;
+    document.getElementById("font").innerHTML = localStorage.getItem("font");
+    document.getElementById("synth").innerHTML = localStorage.getItem("synth");
 
-      resetChar(char);
-      const scope = blotter.forText(text);
-      scope.appendTo(gridItemElement);
-      $(gridItemElement).mouseenter(function() {
-        activateChar(char);          
-      });
-      $(gridItemElement).mouseleave(function() {
+    document
+      .querySelectorAll("[data-blotter]")
+      .forEach(function(gridItemElement) {
+        const font = localStorage.getItem("font");
+        const style = {
+          family: font,
+          weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
+          fill: "#F4F6FA",
+          size: 94,
+          paddingLeft: 60,
+          paddingRight: 60
+        };
+        const char = gridItemElement.dataset.blotter;
+        let material = new Blotter.RollingDistortMaterial();
+        const text = new Blotter.Text(char, style);
+        const blotter = new Blotter(material, {
+          texts: text
+        });
+        let soundEffects = {
+          sAutoWahEffect: f1,
+          sPhaserEffect: f1,
+          sVibratoEffect: f1,
+          sReverbEffect: f1,
+          sPitchEffect: f1,
+          sDistortionEffect: f1,
+          sFeedbackEffect: f1,
+          sTremoloEffect: f1
+        };
+        data[char].soundEffects = Object.assign(
+          Object.assign({}, soundEffects),
+          data[char].soundEffects
+        );
+        // data[char].blotter = blotter;
+        blotters[char].blotter = blotter;
+
         resetChar(char);
+        const scope = blotter.forText(text);
+        scope.appendTo(gridItemElement);
+        $(gridItemElement).mouseenter(function() {
+          activateChar(char);
+        });
+        $(gridItemElement).mouseleave(function() {
+          resetChar(char);
+        });
+        $(gridItemElement).click(function() {
+          localStorage.setItem("char", char);
+          localStorage.setItem("data", JSON.stringify(data));
+
+          location.assign("../editor");
+        });
+        $(playButton).click(function() {
+          location.assign("../play");
+        });
       });
-      $(gridItemElement).click(function() {
-        console.log(data[char]);
-        localStorage.setItem("char", char);
-        localStorage.setItem('data', JSON.stringify(data));
+  });
 
-        location.assign("../editor");
-      });
-      $(playButton).click(function() {
-        location.assign("../play");
-      });
-    });
-});
+  $(window).on("beforeunload", function() {
+    localStorage.setItem("data", JSON.stringify(data));
+  });
 
-
-$(window).on("beforeunload", function () {
-  localStorage.setItem('data', JSON.stringify(data));
-})
-
-
-$(document).keydown(function(event) {
-  var char = event.key; // charCode will contain the code of the character inputted
-  if ('א' <= char && char <= 'ת'){
-    console.log("here");
-  if (defaultSoundEffects[Object.keys(defaultSoundEffects)[0]]==="MembraneSynth"){
-    if (lastChar !== char){
-      activateChar(char);
-      lastChar = char;
+  $(document).keydown(function(event) {
+    var char = event.key; // charCode will contain the code of the character inputted
+    if ("א" <= char && char <= "ת") {
+      if (
+        defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
+        "MembraneSynth"
+      ) {
+        if (lastChar !== char) {
+          activateChar(char);
+          lastChar = char;
+        }
+      } else {
+        activateChar(char);
+      }
     }
-  }
-  else{
-    activateChar(char);
-  }
-  }
-});
+  });
 
-$(document).keyup(function(event) {
-  var char = event.key; // charCode will contain the code of the character inputted
-  resetChar(char);
-});
+  $(document).keyup(function(event) {
+    var char = event.key; // charCode will contain the code of the character inputted
+    resetChar(char);
+  });
 
-$("#logo").click(function() {
-  location.assign("../");
-});
+  $("#logo").click(function() {
+    location.assign("../");
+  });
 
-$("#darkMode").click(function(){
-  var body = document.querySelector("body");
-  var filter, background, mode;
-  if(darkModeOn==0){
-    filter = "invert(1)";
-    background = "white";
-    mode = "Dark Mode"
-  }
-  if(darkModeOn==1){
-    filter = "none";
-    background = "#161616";
-    mode = "Bright Mode"
-  }
-  $('.grid').css("filter", filter);
-  $(body).css("background", background);
-  $('#darkMode span').text(mode);
-  darkModeOn = !darkModeOn;
-})
+  $("#darkMode").click(function() {
+    var body = document.querySelector("body");
+    var filter, background, mode;
+    if (darkModeOn == 0) {
+      filter = "invert(1)";
+      background = "white";
+      mode = "Dark Mode";
+    }
+    if (darkModeOn == 1) {
+      filter = "none";
+      background = "#161616";
+      mode = "Bright Mode";
+    }
+    $(".grid").css("filter", filter);
+    $(body).css("background", background);
+    $("#darkMode span").text(mode);
+    darkModeOn = !darkModeOn;
+  });
 
-$("#resetAll").click(function () {
-  Object.keys(data).forEach(function (currChar, index){
-    data[currChar].soundEffects = Object.assign({} , defaultSoundEffects);
-    data[currChar].uniforms = Object.assign({} , defaultUniforms);
-    let blotter= blotters[currChar].blotter;
-    Object.keys(blotter.material.uniforms).forEach(function(key, index) {
+  $("#resetAll").click(function() {
+    Object.keys(data).forEach(function(currChar, index) {
+      data[currChar].soundEffects = Object.assign({}, defaultSoundEffects);
+      data[currChar].uniforms = Object.assign({}, defaultUniforms);
+      let blotter = blotters[currChar].blotter;
+      Object.keys(blotter.material.uniforms).forEach(function(key, index) {
         if (defaultUniforms[key]) {
           if (key === "uDistortPosition") {
             blotter.material.uniforms[key].value = [
@@ -319,8 +325,8 @@ $("#resetAll").click(function () {
             blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
           }
         }
+      });
+      Object.values(blotter._scopes)[0].render();
     });
-    Object.values(blotter._scopes)[0].render();
   });
-})
- 
+});

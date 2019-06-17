@@ -9,7 +9,6 @@ $(document).ready(function() {
   const $labels = $("#instrument label");
   const label = $labels.toArray();
 
-
 const alphabetForm = document.querySelector("#alphabet");
 
   // $(document).on('click', 'label', function() {
@@ -22,6 +21,10 @@ const alphabetForm = document.querySelector("#alphabet");
   //   //   currentInput[0].checked = false;
   //   // }
   // })
+
+  $("input[type=radio][name=alphabetChar]").change(function(){
+    localStorage.setItem("font", this.value);
+  });
 
   $("#backBtn").click(() => {
     location.assign("/");

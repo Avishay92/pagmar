@@ -229,3 +229,10 @@ body {
   margin-left: -15px;
   margin-right: -15px;
 }
+
+#line{
+  background: #00FFF2;
+  margin: auto 20;
+  height: 200px;
+  width: 2px
+}
