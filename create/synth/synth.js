@@ -178,32 +178,17 @@ $(document).ready(function() {
     );
     location.assign("../../menu");
   });
-
-
-
+  for (let k=0; k<5; k++){
+    $("#"+k).on('click', function(){
+      toggleColor(k);
+    });  
+  }
 });
 
 $(instrumentForm).change( () => {
   $btnContainer.removeClass('disable');
 })
 let oldCheck;
-
-$("#0").on('click', function(){
-  toggleColor(0);
-});
-$("#1").on('click', function(){
-  toggleColor(1);
-});
-$("#2").on('click', function(){
-  toggleColor(2);
-});
-$("#3").on('click', function(){
-  toggleColor(3);
-});
-$("#4").on('click', function(){
-  toggleColor(4);
-});
-
 
 function toggleColor(i){
   oldCheck=isCardAlreadyChecked[i].checked;
