@@ -22,34 +22,45 @@ data[char].soundEffects = Object.assign(Object.assign({} , defaultSoundEffects),
 const note = data[char].note;
 
 const font = localStorage.getItem("font");
-var text = new Blotter.Text(char, {
-    family: font,
-    weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
-    fill: "#F4F6FA",
-    size: 450,
-    paddingLeft:60,
-    paddingRight: 60,
-});
 
+WebFont.load({
+    google: {
+      families: ["Frank Ruhl Libre" ]
+    },
+    custom: {
+        families: [font],
+        urls: ['../../fonts/fonts.css']
+    },
+    active: function(){
+        var text = new Blotter.Text(char, {
+            family: font,
+            weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
+            fill: "#F4F6FA",
+            size: 300,
+            paddingLeft:60,
+            paddingRight: 60,
+        });
+        
+        
+        
+        var material = new Blotter.RollingDistortMaterial();
+        Object.keys(material.uniforms).forEach(function (key, index) {
+            if (defaultUniforms[key]) {
+                if (key === "uDistortPosition") {
+                    material.uniforms[key].value = [Number(data[char].uniforms[key][0]), Number(data[char].uniforms[key][1])];
+                } else {
+                    material.uniforms[key].value = Number(data[char].uniforms[key])
+                }
+            }
+        })
+        
+        var blotter = new Blotter(material, {
+            texts: text,
+        });
+        
+        var scope = blotter.forText(text);
+        scope.appendTo(document.querySelector("#char"));
 
-
-var material = new Blotter.RollingDistortMaterial();
-Object.keys(material.uniforms).forEach(function (key, index) {
-    if (defaultUniforms[key]) {
-        if (key === "uDistortPosition") {
-            material.uniforms[key].value = [Number(data[char].uniforms[key][0]), Number(data[char].uniforms[key][1])];
-        } else {
-            material.uniforms[key].value = Number(data[char].uniforms[key])
-        }
-    }
-})
-
-var blotter = new Blotter(material, {
-    texts: text,
-});
-
-var scope = blotter.forText(text);
-scope.appendTo(document.querySelector("#char"));
 
 function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
     let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
@@ -115,6 +126,8 @@ function convertValueToRotation(effect){
     currValue -= 132;
     return currValue;
 }
+
+
 
 var app = new Vue({
     el: '#app',
@@ -284,6 +297,7 @@ var app = new Vue({
                 let rotationValue = convertValueToRotation(knob.visualEffect);
                 knob.rotation = rotationValue;
             })
+            $("#app").show();
         }
     },
     methods: {
@@ -339,3 +353,4 @@ $("#reset").click(function () {
     
       Object.values(blotter._scopes)[0].render();
     });
+    }});

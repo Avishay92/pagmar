@@ -1,3 +1,4 @@
+const font = localStorage.getItem("font");
 let data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
@@ -197,7 +198,15 @@ function activateChar(char) {
   });
 }
 
-document.fonts.ready.then(function() {
+WebFont.load({
+  google: {
+    families: ["Frank Ruhl Libre" ]
+  },
+  custom: {
+      families: [font],
+      urls: ['../../fonts/fonts.css']
+  },
+  active: function (){
   //builds blotter and insert pointers to data
   $(document).ready(function() {
 
@@ -207,7 +216,6 @@ document.fonts.ready.then(function() {
     document
       .querySelectorAll("[data-blotter]")
       .forEach(function(gridItemElement) {
-        const font = localStorage.getItem("font");
         const style = {
           family: font,
           weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
@@ -329,4 +337,4 @@ document.fonts.ready.then(function() {
       Object.values(blotter._scopes)[0].render();
     });
   });
-});
+}});

@@ -197,6 +197,18 @@ function emptySequence(length) {
   }
 }
 
+const font = localStorage.getItem("font");
+
+WebFont.load({
+    google: {
+      families: ["Frank Ruhl Libre" ]
+    },
+    custom: {
+        families: [font],
+        urls: ['../../fonts/fonts.css']
+    },
+    active: function (){
+
 $(document).ready(function() {
   const font = localStorage.getItem("font");
   const style = {
@@ -294,3 +306,4 @@ $(document).ready(function() {
     }
   });
 });
+    }});

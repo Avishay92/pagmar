@@ -3,9 +3,10 @@
     <link rel="stylesheet" href="../fonts/stylesheet.css" />
     <link rel="stylesheet" href="../fonts/fonts.css" />
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre:700" rel="stylesheet" />
     <script src="../blotter/blotter.min.js"></script>
-    <script src="../blotter/RollingDistortMaterial.js"></script>    
+    <script src="../blotter/RollingDistortMaterial.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+  
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
@@ -56,7 +57,7 @@
 
     <!-- PAGE STUFF -->
 
-    <div id="app" @mouseUp="unselectKnobs" style="position:fixed; bottom:0; width:100%">
+    <div id="app" style="display:none; position: fixed; bottom: 0; width: 100%" @mouseUp="unselectKnobs" style="position:fixed; bottom:0; width:100%">
       <div class="page-container">
         <div class="rela-block container knob-container">
           <div
