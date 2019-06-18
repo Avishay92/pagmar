@@ -182,6 +182,7 @@ $(document).ready(function() {
   for (let k=0; k<5; k++){
     $("#"+k).on('click', function(){
       toggleColor(k);
+
     });  
   }
 });
@@ -189,8 +190,8 @@ $(document).ready(function() {
 $(instrumentForm).change( () => {
   $btnContainer.removeClass('disable');
 })
-let oldCheck;
 
+let oldCheck;
 function toggleColor(i){
   oldCheck=isCardAlreadyChecked[i].checked;
     if (!oldCheck){
@@ -206,6 +207,26 @@ function toggleColor(i){
     else {
       isCardAlreadyChecked[i].checked = false;
       $('#'+i).css("background-color",grey);
+      $btnContainer.addClass('disable');
     }
   }
   
+  instrumentHovered.forEach(function(value, index) {
+    $(value).mouseenter(function() {
+      let id = value.id;
+      instruments[id].triggerAttackRelease("C4", "4n");
+      for (let i=0; i< 5;i++){
+           $('#'+id).css("background-color", colors[id]);
+      }
+    });
+    $(value).mouseleave(function() {
+      let id = value.id;
+      for (let i=0; i< 5;i++){
+      if (isCardAlreadyChecked[id].checked === false)
+          $('#'+id).css("background-color", grey);
+          break;
+      }
+
+    });
+
+  });

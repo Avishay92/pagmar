@@ -30,7 +30,7 @@ let sequence = [];
 let inputData = [];
 let index = 0;
 let fontSize = 200;
-let letterSpace = 3;
+let letterSpace = 0;
 let wordSpace = 50;
 let tempo = 100;
 
@@ -53,7 +53,7 @@ $("#increase-font-size").click(function() {
 });
 
 $("#decrease-font-size").click(function() {
-  if (fontSize !== 0) {
+  if (fontSize > 0) {
     fontSize -= 10;
   }
   $("#font-size span").text(fontSize.toString());
@@ -87,11 +87,8 @@ $("#increase-letter-space").click(function() {
 });
 
 $("#decrease-letter-space").click(function() {
-  if (letterSpace !== 0) {
-    letterSpace -= 5;
-    if (letterSpace < -30) {
-      letterSpace = -30;
-    }
+  if (letterSpace > -5) {
+    letterSpace = -5;
   }
   $("#letter-spacing span").text(letterSpace.toString());
   const input = $(".word > canvas");
