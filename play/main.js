@@ -42,7 +42,7 @@ let blotter, char;
 $("#increase-font-size").click(function() {
   fontSize += 10;
   $("#font-size span").text(fontSize.toString());
-  const input = $(".word").children();
+  const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
@@ -57,7 +57,7 @@ $("#decrease-font-size").click(function() {
     fontSize -= 10;
   }
   $("#font-size span").text(fontSize.toString());
-  const input = $(".word").children();
+  const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
@@ -70,7 +70,7 @@ $("#decrease-font-size").click(function() {
 $("#increase-letter-space").click(function() {
   letterSpace += 5;
   $("#letter-spacing span").text(letterSpace.toString());
-  const input = $(".word").children();
+  const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
@@ -94,7 +94,7 @@ $("#decrease-letter-space").click(function() {
     }
   }
   $("#letter-spacing span").text(letterSpace.toString());
-  const input = $(".word").children();
+  const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
@@ -108,7 +108,7 @@ $("#decrease-letter-space").click(function() {
 $("#increase-word-space").click(function() {
   wordSpace += 5;
   $("#word-spacing span").text(wordSpace.toString());
-  const input = $(".word").children();
+  const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
@@ -125,7 +125,7 @@ $("#decrease-word-space").click(function() {
     wordSpace -= 5;
   }
   $("#word-spacing span").text(wordSpace.toString());
-  const input = $(".word").children();
+  const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
@@ -146,7 +146,7 @@ tempoRange.addEventListener("input", function() {
 $("#play").click(switchPlayMode);
 
 function switchPlayMode() {
-  const input = $(".word").children();
+  const input = $(".word > canvas");
   let img;
   if (inputData.length !== 0 || !playPressed) {
     //check if empty!
