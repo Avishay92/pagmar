@@ -4,6 +4,7 @@ const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
 let blotters = {};
+let lettersToPlay={};
 let lastChar = null;
 const alphabeth = [
   "א",
@@ -191,9 +192,12 @@ function activateChar(char) {
     });
   }
   updateEffects(soundEffects);
-  const note = data[char].note;
+  // document.removeEventListener( 'keyup', listener );
+
   Tone.context.resume().then(() => {
-    instrument.triggerAttackRelease(note);
+    Object.values(lettersToPlay).forEach(function (value){
+    instrument.triggerAttackRelease(value);
+    })
   });
 }
 
@@ -266,7 +270,9 @@ document.fonts.ready.then(function() {
 
   $(document).keydown(function(event) {
     var char = event.key; // charCode will contain the code of the character inputted
+   
     if ("א" <= char && char <= "ת") {
+      lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});
       if (
         defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
         "MembraneSynth"
@@ -283,7 +289,10 @@ document.fonts.ready.then(function() {
 
   $(document).keyup(function(event) {
     var char = event.key; // charCode will contain the code of the character inputted
-    resetChar(char);
+    if ("א" <= char && char <= "ת") {
+      resetChar(char);
+      delete lettersToPlay[char];
+    }
   });
 
   $("#logo").click(function() {
