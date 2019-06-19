@@ -9,7 +9,7 @@ $(document).ready(function() {
   const $labels = $("#instrument label");
   const label = $labels.toArray();
 
-const alphabetForm = document.querySelector("#alphabet");
+const alphabetForm = document.querySelector("#alphabet-content");
 
   // $(document).on('click', 'label', function() {
   //   const currentInput = $(this).find('input');
@@ -34,16 +34,21 @@ const alphabetForm = document.querySelector("#alphabet");
     location.assign("/create/synth");
   });
 
-  $(alphabet).change(() => {
+  $(alphabetForm).change(() => {
     $btnContainer.removeClass("disable");
   });
 });
 
 $('#tabs > span').click((event)=>{
   if (event.target.className === "selected"){
-    console.log("selected")
   }else{
-    
+    $('#tabs > span').each((el, val)=>{
+      $(val).toggleClass("selected")
+      if (val.className === "selected"){
+        $(`#${val.id}-content`).show()
+      }else{
+        $(`#${val.id}-content`).hide()
+      }
+    })
   }
-  console.log(event)
 })

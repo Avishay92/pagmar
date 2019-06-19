@@ -243,3 +243,25 @@ Taamula */
 #language{
   cursor: pointer;
 }
+
+#upload-content{
+  height: 226px;
+  width: 100%;
+  background-color: #202020;
+  border-radius: 8px;
+  padding: 40px;
+}
+
+#upload-content > input{
+  display: none;
+}
+
+#upload-content > div{
+  color: #f4f6fa;
+  line-height: 2;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #f4f6fa;
+  border-radius: 8px;
+}

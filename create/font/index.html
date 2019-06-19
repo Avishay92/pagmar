@@ -26,14 +26,14 @@
         </div>
         <div id="actions" style="height: 50px">
           <div id="tabs">
-            <span id="popular" class="selected" style="margin-right: 4px">Popular</span>
+            <span id="alphabet" class="selected" style="margin-right: 4px">Popular</span>
             <span id="upload">Upload your own</span>
           </div>
           <div id="language">
             Heb 
           </div>
         </div>
-        <form action="" id="alphabet" class="cards-container">
+        <form action="" id="alphabet-content" class="cards-container">
           <label for="Taamula" class="Taamula">
             <input
               type="radio"
@@ -87,6 +87,14 @@
             </div>
           </label>
         </form>
+        <div id="upload-content" style="display:none;">
+          <div style="text-align: center; margin: auto; display: flex; flex-direction: column; height: 100%; justify-content: center">
+            <div>LOGO</div>
+            <div>Drag & Drop your font here</div>
+            <div>or <u style="cursor: pointer" onclick="document.getElementById('file').click()">Browse</u></div>
+          </div>
+            <input type="file" id="file" accept=".woff,.woff2,.ttf"/>
+          </div>
         <div class="nav-controls-container">
           <div class="back-btn-container">
             <button id="backBtn" class="nav-btn back-btn icon-arrow">
@@ -98,12 +106,6 @@
             <span class="next-btn-text">Select synth</span>
           </div>
         </div>
-        <!-- 
-              <button
-                class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-              >
-                התחל
-              </button> -->
       </div>
     </div>
     <script src="https://tonejs.github.io/build/Tone.js"></script>
