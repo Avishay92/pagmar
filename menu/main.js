@@ -108,6 +108,7 @@ function updateEffects(soundEffects) {
 function resetChar(char) {
   let blotter;
   let soundEffects;
+  delete lettersToPlay[char];
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -148,6 +149,9 @@ function resetChar(char) {
 function activateChar(char) {
   let blotter;
   let soundEffects;
+  if (Object.keys(lettersToPlay).length <4 ){
+    lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});
+  }
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -198,6 +202,7 @@ function activateChar(char) {
   Tone.context.resume().then(() => {
     Object.values(lettersToPlay).forEach(function (value){
     instrument.triggerAttackRelease(value);
+
     })
   });
 }
@@ -258,6 +263,7 @@ WebFont.load({
           activateChar(char);
         });
         $(gridItemElement).mouseleave(function() {
+          
           resetChar(char);
         });
         $(gridItemElement).click(function() {
@@ -278,29 +284,40 @@ WebFont.load({
 
   $(document).keydown(function(event) {
     var char = event.key; // charCode will contain the code of the character inputted
-   
-    if ("א" <= char && char <= "ת") {
-      lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});
-      if (
-        defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
-        "MembraneSynth"
-      ) {
-        if (lastChar !== char) {
+let listener;
+    // document.removeEventListener( 'keydown', listener);
+    // listener = event => {
+      if ("א" <= char && char <= "ת") {
+        if (
+          defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
+          "MembraneSynth"
+        ) {
+          if (lastChar !== char) {
+            activateChar(char);
+            lastChar = char;
+          }
+        } else {
           activateChar(char);
-          lastChar = char;
         }
-      } else {
-        activateChar(char);
       }
-    }
+    // };
+  
+    // document.addEventListener( 'keydown',listener );
   });
 
   $(document).keyup(function(event) {
-    var char = event.key; // charCode will contain the code of the character inputted
-    if ("א" <= char && char <= "ת") {
-      resetChar(char);
-      delete lettersToPlay[char];
-    }
+    let listener;
+    // document.removeEventListener( 'keyup', listener );
+
+    // listener = event => {
+      var char = event.key; // charCode will contain the code of the character inputted
+      if ("א" <= char && char <= "ת") {
+        resetChar(char);
+      }
+
+    // document.addEventListener( 'keyup', listener );
+  // };
+ 
   });
 
   $("#logo").click(function() {
