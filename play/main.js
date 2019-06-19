@@ -27,7 +27,6 @@ initializeInstrument();
 let input,
   playPressed = 1,
   sequence = [],
-  // cpySequence = [],
   inputData = [],
   index = 0,
   fontSize = 200,
@@ -101,7 +100,6 @@ $("#decrease-letter-space").click(function() {
     }
   }
 });
-let newData = [];
 
 $("#increase-word-space").click(function() {
   wordSpace += 5;
@@ -168,15 +166,12 @@ function switchPlayMode() {
           spaces = 0;
 
           while (spaces < addedNull){
-          console.log("push null");
-
             sequence.push(note);
             spaces++;
           }
         }
         sequence.push(note);
       }
-      console.log(sequence);
 
       Tone.Transport.bpm.value = tempo;
       seq = new Tone.Sequence(function(time, note) {
