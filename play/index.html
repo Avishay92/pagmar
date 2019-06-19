@@ -1,87 +1,108 @@
 <html>
+  <head>
+    <link rel="stylesheet" href="../fonts/stylesheet.css" />
+    <link rel="stylesheet" href="../fonts/fonts.css" />
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css"
+    />
 
-<head>
-  <link rel="stylesheet" href="../fonts/stylesheet.css" />
-  <link rel="stylesheet" href="../fonts/fonts.css" />
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-  <link rel="stylesheet" href="./play.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="../library.js"></script>
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <link rel="stylesheet" href="./play.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="../library.js"></script>
+  </head>
 
-<body>
-  <!-- row -->
-  <nav class="top-bar f-center">
-    <div class="top-bar-left f-center">
-      <div class="logo">
-        <a href="/">
-          <img src="../assets/icons/logocreateICN.png" alt="" />
-        </a>
-      </div>
-      <div class="arrow">
-        <a href="../menu">
-          <img src="../assets/icons/arrowICN.svg" alt="" />
-        </a>
-      </div>
-    </div>
-    <div class="top-bar-center f-center">
-      <div class="actions-container f-center">
-        <div class="action-item" id="play">
-          <img id="play-button" src="../assets/icons/playICN.svg" alt="" />
-          <span>Play</span>
+  <body>
+    <!-- row -->
+    <nav class="top-bar f-center">
+      <div class="top-bar-left f-center">
+        <div class="logo">
+          <a href="/">
+            <img src="../assets/svgs/logo.svg" alt="" />
+          </a>
         </div>
-
-        <div class="action-item">
-          <input id="tempo" type="range" min="60" max="120" step="1">
-          <span>Tempo</span>
-        </div>
-        <button type="text" class="decrease-button" id="decrease-font-size">-</button>
-
-        <div class="action-item">
-          <div class="dot" id="font-size">
-            <span class="number-button">200</span>
+        <div class="seperator"></div>
+        <button id="back" class="nav-btn back-btn icon-arrow">
+          Back
+        </button>
+      </div>
+      <div class="top-bar-center f-center">
+        <div class="actions-container f-center">
+          <div class="action-item" id="play">
+            <img id="play-button" src="../assets/icons/playICN.svg" alt="" />
           </div>
-          <span>Font Size</span>
-        </div>
-        <button type="text" class="increase-button" id="increase-font-size">+</button>
 
-        <button type="text" class="decrease-button" id="decrease-letter-space">-</button>
-        <div class="action-item" id="long-text">
-          <div class="dot" id="letter-spacing">
-            <span class="number-button">0</span>
+          <div class="action-item tempo-container">
+  
+            <label>Tempo</label>
+            <input id="tempo" type="range" min="60" max="120" step="1" />
           </div>
-          <span>Letter Spacing</span>
-        </div>
-        <button type="text" class="increase-button" id="increase-letter-space">+</button>
-        <button type="text" class="decrease-button" id="decrease-word-space">-</button>
-        <div class="action-item" id="long-text">
-          <div class="dot" id="word-spacing">
-            <span class="number-button">50</span>
-          </div>
-          <span>Word Spacing</span>
-        </div>
-        <button type="text" class="increase-button" id="increase-word-space">+</button>
-      </div>
-    </div>
-    <div class="top-bar-right f-center">
-      <div class="next f-center" onclick="location.assign('../download')">
-        <div class="arrow rotate-180 back">
-          <!-- <a href="/menu"> -->
-          <img src="../assets/icons/arrowICN.svg" alt="" />
-          <!-- </a> -->
-        </div>
-        <div>DOWNLOAD</div>
-      </div>
-    </div>
-  </nav>
-  <div class="word">
-    <div><span>Type Something...</span></div>
-  </div>
-  <script src="../blotter/blotter.min.js"></script>
-  <script src="../blotter/RollingDistortMaterial.js"></script>
-  <script src="https://tonejs.github.io/build/Tone.js"></script>
-  <script src="./main.js"></script>
-</body>
+          <button type="text" class="decrease-button" id="decrease-font-size">
+            -
+          </button>
 
+          <div class="action-item">
+            <div class="dot" id="font-size">
+              <span class="number-button">200</span>
+            </div>
+            <span>Font Size</span>
+          </div>
+          <button type="text" class="increase-button" id="increase-font-size">
+            +
+          </button>
+
+          <button
+            type="text"
+            class="decrease-button"
+            id="decrease-letter-space"
+          >
+            -
+          </button>
+          <div class="action-item" id="long-text">
+            <div class="dot" id="letter-spacing">
+              <span class="number-button">0</span>
+            </div>
+            <span>Letter Spacing</span>
+          </div>
+          <button
+            type="text"
+            class="increase-button"
+            id="increase-letter-space"
+          >
+            +
+          </button>
+          <button type="text" class="decrease-button" id="decrease-word-space">
+            -
+          </button>
+          <div class="action-item" id="long-text">
+            <div class="dot" id="word-spacing">
+              <span class="number-button">50</span>
+            </div>
+            <span>Word Spacing</span>
+          </div>
+          <button type="text" class="increase-button" id="increase-word-space">
+            +
+          </button>
+        </div>
+      </div>
+      <div class="top-bar-right f-center">
+        <div class="next f-center" onclick="location.assign('../download')">
+          <div class="arrow rotate-180 back">
+            <!-- <a href="/menu"> -->
+            <img src="../assets/icons/arrowICN.svg" alt="" />
+            <!-- </a> -->
+          </div>
+          <div>DOWNLOAD</div>
+        </div>
+      </div>
+    </nav>
+    <div class="word">
+      <div><span>Type Something...</span></div>
+    </div>
+    <script src="../blotter/blotter.min.js"></script>
+    <script src="../blotter/RollingDistortMaterial.js"></script>
+    <script src="https://tonejs.github.io/build/Tone.js"></script>
+    <script src="./main.js"></script>
+  </body>
 </html>

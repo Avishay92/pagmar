@@ -235,6 +235,13 @@ WebFont.load({
 
 
 $(document).ready(function() {
+
+  $('#back').click( () => {
+    location.assign("../menu");
+  });
+
+
+
   $(document).keydown(function(event) {
     const key = event.keyCode;
     let size = inputData.length;

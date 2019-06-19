@@ -8,6 +8,10 @@
 </head>
 
 <body>
+    <script>
+        document.body.classList.add('fade');
+      </script>
+
 <p>Fontune is an experimental project<br>
     that explores the synthesis of sound <br>
     and typography and provides a unique way<br> 
@@ -45,6 +49,12 @@
         <button id="backBtn" class="nav-btn back-btn icon-arrow">Back</button>
       </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+          document.body.classList.remove('fade');
+        });
+      </script>
+
     <script src="./about.js"></script>
 
 </body>

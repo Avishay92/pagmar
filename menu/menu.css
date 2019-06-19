@@ -1,4 +1,25 @@
 @font-face {
+  font-family: "Glyphter";
+  src: url("../../fonts/Glyphter.eot");
+  src: url("../../fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/Glyphter.woff") format("woff"),
+    url("../../fonts/Glyphter.ttf") format("truetype"),
+    url("../../fonts/Glyphter.svg#Glyphter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class*="icon-"]:after,
+[class*="icon-"]:before {
+  display: inline-block;
+  font-family: "Glyphter";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
   font-family: 'frankgbold';
   src: url('../fonts/frankgbold-webfont.woff2') format('woff2'),
        url('../fonts/frankgbold-webfont.woff') format('woff');
@@ -9,11 +30,14 @@
 :root {
   --bar-height: 120px;
   --bar-background: #202020;
+  --clr-white: #f4f6fa;
+  --clr-black: #202020;
+  --clr-grey-dark: #828385;
 }
 
 body {
   background: #161616;
-  color: white;
+  color: #f4f6fa;
   font-family: "ploni_dl_1.1_aaamedium" !important;
   z-index: -10;
   margin: 0;
@@ -48,7 +72,7 @@ body {
   position: relative;
   justify-content: center;
   display: flex;
-  opacity: 0.5;
+  opacity: 0.1;
   cursor: pointer;
 }
 
@@ -74,12 +98,15 @@ body {
   --color: #a7a8ab;
   height: var(--bar-height);
   background-color: var(--bar-background);
-  padding: 0 50px 0 25px;
+  padding: 0 50px;
   justify-content: space-between;
   color: var(--color);
   font-size: 12px;
 }
 
+.logo {
+  margin-right: 40px;
+}
 
 .logo img {
   width: 100%;
@@ -102,15 +129,22 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: transform 100ms linear;
   cursor: pointer;
 }
-
-.action-item:hover {
-  transform: scale(1.1);
+.action-item img {
+  transition: transform 100ms linear;
 }
 
-.next span,
+.action-item img:hover {
+  transform: scale(1.2);
+}
+
+.seperator {
+  height: 70px;
+  width: 1px;
+  background-color: #2e2e2e;
+}
+
 .action-item span {
   margin-top: 8px;
 }
@@ -120,12 +154,83 @@ body {
 }
 
 .next {
-	flex-direction: column;
 	margin-left: auto;
 }
 
-.arrow {
+.next-btn-text {
+  margin-top: 26px;
+  color: #5e5e60;
+}
+
+#nextBtn {
+  position: relative;
+  top: 20px;
+}
+
+/* .arrow {
   cursor: pointer;
   padding: 20px;
+} */
+
+
+
+.back-btn:hover {
+  color: var(--clr-white);
 }
+
+.nav-btn {
+  user-select: none;
+  outline: none;
+  max-width: 150px;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 89px;
+  height: 32px;
+  background-color: var(--clr-white);
+  transition: all 400ms;
+  cursor: pointer;
+}
+
+.back-btn {
+  background-color: transparent;
+  border: transparent;
+  color: var(--clr-grey-dark);
+  font-size: 12px;
+}
+
+.back-btn.icon-arrow:before {
+  content: "\0041";
+  margin-right: 9px;
+  transform: rotate(180deg);
+}
+
+.next-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin-left: 45px;
+  text-align: center;
+}
+
+/* .next-btn-container.disable .nav-btn {
+  background-color: transparent;
+  border: transparent;
+  pointer-events: none;
+
+  color: var(--clr-grey-dark);
+} */
+/* .next-btn-container.disable:hover {
+  cursor: not-allowed;
+} */
+
+/* .next-btn-container.disable .next-btn-text {
+  visibility: hidden;
+  opacity: 0;
+} */
 

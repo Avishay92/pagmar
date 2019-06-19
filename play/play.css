@@ -1,4 +1,40 @@
 @font-face {
+  font-family: "Glyphter";
+  src: url("../../fonts/Glyphter.eot");
+  src: url("../../fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/Glyphter.woff") format("woff"),
+    url("../../fonts/Glyphter.ttf") format("truetype"),
+    url("../../fonts/Glyphter.svg#Glyphter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class*="icon-"]:after,
+[class*="icon-"]:before {
+  display: inline-block;
+  font-family: "Glyphter";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'frankgbold';
+  src: url('../fonts/frankgbold-webfont.woff2') format('woff2'),
+       url('../fonts/frankgbold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --clr-white: #f4f6fa;
+  --clr-black: #202020;
+  --clr-grey-dark: #828385;
+}
+
+
+@font-face {
   font-family: "frankgbold";
   src: url("frankgbold-webfont.woff2") format("woff2"),
     url("frankgbold-webfont.woff") format("woff");
@@ -72,7 +108,7 @@ body {
   color: #a7a8ab;
   height: var(--bar-height);
   background-color: var(--bar-background);
-  padding: 0 50px 0 25px;
+  padding: 0 50px;
   justify-content: space-between;
   font-size: 12px;
 }
@@ -235,4 +271,56 @@ body {
   margin: auto 20;
   height: 200px;
   width: 2px
+}
+
+.nav-btn {
+  user-select: none;
+  outline: none;
+  max-width: 150px;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 89px;
+  height: 32px;
+  background-color: var(--clr-white);
+  transition: all 400ms;
+  cursor: pointer;
+}
+
+.back-btn {
+  background-color: transparent;
+  border: transparent;
+  color: var(--clr-grey-dark);
+  font-size: 12px;
+  margin-left: 45px;
+}
+
+.back-btn.icon-arrow:before {
+  content: "\0041";
+  margin-right: 9px;
+  transform: rotate(180deg);
+}
+.seperator {
+  height: 70px;
+  width: 1px;
+  background-color: #2e2e2e;
+}
+
+.logo {
+  margin-right: 40px;
+}
+
+.tempo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tempo-container label {
+  margin-right: 20px;
 }

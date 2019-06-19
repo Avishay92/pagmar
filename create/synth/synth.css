@@ -36,6 +36,8 @@
   box-sizing: border-box;
 }
 
+
+
 body {
   background: #161616;
   color: #828385;
@@ -59,8 +61,12 @@ body {
 }
 
 .logo {
-  margin-left: 45px;
-  margin-top: 45px;
+  padding: 0 50px;
+  margin-top: 55px;
+}
+
+.logo img {
+  width: auto;
 }
 .entry {
   display: flex;
@@ -72,7 +78,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 200px);
   margin: auto;
-  grid-gap: 20px;
+  grid-gap: 16px;
 }
 
 #Synth:checked + .card,

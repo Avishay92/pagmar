@@ -37,10 +37,23 @@
 }
 
 body {
+  opacity: 1;
+  transition: 0.6s opacity;
+}
+
+body.fade {
+    opacity: 0;
+    transition: ease-out;
+}
+
+body {
   background: #161616;
   color: #828385;
-  font-family: "ploni_dl_1.1_aaamedium" !important;
+  font-family: "ploni_dl_1.1_aaaregular" !important;
 }
+
+
+
 .container {
   padding: 0 180px;
 }
@@ -59,8 +72,12 @@ body {
 }
 
 .logo {
-  margin-left: 45px;
-  margin-top: 45px;
+  padding: 0 50px;
+  margin-top: 55px;
+}
+
+.logo img {
+  width: auto;
 }
 .entry {
   display: flex;
@@ -72,7 +89,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 200px);
   margin: auto;
-  grid-gap: 20px;
+  grid-gap: 16px;
 }
 
 .card {
@@ -230,6 +247,9 @@ Taamula */
 #actions{
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: -21;
+
 }
 
 #tabs > span{
@@ -245,6 +265,7 @@ Taamula */
 }
 
 #upload-content{
+  
   height: 226px;
   width: 100%;
   background-color: #202020;
@@ -257,6 +278,7 @@ Taamula */
 }
 
 #upload-content > div{
+  
   color: #f4f6fa;
   line-height: 2;
   font-size: 16px;
@@ -264,4 +286,6 @@ Taamula */
   height: 100%;
   border: 2px dashed #f4f6fa;
   border-radius: 8px;
+  
+
 }

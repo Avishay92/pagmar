@@ -320,6 +320,10 @@ let listener;
  
   });
 
+  $("#backBtn").click(function() {
+    location.assign("../create/synth");
+  });
+
   $("#logo").click(function() {
     location.assign("../");
   });
