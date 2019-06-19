@@ -25,14 +25,16 @@ initializeEffects();
 initializeInstrument();
 
 let input,
-  playPressed = 1;
-let sequence = [];
-let inputData = [];
-let index = 0;
-let fontSize = 200;
-let letterSpace = 0;
-let wordSpace = 50;
-let tempo = 100;
+  playPressed = 1,
+  sequence = [],
+  // cpySequence = [],
+  inputData = [],
+  index = 0,
+  fontSize = 200,
+  letterSpace = 0,
+  wordSpace = 50,
+  tempo = 100,
+  addedNull=0;
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -44,7 +46,7 @@ $("#increase-font-size").click(function() {
   $("#font-size span").text(fontSize.toString());
   const input = $(".word > canvas");
   if (inputData.length !== 0) {
-    for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i < inputData.length; i++) {
       blotter = inputData[i];
       blotter.texts[0].properties.size = fontSize;
       blotter.needsUpdate = true;
@@ -59,7 +61,7 @@ $("#decrease-font-size").click(function() {
   $("#font-size span").text(fontSize.toString());
   const input = $(".word > canvas");
   if (inputData.length !== 0) {
-    for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i < inputData.length; i++) {
       blotter = inputData[i];
       blotter.texts[0].properties.size = fontSize;
       blotter.needsUpdate = true;
@@ -91,7 +93,7 @@ $("#decrease-letter-space").click(function() {
   }
   $("#letter-spacing span").text(letterSpace.toString());
   if (inputData.length !== 0) {
-    for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i < inputData.length; i++) {
       blotter = inputData[i];
       blotter.texts[0].properties.paddingRight = letterSpace;
       blotter.texts[0].properties.paddingLeft = letterSpace;
@@ -99,20 +101,20 @@ $("#decrease-letter-space").click(function() {
     }
   }
 });
+let newData = [];
 
 $("#increase-word-space").click(function() {
   wordSpace += 5;
+  addedNull++;
   $("#word-spacing span").text(wordSpace.toString());
   const input = $(".word > canvas");
-  if (inputData.length !== 0) {
-    for (let i = 0; i < input.length; i++) {
-      blotter = inputData[i];
-      if (blotter.texts[0].value === " ") {
-        inputData[i - 1].texts[0].properties.paddingLeft = wordSpace;
-        inputData[i - 1].needsUpdate = true;
-      }
+  for (let i = 0; i < inputData.length; i++) {
+    if (inputData[i].texts[0].value === " ") {
+        inputData[i-1].texts[0].properties.paddingLeft = wordSpace*(addedNull+1);
+        inputData[i-1].needsUpdate=true;
     }
   }
+ initPlay();
 });
 
 $("#decrease-word-space").click(function() {
@@ -120,15 +122,14 @@ $("#decrease-word-space").click(function() {
     wordSpace -= 5;
   }
   $("#word-spacing span").text(wordSpace.toString());
-  if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
-      blotter = inputData[i];
-      if (blotter.texts[0].value === " ") {
-        inputData[i - 1].texts[0].properties.paddingLeft = wordSpace;
-        inputData[i - 1].needsUpdate = true;
+     if (inputData[i].texts[0].value === " ") {
+      inputData[i-1].texts[0].properties.paddingLeft = wordSpace*(addedNull);
+      inputData[i-1].needsUpdate=true;
       }
     }
-  }
+  addedNull--;
+  initPlay();
 });
 
 let tempoRange = document.querySelector("#tempo");
@@ -137,6 +138,16 @@ tempoRange.addEventListener("input", function() {
   Tone.Transport.bpm.value = tempo;
 });
 
+function initPlay(){
+  if (!playPressed) {
+    playPressed = !playPressed;
+    seq.stop();
+    index = 0;
+    Tone.Transport.bpm.value = tempo;
+    switchPlayMode();
+  }
+}
+ 
 $("#play").click(switchPlayMode);
 
 function switchPlayMode() {
@@ -144,43 +155,58 @@ function switchPlayMode() {
   let img;
   if (inputData.length !== 0 || !playPressed) {
     var playModeText;
-    let char;
+    let char, spaces;
     if (playPressed) {
       let note, stop;
       img = "../assets/icons/stopICN.svg";
       playModeText = "Stop";
       for (let i = 0; i < inputData.length; i++) {
+
         char = inputData[i].texts[0].value;
         note = data[char].note;
+        if (char === " "){
+          spaces = 0;
+
+          while (spaces < addedNull){
+          console.log("push null");
+
+            sequence.push(note);
+            spaces++;
+          }
+        }
         sequence.push(note);
-    
       }
-        Tone.Transport.bpm.value = tempo;
-        seq = new Tone.Sequence(function(time, note) {
-        let currentIndex = index;
-        char = data[input[index].innerHTML];
-        stop = (4 / 16) * (60 / tempo) * 1000;
-        // if (char.char === " "){
-        //   stop = (4 / 16) * (60 / tempo)*6000;
-        // }
-        
-        setTimeout(function() {
-          inputData[currentIndex].material.uniforms.uSpeed.value = 0.0;
-        }, stop);
-        // if (char.char !== " "){
-          inputData[currentIndex].material.uniforms.uSpeed.value = 0.08;
-        // }
-        instrument.triggerAttackRelease(note, "16n");
-        updateEffects(inputData[index].soundEffects);
-        index++;
-        if (index === input.length) {
-          index = 0;
+      console.log(sequence);
+
+      Tone.Transport.bpm.value = tempo;
+      seq = new Tone.Sequence(function(time, note) {
+      let currentIndex = index;
+      char = data[input[index].innerHTML];
+      stop = (4 / 16) * (60 / tempo) * 1000;
+      // if (char.char === " "){
+      //   stop = (4 / 16) * (60 / tempo)*6000;
+      // }
+      
+      setTimeout(function() {
+        inputData[currentIndex].material.uniforms.uSpeed.value = 0.0;
+      }, stop);
+      // if (char.char !== " "){
+        inputData[currentIndex].material.uniforms.uSpeed.value = 0.08;
+      // }
+      instrument.triggerAttackRelease(note, "16n");
+      updateEffects(inputData[index].soundEffects);
+      index++;
+      if (index === inputData.length) {
+        index = 0;
         }
       }, sequence);
       seq.start();
       Tone.Transport.start();
-      emptySequence(input.length);
-    } else {
+      while (sequence.length > 0 ){
+        sequence.pop();
+      }      
+    }
+    else {
       seq.stop();
       playModeText = "Play";
       index = 0;
@@ -192,13 +218,15 @@ function switchPlayMode() {
   }
 }
 
-function emptySequence(length) {
-  for (let i = 0; i < length; i++) {
-    sequence.pop();
-  }
-}
-
 const font = localStorage.getItem("font");
+
+const style = {
+  family: font,
+  weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
+  fill: "#F4F6FA",
+  size: 200
+};
+
 
 WebFont.load({
     google: {
@@ -210,101 +238,97 @@ WebFont.load({
     },
     active: function (){
 
-$(document).ready(function() {
-  const font = localStorage.getItem("font");
-  const style = {
-    family: font,
-    weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
-    fill: "#F4F6FA",
-    size: 200
-  };
 
+$(document).ready(function() {
   $(document).keydown(function(event) {
     const key = event.keyCode;
     let size = inputData.length;
     if (key == 8 || key == 46) {
       $(".word > canvas").last().remove();
-
       if ($(".word > canvas").length === 0) {
         document.querySelector(".word").innerHTML = "<div>Type Something</div>";
+      }
+      if (inputData[inputData.length-1].texts[0].value===" "){
+        inputData[inputData.length-2].texts[0].properties.paddingLeft = letterSpace;
+        inputData[inputData.length-2].needsUpdate = true;
       }
       inputData.pop();
       if (!playPressed) {
         if (inputData.length !== 0) {
-          playPressed = !playPressed;
-          seq.stop();
-          index = 0;
-          Tone.Transport.bpm.value = tempo;
-        }
+          initPlay();
+        }else{
         switchPlayMode();
+        }
       }
     } else {
       var char = data[event.key]; // charCode will contain the code of the character inputted
       if (char) {
-        $(".word > div").remove();
-        $(".word > span").remove();
-        let material = new Blotter.RollingDistortMaterial();
-        let uniforms = Object.assign(
-          Object.assign({}, defaultUniforms),
-          char.uniforms
-        );
-        Object.keys(material.uniforms).forEach(function(key, index) {
-          if (defaultUniforms[key]) {
-            if (key === "uDistortPosition") {
-              material.uniforms[key].value = [
-                Number(uniforms[key][0]),
-                Number(uniforms[key][1])
-              ];
-            } else {
-              material.uniforms[key].value = Number(uniforms[key]);
-            }
-          }
-        });
-        const text = new Blotter.Text(char.char, style);
-        const blotter = new Blotter(material, {
-          texts: text
-        });
-        const scope = blotter.forText(text);
+       let blotter = buildBlotter(char);
+      inputData.push(blotter);
+      initPlay();
 
-        let soundEffects = {
-          sAutoWahEffect: f1,
-          sPhaserEffect: f1,
-          sVibratoEffect: f1,
-          sReverbEffect: f1,
-          sPitchEffect: f1,
-          sDistortionEffect: f1,
-          sFeedbackEffect: f1,
-          sTremoloEffect: f1
-        };
-        soundEffects = Object.assign(
-          Object.assign({}, defaultSoundEffects),
-          data[char.char].soundEffects
-        );
-        blotter.soundEffects = soundEffects;
-        blotter.texts[0].properties.size = fontSize;
-        blotter.texts[0].properties.paddingRight = letterSpace;
-        blotter.texts[0].properties.paddingLeft = letterSpace;
-
-        inputData.push(blotter);
-
-        scope.appendTo($(".word"));
-        // add blink
-        $(".word").append("<span id='line'></span>")
-        Object.values(blotter._scopes)[0].render();
-        if (!playPressed) {
-          playPressed = !playPressed;
-          seq.stop();
-          index = 0;
-          Tone.Transport.bpm.value = tempo;
-          switchPlayMode();
-        }
-        if (char.char === " ") {
-          inputData[size - 1].texts[0].properties.paddingLeft = wordSpace;
-          inputData[size - 1].needsUpdate = true;
-          inputData[size].needsUpdate = true;
-        }
+      if (char.char === " ") {
+        inputData[size - (addedNull+1)].texts[0].properties.paddingLeft = wordSpace*(addedNull+1);
+        inputData[size - (addedNull+1)].needsUpdate = true;
+        inputData[size].needsUpdate = true;
+      }
       }
     }
   });
 });
     }});
+
+    function buildBlotter(char){
+      $(".word > div").remove();
+      $(".word > span").remove();
+      let material = new Blotter.RollingDistortMaterial();
+      let uniforms = Object.assign(
+        Object.assign({}, defaultUniforms),
+        char.uniforms
+      );
+      Object.keys(material.uniforms).forEach(function(key, index) {
+        if (defaultUniforms[key]) {
+          if (key === "uDistortPosition") {
+            material.uniforms[key].value = [
+              Number(uniforms[key][0]),
+              Number(uniforms[key][1])
+            ];
+          } else {
+            material.uniforms[key].value = Number(uniforms[key]);
+          }
+        }
+      });
+      const text = new Blotter.Text(char.char, style);
+      const blotter = new Blotter(material, {
+        texts: text
+      });
+      const scope = blotter.forText(text);
+
+      let soundEffects = {
+        sAutoWahEffect: f1,
+        sPhaserEffect: f1,
+        sVibratoEffect: f1,
+        sReverbEffect: f1,
+        sPitchEffect: f1,
+        sDistortionEffect: f1,
+        sFeedbackEffect: f1,
+        sTremoloEffect: f1
+      };
+      soundEffects = Object.assign(
+        Object.assign({}, defaultSoundEffects),
+        data[char.char].soundEffects
+      );
+      blotter.soundEffects = soundEffects;
+      blotter.texts[0].properties.size = fontSize;
+      blotter.texts[0].properties.paddingRight = letterSpace;
+      blotter.texts[0].properties.paddingLeft = letterSpace;
+
+      if (char!== " "){
+      scope.appendTo($(".word"));
+      // add blink
+      $(".word").append("<span id='line'></span>")
+      Object.values(blotter._scopes)[0].render();
+
+    }
+      return blotter;
+    }
