@@ -8,6 +8,38 @@ body {
     margin: 80 140;
 }
 
+
+.links {
+color: #828385;
+font-family: "ploni_dl_1.1_aaalight" !important;
+font-size: 14px;
+line-height: 22px;
+
+}
+
+a:link, a:visited {
+  color: #F4F6FA;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
+
+
+}
+
+hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: 750px;
+  border-style: inset;
+  border-width: 0.5px;
+  color: #F4F6FA;
+}
+
+
 .nav-controls-container {
     display: flex;
     align-content: center;
