@@ -38,3 +38,12 @@ const alphabetForm = document.querySelector("#alphabet");
     $btnContainer.removeClass("disable");
   });
 });
+
+$('#tabs > span').click((event)=>{
+  if (event.target.className === "selected"){
+    console.log("selected")
+  }else{
+    
+  }
+  console.log(event)
+})

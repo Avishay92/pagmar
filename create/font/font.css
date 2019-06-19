@@ -226,3 +226,20 @@ Arbel
 Hadassa
 Haim
 Taamula */
+
+#actions{
+  display: flex;
+  justify-content: space-between;
+}
+
+#tabs > span{
+  cursor: pointer;
+}
+
+#tabs .selected{
+  color: #f4f6fa;
+}
+
+#language{
+  cursor: pointer;
+}
