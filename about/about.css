@@ -1,11 +1,33 @@
 
+@font-face {
+  font-family: "Glyphter";
+  src: url("../../fonts/Glyphter.eot");
+  src: url("../../fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/Glyphter.woff") format("woff"),
+    url("../../fonts/Glyphter.ttf") format("truetype"),
+    url("../../fonts/Glyphter.svg#Glyphter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class*="icon-"]:after,
+[class*="icon-"]:before {
+  display: inline-block;
+  font-family: "Glyphter";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
 body {
     color: #828385;
     background: #161616 !important;
     color: #ADAEB1;
     font-family: "ploni_dl_1.1_aaalight" !important;
     font-size: 40px;
-    margin: 80 140;
+    margin: 80 120;
 }
 
 
@@ -39,105 +61,83 @@ hr {
   color: #F4F6FA;
 }
 
-
 .nav-controls-container {
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-  }
+  display: flex;
+  align-content: center;
+  justify-content: space-between; 
+}
+
+.next-btn-container {
+ display: flex;
+ flex-direction: column;
+ align-content: center; 
+
+}
+
+.next-btn-container.disable .nav-btn{
+  background-color: transparent;
+  border: transparent;
+  pointer-events: none;
+
+  color: var(--clr-grey-dark);
+}
+.next-btn-container.disable:hover {
+  cursor: not-allowed;
+}
+
+.next-btn-container.disable .next-btn-text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.nav-btn {
+  user-select: none;
+  outline: none;
+  margin-top: 70px;
+  max-width: 150px;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: var(--clr-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 58px;
+  height: 32px;
+  color: var(--clr-black);
+  transition: all 400ms;
+  cursor: pointer;
   
-  .next-btn-container {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-  }
-  
-  .next-btn-container.disable .nav-btn {
-    background-color: transparent;
-    border: transparent;
-    pointer-events: none;
-  
-    color: var(--clr-grey-dark);
-  }
-  .next-btn-container.disable:hover {
-    cursor: not-allowed;
-  }
-  
-  .next-btn-container.disable .next-btn-text {
-    visibility: hidden;
-    opacity: 0;
-  }
-  
-  .nav-btn {
-    user-select: none;
-    outline: none;
-    margin-top: 100px;
-    max-width: 150px;
-    font-family: "ploni_dl_1.1_aaamedium" !important;
-    font-size: 14px;
-    border-radius: 4px;
-    background-color: var(--clr-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-    width: 89px;
-    height: 32px;
-    color: var(--clr-black);
-    transition: all 400ms;
-    cursor: pointer;
-  }
-  
-  .next-btn-text {
-    font-size: 12px;
-    color: var(--clr-grey);
-    margin-top: 7px;
-    opacity: 1;
-    text-align: center;
-  }
-  
-  .back-btn {
-    background-color: transparent;
-    border: transparent;
-    color: var(--clr-grey-dark);
-    font-size: 12px;
-  }
-  .back-btn:hover {
-    color: var(--clr-white);
-  }
-  
-  .back-btn.icon-arrow:after {
-    display: none;
-  }
-  .back-btn.icon-arrow:before {
-    content: "\0041";
-    margin-right: 9px;
-    transform: rotate(180deg);
-  }
-  
-  .icon-a-taamula:before {
-    content: "\0042";
-  }
-  .icon-a-arbel:before {
-    content: "\0043";
-  }
-  .icon-a-hadassa:before {
-    content: "\0044";
-  }
-  .icon-a-haim:before {
-    content: "\0045";
-  }
-  .icon-a-frank:before {
-    content: "\0046";
-  }
-  
-  .icon-arrow:after {
-    content: "\0041";
-    margin-left: 9px;
-  }
-  
-  input:checked + .card,
-  label .card:hover {
-      background-color: var(--clr-white);
-      color: var(--clr-black);
-  }
+}
+
+.next-btn-text {
+  font-size: 12px;
+  color: var(--clr-grey);
+  margin-top: 7px;
+  opacity: 1;
+}
+
+.back-btn {
+  background-color: transparent;
+  border: transparent;
+  color: var(--clr-grey-dark);
+  font-size: 12px;
+}
+.back-btn:hover{
+   color: var(--clr-white);
+}
+
+.back-btn.icon-arrow:after {
+  display: none;
+}
+.back-btn.icon-arrow:before {
+  content: "\0041";
+  margin-right: 9px;
+  transform: rotate(180deg);
+}
+
+.icon-arrow:after {
+  content: "\0041";
+  margin-left: 9px;
+}
