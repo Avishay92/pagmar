@@ -70,12 +70,11 @@ $("#decrease-font-size").click(function() {
 $("#increase-letter-space").click(function() {
   letterSpace += 5;
   $("#letter-spacing span").text(letterSpace.toString());
-  const input = $(".word > canvas");
   if (inputData.length !== 0) {
-    for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i < inputData.length; i++) {
       blotter = inputData[i];
 
-      if (i < input.length - 1 && inputData[i + 1].texts[0].value !== " ") {
+      if (i < inputData.length - 1 && inputData[i + 1].texts[0].value !== " ") {
         blotter.texts[0].properties.paddingRight = letterSpace;
       }
       if (i > 0 && inputData[i - 1].texts[0].value !== " ") {
@@ -91,7 +90,6 @@ $("#decrease-letter-space").click(function() {
     letterSpace = -5;
   }
   $("#letter-spacing span").text(letterSpace.toString());
-  const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < input.length; i++) {
       blotter = inputData[i];
@@ -122,9 +120,8 @@ $("#decrease-word-space").click(function() {
     wordSpace -= 5;
   }
   $("#word-spacing span").text(wordSpace.toString());
-  const input = $(".word > canvas");
   if (inputData.length !== 0) {
-    for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i < inputData.length; i++) {
       blotter = inputData[i];
       if (blotter.texts[0].value === " ") {
         inputData[i - 1].texts[0].properties.paddingLeft = wordSpace;
@@ -146,26 +143,33 @@ function switchPlayMode() {
   const input = $(".word > canvas");
   let img;
   if (inputData.length !== 0 || !playPressed) {
-    //check if empty!
     var playModeText;
     let char;
     if (playPressed) {
-      let note;
+      let note, stop;
       img = "../assets/icons/stopICN.svg";
       playModeText = "Stop";
-      for (let i = 0; i < input.length; i++) {
-        char = input[i].innerHTML;
+      for (let i = 0; i < inputData.length; i++) {
+        char = inputData[i].texts[0].value;
         note = data[char].note;
         sequence.push(note);
+    
       }
-      Tone.Transport.bpm.value = tempo;
-      seq = new Tone.Sequence(function(time, note) {
+        Tone.Transport.bpm.value = tempo;
+        seq = new Tone.Sequence(function(time, note) {
         let currentIndex = index;
+        char = data[input[index].innerHTML];
+        stop = (4 / 16) * (60 / tempo) * 1000;
+        // if (char.char === " "){
+        //   stop = (4 / 16) * (60 / tempo)*6000;
+        // }
+        
         setTimeout(function() {
           inputData[currentIndex].material.uniforms.uSpeed.value = 0.0;
-        }, (4 / 16) * (60 / tempo) * 1000);
-        inputData[currentIndex].material.uniforms.uSpeed.value = 0.08;
-        char = data[input[index].innerHTML];
+        }, stop);
+        // if (char.char !== " "){
+          inputData[currentIndex].material.uniforms.uSpeed.value = 0.08;
+        // }
         instrument.triggerAttackRelease(note, "16n");
         updateEffects(inputData[index].soundEffects);
         index++;

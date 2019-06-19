@@ -57,10 +57,10 @@ alphabeth.forEach(function(value, index) {
 
 function initializeInstrument() {
   instruments.push(new Tone.Synth().toMaster());
-  instruments.push(new Tone.DuoSynth().toMaster());
   instruments.push(new Tone.MembraneSynth().toMaster());
   instruments.push(new Tone.AMSynth().toMaster());
   instruments.push(new Tone.FMSynth().toMaster());
+  instruments.push(new Tone.DuoSynth().toMaster());
 }
 
 const f1 = parseFloat(0).toPrecision(2);
