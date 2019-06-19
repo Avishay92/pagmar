@@ -21,12 +21,12 @@ body {
 
 #about {
   text-align: right;
-  margin: 20px;
+  margin: 0px;
   color: gray;
   text-decoration: none;
   position: absolute;
-  margin: 20px;
-  right: 0;
+  margin: 50px;
+  right: 10;
 }
 
 button {

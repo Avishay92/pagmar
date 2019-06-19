@@ -1,0 +1,3 @@
+  $("#backBtn").click(() => {
+    location.assign("/");
+  });
