@@ -23,7 +23,7 @@ const alphabetForm = document.querySelector("#alphabet-content");
   // })
 
   $("input[type=radio][name=alphabetChar]").change(function(){
-    localStorage.setItem("font", this.value);
+    localStorage.setItem("font", this.id);
   });
 
   $("#backBtn").click(() => {
