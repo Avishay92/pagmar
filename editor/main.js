@@ -100,7 +100,7 @@ function convertValueToRange(min, max, value){
     return value;
 }
 
-function convertValueToRotation(effect){
+function convertValueToRotation(effect, phaser){
     const controllerRange = 264;
     const min = effectRanges[effect].minVisual;
     const max = effectRanges[effect].maxVisual;
@@ -112,6 +112,9 @@ function convertValueToRotation(effect){
         currValue = data[char].uniforms["uDistortPosition"][1];
     }
     else {
+         if (phaser){
+             currValue = data[char].uniforms["uSineDistortCycleCount"];
+         }
          currValue = data[char].uniforms[effect];
     }
     if (min < 0){
@@ -181,8 +184,8 @@ var app = new Vue({
         {
             id: 4,
             visualEffect: 'uNoiseDistortVolatility',
-            soundEffect: 'sReverbEffect',
-            label: 'Reverb',
+            soundEffect: 'sDistortionEffect',
+            label: 'Distortion',
             rotation: -132,
             color: '#9256D7',
             active: true,
@@ -191,33 +194,11 @@ var app = new Vue({
         },
         {
             id: 5,
-            visualEffect: 'uDistortPositionX',
-            soundEffect: 'sDistortionEffect',
-            label: 'Distortion',
-            rotation: -132,
-            color: '#ED31A2',
-            active: true,
-            selected: false,
-            style: 1
-        },
-        {
-            id: 6,
-            visualEffect: 'uDistortPositionY',
-            soundEffect: 'sFeedbackEffect',
-            label: 'Feedback',
-            rotation: -132,
-            color: '#23CDE8',
-            active: true,
-            selected: false,
-            style: 1
-        },
-        {
-            id: 7,
             visualEffect: 'uRotation',
             soundEffect: 'sTremoloEffect',
             label: 'Tremolo',
             rotation: -132,
-            color: '#21CD92',
+            color: '#ED31A2',
             active: true,
             selected: false,
             style: 1
@@ -236,6 +217,7 @@ var app = new Vue({
                 // Knob Rotation
                 if (e.pageY - app.currentY !== 0) {
                     selectedKnob.rotation -= (e.pageY - app.currentY);
+                   
                 }
                 app.currentY = e.pageY;
 
@@ -250,11 +232,21 @@ var app = new Vue({
 
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
-                        autoWahEffect.baseFrequency.value = currentValue;
+                        let autowahValue = app.knobs[1];
+                        autowahValue = updateInputValue(autowahValue.visualEffect, autowahValue.soundEffect, currentValue,
+                            effectRanges["uSineDistortSpread"].minVisual, effectRanges["uSineDistortSpread"].maxVisual,
+                            effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound,
+                            );
+                        if (selectedKnob === app.knobs[0]){
+                            let rotationAutoValue = convertValueToRotation("uSineDistortCycleCount", true);
+                            console.log(rotationAutoValue);
+                            app.knobs[1].rotation=rotationAutoValue;
+                        }
+                        phaserEffect.octaves = currentValue;
                         break;
                     }
                     case 'uSineDistortSpread':{
-                        phaserEffect.octaves = currentValue;
+                        autoWahEffect.baseFrequency.value = currentValue;
                         break;
                     }
  
@@ -267,19 +259,11 @@ var app = new Vue({
                         break;
                     }
                     case 'uNoiseDistortVolatility':{
-                        console.log(currentValue);
+                        distortionEffect.distortion = currentValue;
                         break;
                     }
                     case 'uRotation':{
                         tremoloEffect.frequency = currentValue;
-                        break;
-                    }
-                    case 'uDistortPositionX': {
-
-                        distortionEffect.distortion = currentValue;
-                        break;
-                    }
-                    case 'uDistortPositionY': {
                         break;
                     }
                 }
@@ -295,7 +279,7 @@ var app = new Vue({
         },
         initializeContorllers: function(e){
             app.knobs.forEach(function(knob){
-                let rotationValue = convertValueToRotation(knob.visualEffect);
+                let rotationValue = convertValueToRotation(knob.visualEffect, false);
                 knob.rotation = rotationValue;
             })
             $("#app").show();

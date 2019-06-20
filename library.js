@@ -77,7 +77,7 @@ function initializeInstrument() {
     },
     uSineDistortAmplitude: { //vibrato
         minVisual: 0,
-        maxVisual: 1,
+        maxVisual: 0.4,
         minSound: 0,
         maxSound: 10,
     },
