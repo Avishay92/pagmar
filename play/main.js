@@ -88,7 +88,7 @@ $("#increase-letter-space").click(function() {
 
 $("#decrease-letter-space").click(function() {
   if (letterSpace > -5) {
-    letterSpace = -5;
+    letterSpace -= 5;
   }
   $("#letter-spacing span").text(letterSpace.toString());
   if (inputData.length !== 0) {
@@ -157,7 +157,6 @@ function switchPlayMode() {
     if (playPressed) {
       let note, stop;
       img = "../assets/icons/stopICN.svg";
-      $('#line').hide();
       playModeText = "Stop";
       for (let i = 0; i < inputData.length; i++) {
 
@@ -207,7 +206,6 @@ function switchPlayMode() {
       playModeText = "Play";
       index = 0;
       img = "../assets/icons/playICN.svg";
-      $('#line').show();
     }
     playPressed = !playPressed;
     $("#play span").text(playModeText);
@@ -237,13 +235,6 @@ WebFont.load({
 
 
 $(document).ready(function() {
-
-  $('#back').click( () => {
-    location.assign("../menu");
-  });
-
-
-
   $(document).keydown(function(event) {
     const key = event.keyCode;
     let size = inputData.length;
@@ -280,7 +271,7 @@ $(document).ready(function() {
     }
   });
 });
-    }});
+}});
 
     function buildBlotter(char){
       $(".word > div").remove();
@@ -336,14 +327,3 @@ $(document).ready(function() {
     }
       return blotter;
     }
-
-    const ipt = document.querySelector('input[type=range]')
-// ipt.onchange = function () {
-ipt.oninput = function (e) {
-  const val = e.target.value, progress = ((val - 60)/(60))*100 + "%";
-  document.getElementById("tempo-val").innerHTML = val;
-  document.documentElement.style.setProperty('--progress', progress)
-}
-ipt.onfocus = function() {
-  return false;
-}

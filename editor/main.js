@@ -267,6 +267,7 @@ var app = new Vue({
                         break;
                     }
                     case 'uNoiseDistortVolatility':{
+                        console.log(currentValue);
                         break;
                     }
                     case 'uRotation':{
