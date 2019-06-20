@@ -37,13 +37,13 @@ function initializeInstrument() {
     Object.keys(soundEffects).forEach(function(key, index) {
       switch (key) {
         case "sAutoWahEffect":
-          autoWahEffect.baseFrequency.value = soundEffects[key];
+          autoWahEffect.octaves = soundEffects[key];
           break;
         case "sPhaserEffect":
           phaserEffect.octaves = soundEffects[key];
           break;
         case "sVibratoEffect":
-          vibratoEffect.frequency = soundEffects[key];
+          vibratoEffect.depth.value = soundEffects[key];
           break;
         case "sReverbEffect":
           break;
@@ -56,7 +56,7 @@ function initializeInstrument() {
         case "sFeedbackEffect":
           break;
         case "sTremoloEffect":
-          tremoloEffect.frequency = soundEffects[key];
+          tremoloEffect.depth.value = soundEffects[key];
           break;
       }
     });
@@ -66,7 +66,7 @@ function initializeInstrument() {
     uSineDistortSpread:{   //autoWah
         minVisual: 0.067,
         maxVisual: 1,
-        minSound: 0,
+        minSound: 2,
         maxSound: 8,
     },
     uSineDistortCycleCount: { //phaser
@@ -78,8 +78,8 @@ function initializeInstrument() {
     uSineDistortAmplitude: { //vibrato
         minVisual: 0,
         maxVisual: 0.4,
-        minSound: 0,
-        maxSound: 10,
+        minSound: 0.5,
+        maxSound: 1,
     },
     uNoiseDistortVolatility: { //reverb
         minVisual: 1,
@@ -97,7 +97,7 @@ function initializeInstrument() {
         minVisual: 0,
         maxVisual: 180,
         minSound: 0,
-        maxSound: 10,
+        maxSound: 1,
     },
     uDistortPositionX:{ //Distortion
         minVisual: 0,
