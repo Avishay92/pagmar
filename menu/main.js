@@ -284,9 +284,6 @@ WebFont.load({
 
   $(document).keydown(function(event) {
     var char = event.key; // charCode will contain the code of the character inputted
-let listener;
-    // document.removeEventListener( 'keydown', listener);
-    // listener = event => {
       if ("א" <= char && char <= "ת") {
         if (
           defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
@@ -300,24 +297,13 @@ let listener;
           activateChar(char);
         }
       }
-    // };
-  
-    // document.addEventListener( 'keydown',listener );
   });
 
   $(document).keyup(function(event) {
-    let listener;
-    // document.removeEventListener( 'keyup', listener );
-
-    // listener = event => {
       var char = event.key; // charCode will contain the code of the character inputted
       if ("א" <= char && char <= "ת") {
         resetChar(char);
       }
-
-    // document.addEventListener( 'keyup', listener );
-  // };
- 
   });
 
   $("#backBtn").click(function() {
