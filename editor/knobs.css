@@ -104,7 +104,7 @@ body {
   border-radius: 100%;
 }
 .knob-container {
-  padding: 10px 0;
+  padding: 1px;
 }
 .knob {
   border-radius: 3px;
