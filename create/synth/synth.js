@@ -179,7 +179,6 @@ $(document).ready(function() {
   for (let k=0; k<numberOfSynths; k++){
     $("#"+k).on('click', function(){
       toggleColor(k);
-
     });  
   }
 });
@@ -213,16 +212,11 @@ function toggleColor(i){
     $(value).mouseenter(function() {
       let id = value.id;
       instruments[id].triggerAttackRelease("C4", "4n");
-      for (let i=0; i< numberOfSynths;i++){
-           $('#'+id).css("background-color", colors[id]);
-      }
+           $('#'+id).css("background-color", isCardAlreadyChecked[id].color);
     });
     $(value).mouseleave(function() {
       let id = value.id;
-      for (let i=0; i< numberOfSynths;i++){
       if (isCardAlreadyChecked[id].checked === false)
           $('#'+id).css("background-color", grey);
-          break;
-      }
     });
   });
