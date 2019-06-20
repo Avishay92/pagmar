@@ -157,6 +157,7 @@ function switchPlayMode() {
     if (playPressed) {
       let note, stop;
       img = "../assets/icons/stopICN.svg";
+      $('#line').hide();
       playModeText = "Stop";
       for (let i = 0; i < inputData.length; i++) {
 
@@ -206,6 +207,7 @@ function switchPlayMode() {
       playModeText = "Play";
       index = 0;
       img = "../assets/icons/playICN.svg";
+      $('#line').show();
     }
     playPressed = !playPressed;
     $("#play span").text(playModeText);
@@ -334,3 +336,14 @@ $(document).ready(function() {
     }
       return blotter;
     }
+
+    const ipt = document.querySelector('input[type=range]')
+// ipt.onchange = function () {
+ipt.oninput = function (e) {
+  const val = e.target.value, progress = ((val - 60)/(60))*100 + "%";
+  document.getElementById("tempo-val").innerHTML = val;
+  document.documentElement.style.setProperty('--progress', progress)
+}
+ipt.onfocus = function() {
+  return false;
+}
