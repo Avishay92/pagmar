@@ -22,7 +22,6 @@
 
 
 body {
-    color: #828385;
     background: #161616 !important;
     color: #ADAEB1;
     font-family: "ploni_dl_1.1_aaalight" !important;
@@ -49,12 +48,13 @@ line-height: 22px;
 }
 
 a:link, a:visited {
-  color: #F4F6FA;
+  color: #ADAEB1;
   text-decoration: none;
 }
 
 a:hover, a:active {
-  text-decoration: underline;
+  color: #f4f6fa;
+  /* text-decoration: underline; */
 
 
 }
@@ -134,8 +134,10 @@ hr {
   font-size: 12px;
 }
 .back-btn:hover{
-   color: var(--clr-white);
+   color: #f4f6fa;;
 }
+
+
 
 .back-btn.icon-arrow:after {
   display: none;
