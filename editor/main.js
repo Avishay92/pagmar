@@ -62,7 +62,7 @@ WebFont.load({
         scope.appendTo(document.querySelector("#char"));
 
 
-function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound){
+function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound, phaser){
     let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
     let soundValue = convertValueToRange(minSound, maxSound, currentValue);
     const [x, y] = material.uniforms.uDistortPosition.value;
@@ -78,7 +78,9 @@ function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, ma
     }
     else{
         material.uniforms[visualEffect].value = visualValue;
-        data[char].uniforms[visualEffect] = visualValue;
+        if (!phaser){
+            data[char].uniforms[visualEffect] = visualValue;
+        }
     }
     data[char].soundEffects[soundEffect] = soundValue;
     return soundValue;
@@ -100,7 +102,7 @@ function convertValueToRange(min, max, value){
     return value;
 }
 
-function convertValueToRotation(effect, phaser){
+function convertValueToRotation(effect, phaserValue){
     const controllerRange = 264;
     const min = effectRanges[effect].minVisual;
     const max = effectRanges[effect].maxVisual;
@@ -112,10 +114,7 @@ function convertValueToRotation(effect, phaser){
         currValue = data[char].uniforms["uDistortPosition"][1];
     }
     else {
-         if (phaser){
-             currValue = data[char].uniforms["uSineDistortCycleCount"];
-         }
-         currValue = data[char].uniforms[effect];
+        currValue = data[char].uniforms[effect];
     }
     if (min < 0){
         currValue =parseFloat(currValue)-parseFloat(min);
@@ -127,6 +126,7 @@ function convertValueToRotation(effect, phaser){
     precent = parseFloat(currValue/range).toPrecision(3);
     currValue = parseFloat(controllerRange*precent).toPrecision(3);
     currValue -= 132;
+    console.log("here",currValue, phaserValue, min, max);
     return currValue;
 }
 
@@ -223,35 +223,34 @@ var app = new Vue({
 
                 let knobVisualEffect= selectedKnob.visualEffect;
                 let knobSoundEffect= selectedKnob.soundEffect;
-                let currentValue = selectedKnob.rotation;
+                let rotationValue = selectedKnob.rotation;
 
-                currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, currentValue,
+                let currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, rotationValue,
                     effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
-                    effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound,
+                    effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound, false
                     );
 
                 switch (knobVisualEffect) {
                      case 'uSineDistortCycleCount':{
                         let autowahValue = app.knobs[1];
-                        autowahValue = updateInputValue(autowahValue.visualEffect, autowahValue.soundEffect, currentValue,
+                        autowahValue = updateInputValue(autowahValue.visualEffect, autowahValue.soundEffect, rotationValue,
                             effectRanges["uSineDistortSpread"].minVisual, effectRanges["uSineDistortSpread"].maxVisual,
-                            effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound,
-                            );
-                        if (selectedKnob === app.knobs[0]){
-                            let rotationAutoValue = convertValueToRotation("uSineDistortCycleCount", true);
-                            console.log(rotationAutoValue);
-                            app.knobs[1].rotation=rotationAutoValue;
-                        }
+                            effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound, true
+                        );
+                        let rotationAutoValue = convertValueToRotation("uSineDistortSpread", rotationValue);
+                        app.knobs[1].rotation=rotationAutoValue;
                         phaserEffect.octaves = currentValue;
                         break;
                     }
                     case 'uSineDistortSpread':{
-                        autoWahEffect.baseFrequency.value = currentValue;
+                        console.log(currentValue);
+
+                        autoWahEffect.octaves = currentValue;
                         break;
                     }
  
                     case 'uSineDistortAmplitude':{
-                        vibratoEffect.frequency = currentValue;
+                        vibratoEffect.depth.value = currentValue;
                         break;
                     }
                     case 'uNoiseDistortAmplitude':{
@@ -263,7 +262,7 @@ var app = new Vue({
                         break;
                     }
                     case 'uRotation':{
-                        tremoloEffect.frequency = currentValue;
+                        tremoloEffect.depth.value = currentValue;
                         break;
                     }
                 }
@@ -279,7 +278,7 @@ var app = new Vue({
         },
         initializeContorllers: function(e){
             app.knobs.forEach(function(knob){
-                let rotationValue = convertValueToRotation(knob.visualEffect, false);
+                rotationValue = convertValueToRotation(knob.visualEffect, false);
                 knob.rotation = rotationValue;
             })
             $("#app").show();
