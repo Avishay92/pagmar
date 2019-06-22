@@ -31,6 +31,7 @@ let input,
   wordSpace = 50,
   tempo = 100,
   addedNull=0,
+  addedSpace = 0,
   brightModeOn;
 
 initializeEffects();
@@ -73,6 +74,10 @@ $("#decrease-font-size").click(function() {
 
 $("#increase-letter-space").click(function() {
   letterSpace += 5;
+  addedSpace++;
+  if (addedSpace % 2 == 0){
+    addedNull++;
+  }
   $("#letter-spacing span").text(letterSpace.toString());
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
@@ -87,11 +92,17 @@ $("#increase-letter-space").click(function() {
       blotter.needsUpdate = true;
     }
   }
+  initPlay();
+
 });
 
 $("#decrease-letter-space").click(function() {
   if (letterSpace > -5) {
     letterSpace -=-5;
+  }
+  addedSpace--;
+  if (addedSpace % 2 == 0){
+    addedNull--;
   }
   $("#letter-spacing span").text(letterSpace.toString());
   if (inputData.length !== 0) {
@@ -102,13 +113,14 @@ $("#decrease-letter-space").click(function() {
       blotter.needsUpdate = true;
     }
   }
+  initPlay();
+
 });
 
 $("#increase-word-space").click(function() {
   wordSpace += 5;
   addedNull++;
   $("#word-spacing span").text(wordSpace.toString());
-  const input = $(".word > canvas");
   for (let i = 0; i < inputData.length; i++) {
     if (inputData[i].texts[0].value === " ") {
         inputData[i-1].texts[0].properties.paddingLeft = wordSpace*(addedNull+1);
@@ -173,19 +185,20 @@ function switchPlayMode() {
       $('#line').hide();
       playModeText = "Stop";
       for (let i = 0; i < inputData.length; i++) {
-
         char = inputData[i].texts[0].value;
         note = data[char].note;
-        if (char === " "){
-          spaces = 0;
+        // if (char === " "){
+        sequence.push(note);
 
-          while (spaces < addedNull){
-            sequence.push(note);
+          spaces = 0;
+          while (i< inputData.length-1 && spaces < addedNull){
+            sequence.push(null);
             spaces++;
           }
-        }
-        sequence.push(note);
+        // }
+
       }
+      console.log(sequence);
 
       Tone.Transport.bpm.value = tempo;
       seq = new Tone.Sequence(function(time, note) {
