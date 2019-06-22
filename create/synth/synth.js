@@ -103,15 +103,14 @@ let defaultSoundEffects = {
 initializeInstrument();
 
 var instrumentHovered = document.querySelectorAll(".card");
-
 instrumentHovered.forEach(function(value, index) {
   $(value).mouseenter(function() {
     let id = value.id;
     instruments[id].triggerAttackRelease("C4", "4n");
   });
 });
+const numberOfSynths = 5;
 let isCardAlreadyChecked = 
-// [true, true, true, true, true];
 {
   
   0:{
@@ -140,10 +139,7 @@ let isCardAlreadyChecked =
     color:"#ff395d"
   }
 }
-// let isCardAlreadyChecked = 
-// [false, false, false, false, false];
 
-let colors= ["#ffbc00","#0ed09b","#0057ff", "#6e00ff", "#ff395d"]
 const $btnContainer = $('.next-btn-container');
 
 $(document).ready(function() {
@@ -156,13 +152,13 @@ $(document).ready(function() {
   const label = $labels.toArray();
 
   $('#backBtn').click(() => {
-    location.assign("/");
+    location.assign("/create/font");
   });
 
   $("#nextBtn").click(({ target }) => {
     const $target = $(target);
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < numberOfSynths; i++) {
       if (isCardAlreadyChecked[i].checked) {
         selectedInstrument = isCardAlreadyChecked[i].tag;
         break;
@@ -172,19 +168,18 @@ $(document).ready(function() {
       Object.keys(defaultSoundEffects)[0]
     ] = selectedInstrument;
     localStorage.setItem("synth", selectedInstrument);
+    localStorage.setItem("brightMode", brightModeOn);
     localStorage.setItem("data", JSON.stringify(data));
     localStorage.setItem("defaultUniforms", JSON.stringify(defaultUniforms));
     localStorage.setItem(
       "defaultSoundEffects",
       JSON.stringify(defaultSoundEffects)
     );
-    localStorage.setItem("brightMode", brightModeOn);
     location.assign("../../menu");
   });
-  for (let k=0; k<5; k++){
+  for (let k=0; k<numberOfSynths; k++){
     $("#"+k).on('click', function(){
       toggleColor(k);
-
     });  
   }
 });
@@ -198,13 +193,14 @@ function toggleColor(i){
   oldCheck=isCardAlreadyChecked[i].checked;
     if (!oldCheck){
       isCardAlreadyChecked[i].checked = true;
-      $('#'+i).css("background-color", colors[i]);
-      for (let j=0; j<5;j++){
+      $('#'+i).css("background-color", isCardAlreadyChecked[i].color);
+      for (let j=0; j<numberOfSynths;j++){
         if (j!==i){
             $('#'+j).css("background-color",grey);
             isCardAlreadyChecked[j].checked = false;
         }
       }
+      $btnContainer.removeClass('disable');
     } 
     else {
       isCardAlreadyChecked[i].checked = false;
@@ -217,18 +213,11 @@ function toggleColor(i){
     $(value).mouseenter(function() {
       let id = value.id;
       instruments[id].triggerAttackRelease("C4", "4n");
-      for (let i=0; i< 5;i++){
-           $('#'+id).css("background-color", colors[id]);
-      }
+           $('#'+id).css("background-color", isCardAlreadyChecked[id].color);
     });
     $(value).mouseleave(function() {
       let id = value.id;
-      for (let i=0; i< 5;i++){
       if (isCardAlreadyChecked[id].checked === false)
           $('#'+id).css("background-color", grey);
-          break;
-      }
-
     });
-
   });
