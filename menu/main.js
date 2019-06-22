@@ -4,9 +4,11 @@ const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
-let blotters = {};
-let lettersToPlay={};
-let lastChar = null;
+const brightMode = localStorage.getItem("brightMode");
+let blotters = {},
+    lettersToPlay={},
+    brightModeOn,
+    lastChar = null;
 const alphabeth = [
   "א",
   "ב",
@@ -46,8 +48,6 @@ alphabeth.forEach(function(value, index) {
     }
   });
 });
-
-let darkModeOn = 0;
 let playButton = document.querySelector("#play");
 let instrument,
   autoWahEffect,
@@ -64,6 +64,7 @@ instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 $("#instrument span").text(instrument);
 initializeEffects();
 initializeInstrument();
+initializeFilterMode();
 //html string for all letters
 let letterElements = Object.values(data)
   .map(function(value, index) {
@@ -269,10 +270,10 @@ WebFont.load({
         $(gridItemElement).click(function() {
           localStorage.setItem("char", char);
           localStorage.setItem("data", JSON.stringify(data));
-
           location.assign("../editor");
         });
         $(playButton).click(function() {
+          localStorage.setItem("brightMode", brightModeOn);
           location.assign("../play");
         });
       });
@@ -328,23 +329,8 @@ let listener;
     location.assign("../");
   });
 
-  $("#darkMode").click(function() {
-    var body = document.querySelector("body");
-    var filter, background, mode;
-    if (darkModeOn == 0) {
-      filter = "invert(1)";
-      background = "white";
-      mode = "Dark Mode";
-    }
-    if (darkModeOn == 1) {
-      filter = "none";
-      background = "#161616";
-      mode = "Bright Mode";
-    }
-    $(".grid").css("filter", filter);
-    $(body).css("background", background);
-    $("#darkMode span").text(mode);
-    darkModeOn = !darkModeOn;
+  $("#darkMode").click(function(){
+    switchFilterMode();
   });
 
   $("#resetAll").click(function() {

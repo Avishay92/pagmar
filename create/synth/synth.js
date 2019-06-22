@@ -34,7 +34,7 @@ const alphabeth = [
   "ת",
   " "
 ];
-
+const brightModeOn = 1;
 //fills data with letter and note
 alphabeth.forEach(function(value, index) {
   Object.assign(data, {
@@ -177,6 +177,7 @@ $(document).ready(function() {
       "defaultSoundEffects",
       JSON.stringify(defaultSoundEffects)
     );
+    localStorage.setItem("brightMode", brightModeOn);
     location.assign("../../menu");
   });
   for (let k=0; k<5; k++){

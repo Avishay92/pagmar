@@ -3,7 +3,7 @@ const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
-
+const brightMode = localStorage.getItem("brightMode");
 $(".back").click(function() {
   localStorage.setItem("data", JSON.stringify(data));
   location.assign("../menu");
@@ -19,10 +19,7 @@ let instrument,
   distortionEffect,
   feedbackEffect,
   tremoloEffect;
-instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
-
-initializeEffects();
-initializeInstrument();
+  instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
 let input,
   playPressed = 1,
@@ -33,7 +30,12 @@ let input,
   letterSpace = 0,
   wordSpace = 50,
   tempo = 100,
-  addedNull=0;
+  addedNull=0,
+  brightModeOn;
+
+initializeEffects();
+initializeInstrument();
+initializeFilterMode();
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -130,6 +132,16 @@ $("#decrease-word-space").click(function() {
   initPlay();
 });
 
+$("#darkMode").click(function(){
+  switchFilterMode();
+  if (brightModeOn){
+  Object.values(inputData).forEach(function(value) {
+      value.texts[0].properties.fill = "#202020";
+      value.needsUpdate = true;
+    });
+  }
+});
+
 let tempoRange = document.querySelector("#tempo");
 tempoRange.addEventListener("input", function() {
   tempo = event.target.value;
@@ -220,7 +232,7 @@ const font = localStorage.getItem("font");
 const style = {
   family: font,
   weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
-  fill: "#F4F6FA",
+  fill: brightModeOn ? "#202020": "#F4F6FA",
   size: 200
 };
 
@@ -239,6 +251,7 @@ WebFont.load({
 $(document).ready(function() {
 
   $('#back').click( () => {
+    localStorage.setItem("brightMode", brightModeOn);
     location.assign("../menu");
   });
 

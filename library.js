@@ -115,7 +115,32 @@ function initializeInstrument() {
 
 const f1 = parseFloat(0).toPrecision(2);
 
+function initializeFilterMode(){
+  brightModeOn = brightMode;
+  if(brightModeOn === "true"){
+    brightModeOn = 0;
+  }
+  switchFilterMode();
+}
 
+function switchFilterMode() {
+  brightModeOn = !brightModeOn;
+  var body = document.querySelector("body");
+  var filter, background, mode;
+  if (brightModeOn == 1) {
+    filter = "invert(1)";
+    background = "white";
+    mode = "Dark Mode";
+  }
+  if (brightModeOn == 0) {
+    filter = "none";
+    background = "#161616";
+    mode = "Bright Mode";
+  }
+  $(".grid").css("filter", filter);
+  $(body).css("background", background);
+  $("#darkMode span").text(mode);
+}
 
 
 
