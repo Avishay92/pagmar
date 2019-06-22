@@ -36,6 +36,7 @@ let input,
 initializeEffects();
 initializeInstrument();
 initializeFilterMode();
+$(".word span").css("color", brightModeOn ? "#c9c8c8" : "#F4F6FA"); 
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -134,12 +135,12 @@ $("#decrease-word-space").click(function() {
 
 $("#darkMode").click(function(){
   switchFilterMode();
-  if (brightModeOn){
+  let fill = brightModeOn ? "#202020": "#F4F6FA";
   Object.values(inputData).forEach(function(value) {
-      value.texts[0].properties.fill = "#202020";
+      value.texts[0].properties.fill = fill;
       value.needsUpdate = true;
     });
-  }
+  $(".word span").css("color", brightModeOn ? "#c9c8c8" : "#2a2b2b"); 
 });
 
 let tempoRange = document.querySelector("#tempo");
@@ -264,6 +265,10 @@ $(document).ready(function() {
       $(".word > canvas").last().remove();
       if ($(".word > canvas").length === 0) {
         document.querySelector(".word").innerHTML = "<div>Type Something</div>";
+console.log(document.querySelector(".word"));
+console.log(document.querySelector(".word"));
+
+        $(".word span").css("color", brightModeOn ? "#c9c8c8" : "#3c3d3d"); 
       }
       if (inputData[inputData.length-1].texts[0].value===" "){
         inputData[inputData.length-2].texts[0].properties.paddingLeft = letterSpace;
