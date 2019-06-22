@@ -36,7 +36,7 @@ let input,
 initializeEffects();
 initializeInstrument();
 initializeFilterMode();
-$(".word span").css("color", brightModeOn ? "#c9c8c8" : "#F4F6FA"); 
+$(".word span").css("color", brightModeOn ? "#c9c8c8" : "#202020"); 
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
