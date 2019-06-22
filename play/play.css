@@ -417,3 +417,7 @@ input[type="range"]::-ms-fill-lower {
     #979797
   );
 }
+
+.empty-space{
+  visibility: hidden !important;
+}

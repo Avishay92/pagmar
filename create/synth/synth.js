@@ -32,6 +32,7 @@ const alphabeth = [
   "ר",
   "ש",
   "ת",
+  "-",
   " "
 ];
 const brightModeOn = 1;
@@ -50,8 +51,8 @@ alphabeth.forEach(function(value, index) {
   } else {
     noteIndex++;
   }
-  if (value === " ") {
-    data[" "].note = null;
+  if ([" ", "-"].includes(value)) {
+    data[value].note = null;
   }
 });
 
