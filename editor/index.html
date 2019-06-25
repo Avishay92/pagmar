@@ -62,7 +62,9 @@
 
     <!-- PAGE STUFF -->
 
-    <div id="app" @mouseUp="unselectKnobs" style="position:fixed; bottom:0; width:100%;display: none;">
+    <div id="app"style="position:fixed; bottom:0; width:100%;display: none;"
+    @mouseUp="unselectKnobs" 
+    >
       <div class="page-container">
         <div class="rela-block container knob-container">
           <div
@@ -72,11 +74,11 @@
             <div
               class="rela-block knob-dial"
               :style="{'color':knob.active?knob.color:'#888'}"
+              @mouseDown="knob.selected = true; app.currentY = event.pageY; event.preventDefault()"
             >
               <div
                 class="abs-center dial-grip"
                 :style="{'transform': 'translate(-50%,-50%) rotate('+knob.rotation+'deg)'}"
-                @mouseDown="knob.selected = true; app.currentY = event.pageY; event.preventDefault()"
               ></div>
               <svg class="dial-svg" viewBox="0 0 100 100">
                 <path

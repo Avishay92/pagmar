@@ -26,7 +26,7 @@ let input,
   sequence = [],
   inputData = [],
   index = 0,
-  fontSize = 100,
+  fontSize = 200,
   letterSpace = 0,
   wordSpace = 50,
   tempo = 100,
@@ -44,10 +44,9 @@ var seq = new Tone.Sequence(function(time, note) {
 }, sequence);
 let blotter, char;
 
-
 $("#increase-font-size").click(function() {
   fontSize += 10;
-  $("#font-size span").text((fontSize/10).toString());
+  $("#font-size span").text(fontSize.toString());
   const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
@@ -62,7 +61,7 @@ $("#decrease-font-size").click(function() {
   if (fontSize > 0) {
     fontSize -= 10;
   }
-  $("#font-size span").text((fontSize/10).toString());
+  $("#font-size span").text(fontSize.toString());
   const input = $(".word > canvas");
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
@@ -74,8 +73,8 @@ $("#decrease-font-size").click(function() {
 });
 
 $("#increase-letter-space").click(function() {
-  letterSpace += 10;
-  // addedNull++;
+  letterSpace += 5;
+
   $("#letter-spacing span").text(letterSpace.toString());
   for (let i = 0; i < inputData.length; i++) {
     blotter = inputData[i];
@@ -87,10 +86,13 @@ $("#increase-letter-space").click(function() {
 });
 
 $("#decrease-letter-space").click(function() {
-  if (letterSpace > -10) {
-    letterSpace -=10;
+  if (letterSpace > -5) {
+    letterSpace -=5;
   }
-  // addedNull--;
+  addedSpace--;
+  if (addedSpace % 2 == 0){
+    addedNull--;
+  }
   $("#letter-spacing span").text(letterSpace.toString());
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
@@ -108,7 +110,7 @@ $("#increase-word-space").click(function() {
   addedNull++;
   $("#word-spacing span").text(wordSpace.toString());
   for (let i = 0; i < inputData.length; i++) {
-    if (inputData[i].texts[0].value === "-") {
+    if (inputData[i].texts[0].value === " ") {
         inputData[i-1].texts[0].properties.paddingLeft = wordSpace*(addedNull+1);
         inputData[i-1].needsUpdate=true;
     }
@@ -122,7 +124,7 @@ $("#decrease-word-space").click(function() {
   }
   $("#word-spacing span").text(wordSpace.toString());
     for (let i = 0; i < inputData.length; i++) {
-     if (inputData[i].texts[0].value === "-") {
+     if (inputData[i].texts[0].value === " ") {
       inputData[i-1].texts[0].properties.paddingLeft = wordSpace*(addedNull);
       inputData[i-1].needsUpdate=true;
       }
@@ -174,17 +176,8 @@ function switchPlayMode() {
         char = inputData[i].texts[0].value;
         note = data[char].note;
         sequence.push(note);
-        if (note===null){
-          spaces = 0;
-          while (spaces < addedNull){
-            sequence.push(null);
-            spaces++;
-          }
-        }
-      } 
-      sequence.push(null);
+      }
 
-      console.log(sequence);
       Tone.Transport.bpm.value = tempo;
       seq = new Tone.Sequence(function(time, note) {
       let currentIndex = index;
@@ -195,7 +188,6 @@ function switchPlayMode() {
         inputData[currentIndex].material.uniforms.uSpeed.value = 0.0;
       }, stop);
         inputData[currentIndex].material.uniforms.uSpeed.value = 0.08;
-      console.log(char.note);
       if (char.note){
         instrument.triggerAttackRelease(char.note, "16n");
       }
@@ -204,7 +196,7 @@ function switchPlayMode() {
       if (index === inputData.length) {
         index = 0;
         }
-      }, sequence, '16n');
+      }, sequence);
       seq.start();
       Tone.Transport.start();
       while (sequence.length > 0 ){
@@ -236,7 +228,7 @@ const style = {
 
 WebFont.load({
     google: {
-      families: ["Frank Ruhl Libre" ]
+      families: ["Frank Ruhl Libre:bold" ]
     },
     custom: {
         families: [font],
@@ -253,7 +245,6 @@ $(document).ready(function() {
   });
 
 
-    
 
   $(document).keydown(function(event) {
     const key = event.keyCode;
@@ -276,7 +267,8 @@ $(document).ready(function() {
     } else {
       var char = data[event.key]; // charCode will contain the code of the character inputted
       if (char) {
-      inputData.push(buildBlotter(char));
+       let blotter = buildBlotter(char);
+      inputData.push(blotter);
       initPlay();
       }
     }
@@ -335,15 +327,14 @@ $(document).ready(function() {
       if (char.char === "-"){
         scope.domElement.className = "empty-space";
       }
+      // add blink
       $(".word").append("<span id='line'></span>")
       Object.values(blotter._scopes)[0].render();
-      (function blink() { 
-        $('#line').fadeOut(500).fadeIn(500, blink); 
-      })();
       return blotter;
     }
 
     const ipt = document.querySelector('input[type=range]')
+// ipt.onchange = function () {
 ipt.oninput = function (e) {
   const val = e.target.value, progress = ((val - 60)/(60))*100 + "%";
   document.getElementById("tempo-val").innerHTML = val;

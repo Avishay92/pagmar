@@ -1,4 +1,5 @@
 const font = localStorage.getItem("font");
+const synth = localStorage.getItem("synth");
 let data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
@@ -6,9 +7,7 @@ const defaultSoundEffects = JSON.parse(
 );
 const brightMode = localStorage.getItem("brightMode");
 let blotters = {},
-    lettersToPlay={},
-    brightModeOn,
-    lastChar = null;
+    brightModeOn;
 const alphabeth = [
   "א",
   "ב",
@@ -41,13 +40,17 @@ const alphabeth = [
   " "
 ];
 
+let pressed = [];
+
 //fills data with letter and note
 alphabeth.forEach(function(value, index) {
-  Object.assign(blotters, {
-    [value]: {
-      blotter: null
-    }
-  });
+  if (![" ", "-"].includes(value)){
+    Object.assign(blotters, {
+      [value]: {
+        blotter: null
+      }
+    });
+  }
 });
 let playButton = document.querySelector("#play");
 let instrument,
@@ -69,8 +72,10 @@ initializeFilterMode();
 //html string for all letters
 let letterElements = Object.values(data)
   .map(function(value, index) {
+    if (![" ", "-"].includes(value)){
     return `<div class="grid__item" data-blotter="${value.char}">
         </div>`;
+    }
   })
   .join("");
 
@@ -110,8 +115,7 @@ function updateEffects(soundEffects) {
 function resetChar(char) {
   let blotter;
   let soundEffects;
-  delete lettersToPlay[char];
-  if (data[char]) {
+  if (data[char] && blotters[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
   }
@@ -130,7 +134,7 @@ function resetChar(char) {
       }
     });
     Object.values(blotter._scopes)[0].render();
-    if (char !== " ") {
+    if (![" ", "-"].includes(char)) {
       var gridItem = document.querySelector(
         `[data-blotter=${data[char].char}]`
       );
@@ -145,15 +149,12 @@ function resetChar(char) {
       }
     });
   }
-  instrument.triggerRelease();
+  instrument.triggerRelease(data[char].note);
 }
 
 function activateChar(char) {
   let blotter;
   let soundEffects;
-  if (Object.keys(lettersToPlay).length <4 ){
-    lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});
-  }
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -179,7 +180,7 @@ function activateChar(char) {
     });
 
     Object.values(blotter._scopes)[0].render();
-    if (char !== " ") {
+    if (!["-", " "].includes(char)) {
       var gridItem = document.querySelector(
         `[data-blotter=${data[char].char}]`
       );
@@ -199,19 +200,13 @@ function activateChar(char) {
     });
   }
   updateEffects(soundEffects);
-  // document.removeEventListener( 'keyup', listener );
 
-  Tone.context.resume().then(() => {
-    Object.values(lettersToPlay).forEach(function (value){
-    instrument.triggerAttackRelease(value);
-
-    })
-  });
+  instrument.triggerAttack(data[char].note);
 }
 
 WebFont.load({
   google: {
-    families: ["Frank Ruhl Libre" ]
+    families: ["Frank Ruhl Libre:bold"]
   },
   custom: {
       families: [font],
@@ -221,9 +216,8 @@ WebFont.load({
   //builds blotter and insert pointers to data
   $(document).ready(function() {
 
-    document.getElementById("font").innerHTML = localStorage.getItem("font");
-    document.getElementById("synth").innerHTML = localStorage.getItem("synth");
-
+    document.getElementById("font").innerHTML = font;
+    document.getElementById("synth").innerHTML = synth;
     document
       .querySelectorAll("[data-blotter]")
       .forEach(function(gridItemElement) {
@@ -255,8 +249,9 @@ WebFont.load({
           Object.assign({}, soundEffects),
           data[char].soundEffects
         );
-        // data[char].blotter = blotter;
-        blotters[char].blotter = blotter;
+        if (blotters[char]){
+          blotters[char].blotter = blotter;
+        }
 
         resetChar(char);
         const scope = blotter.forText(text);
@@ -284,42 +279,28 @@ WebFont.load({
     localStorage.setItem("data", JSON.stringify(data));
   });
 
+
   $(document).keydown(function(event) {
     var char = event.key; // charCode will contain the code of the character inputted
-let listener;
-    // document.removeEventListener( 'keydown', listener);
-    // listener = event => {
       if ("א" <= char && char <= "ת") {
-        if (
-          defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
-          "MembraneSynth"
-        ) {
-          if (lastChar !== char) {
-            activateChar(char);
-            lastChar = char;
-          }
-        } else {
+        const index = pressed.indexOf(char);
+        if (index === -1) {
+          pressed.push(char);
+       }
           activateChar(char);
-        }
       }
-    // };
-  
-    // document.addEventListener( 'keydown',listener );
   });
 
   $(document).keyup(function(event) {
-    let listener;
-    // document.removeEventListener( 'keyup', listener );
-
-    // listener = event => {
       var char = event.key; // charCode will contain the code of the character inputted
       if ("א" <= char && char <= "ת") {
+
+       const index = pressed.indexOf(char);
+       if (index > -1) {
+         pressed.splice(index, 1);
+      }
         resetChar(char);
       }
-
-    // document.addEventListener( 'keyup', listener );
-  // };
- 
   });
 
   $("#backBtn").click(function() {

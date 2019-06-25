@@ -14,7 +14,7 @@
 
 
 @font-face {
-    font-family: 'taamula';
+    font-family: 'Taamula';
     src: 
          url('taamula-webfont.woff2') format('woff2'),
          url('taamula-webfont.woff') format('woff'),
@@ -29,7 +29,7 @@
 
 
 @font-face {
-    font-family: 'haim';
+    font-family: 'Haim';
     src: local('HaimMF'),
         url('haim-webfont.woff2') format('woff2'),
          url('haim-webfont.woff') format('woff'),
@@ -43,7 +43,7 @@
 
 
 @font-face {
-    font-family: 'hadassa';
+    font-family: 'Hadassa';
     src: 
         url('hadassa-webfont.woff2') format('woff2'),
          url('hadassa-webfont.woff') format('woff'),
@@ -58,7 +58,7 @@
 
 
 @font-face {
-    font-family: 'arbel';
+    font-family: 'Arbel';
     src: 
         url('arbel-webfont.woff2') format('woff2'),
          url('arbel-webfont.woff') format('woff'),

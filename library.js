@@ -2,7 +2,8 @@
 function initializeInstrument() {
     switch (instrument) {
       case "synth":
-        instrument = new Tone.Synth().connect(tremoloEffect);
+        instrument = new Tone.PolySynth(6, Tone.Synth).toMaster();
+        instrument.connect(tremoloEffect);
         break;
       case "DuoSynth":
         instrument = new Tone.DuoSynth().connect(tremoloEffect);
@@ -17,8 +18,9 @@ function initializeInstrument() {
         instrument = new Tone.FMSynth().connect(tremoloEffect);
         break;
       default:
-        instrument = new Tone.Synth().connect(tremoloEffect);
-        break;
+          instrument = new Tone.PolySynth(6, Tone.Synth).toMaster();
+          instrument.connect(tremoloEffect);
+          break;
     }
   }
 

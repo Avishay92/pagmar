@@ -25,7 +25,7 @@ const font = localStorage.getItem("font");
 
 WebFont.load({
     google: {
-        families: ["Frank Ruhl Libre"]
+        families: ["Frank Ruhl Libre:bold"]
     },
     custom: {
         families: [font],
@@ -263,6 +263,7 @@ WebFont.load({
                                 break;
                             }
                         }
+                        instrument.set("detune", -1200);
                         instrument.triggerAttackRelease(note, '16n');
 
                         // Setting Max rotation
