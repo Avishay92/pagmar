@@ -53,11 +53,12 @@ body {
   margin-top: 45px;
   font-family: "ploni_dl_1.1_aaaregular" !important;
 }
+
 .title {
   font-size: 45px;
   line-height: 1.1;
   color: #f4f6fa;
-  margin: 10px 0 100px 0;
+  margin: 10px 0 70px 0;
 }
 
 .logo {
@@ -207,7 +208,6 @@ label.DuoSynth .card:hover {
   color: var(--clr-black);
   transition: all 400ms;
   cursor: pointer;
-  
 }
 
 .next-btn-text {
@@ -240,3 +240,11 @@ label.DuoSynth .card:hover {
   content: "\0041";
   margin-left: 9px;
 }
+
+/* span{
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+} */
+

@@ -7,7 +7,9 @@ const defaultSoundEffects = JSON.parse(
 );
 const brightMode = localStorage.getItem("brightMode");
 let blotters = {},
-    brightModeOn;
+    lettersToPlay={},
+    brightModeOn,
+    lastChar = null;
 const alphabeth = [
   "א",
   "ב",
@@ -39,8 +41,6 @@ const alphabeth = [
   "-", 
   " "
 ];
-
-let pressed = [];
 
 //fills data with letter and note
 alphabeth.forEach(function(value, index) {
@@ -115,7 +115,7 @@ function updateEffects(soundEffects) {
 function resetChar(char) {
   let blotter;
   let soundEffects;
-  if (data[char] && blotters[char]) {
+  if (data[char] && blotters[char]){
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
   }
@@ -149,12 +149,15 @@ function resetChar(char) {
       }
     });
   }
-  instrument.triggerRelease(data[char].note);
+  instrument.triggerRelease();
 }
 
 function activateChar(char) {
   let blotter;
   let soundEffects;
+  if (Object.keys(lettersToPlay).length <4 ){
+    lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});
+  }
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -200,8 +203,14 @@ function activateChar(char) {
     });
   }
   updateEffects(soundEffects);
+  // document.removeEventListener( 'keyup', listener );
 
-  instrument.triggerAttack(data[char].note);
+  Tone.context.resume().then(() => {
+    Object.values(lettersToPlay).forEach(function (value){
+    instrument.triggerAttackRelease(value);
+
+    })
+  });
 }
 
 WebFont.load({
@@ -218,6 +227,7 @@ WebFont.load({
 
     document.getElementById("font").innerHTML = font;
     document.getElementById("synth").innerHTML = synth;
+
     document
       .querySelectorAll("[data-blotter]")
       .forEach(function(gridItemElement) {
@@ -279,28 +289,42 @@ WebFont.load({
     localStorage.setItem("data", JSON.stringify(data));
   });
 
-
   $(document).keydown(function(event) {
     var char = event.key; // charCode will contain the code of the character inputted
+let listener;
+    // document.removeEventListener( 'keydown', listener);
+    // listener = event => {
       if ("א" <= char && char <= "ת") {
-        const index = pressed.indexOf(char);
-        if (index === -1) {
-          pressed.push(char);
-       }
+        if (
+          defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
+          "MembraneSynth"
+        ) {
+          if (lastChar !== char) {
+            activateChar(char);
+            lastChar = char;
+          }
+        } else {
           activateChar(char);
+        }
       }
+    // };
+  
+    // document.addEventListener( 'keydown',listener );
   });
 
   $(document).keyup(function(event) {
+    let listener;
+    // document.removeEventListener( 'keyup', listener );
+
+    // listener = event => {
       var char = event.key; // charCode will contain the code of the character inputted
       if ("א" <= char && char <= "ת") {
-
-       const index = pressed.indexOf(char);
-       if (index > -1) {
-         pressed.splice(index, 1);
-      }
         resetChar(char);
       }
+
+    // document.addEventListener( 'keyup', listener );
+  // };
+ 
   });
 
   $("#backBtn").click(function() {

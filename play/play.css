@@ -111,6 +111,11 @@ body {
   padding: 0 50px;
   justify-content: space-between;
   font-size: 12px;
+  -webkit-user-select:none; 
+  -webkit-touch-callout:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none; 
 }
 
 .logo img {

@@ -102,6 +102,11 @@ body {
   justify-content: space-between;
   color: var(--color);
   font-size: 12px;
+  -webkit-user-select:none; 
+  -webkit-touch-callout:none; 
+   -moz-user-select:none; 
+   -ms-user-select:none; 
+   user-select:none;    
 }
 
 .logo {
@@ -218,6 +223,10 @@ body {
   text-align: center;
 }
 
+#font-btn, #instrument{
+  cursor: auto;
+}
+
 /* .next-btn-container.disable .nav-btn {
   background-color: transparent;
   border: transparent;
@@ -233,4 +242,3 @@ body {
   visibility: hidden;
   opacity: 0;
 } */
-
