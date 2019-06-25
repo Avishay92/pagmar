@@ -1,5 +1,4 @@
 const font = localStorage.getItem("font");
-const synth = localStorage.getItem("synth");
 let data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
@@ -44,13 +43,11 @@ const alphabeth = [
 
 //fills data with letter and note
 alphabeth.forEach(function(value, index) {
-  if (![" ", "-"].includes(value)){
-    Object.assign(blotters, {
-      [value]: {
-        blotter: null
-      }
-    });
-  }
+  Object.assign(blotters, {
+    [value]: {
+      blotter: null
+    }
+  });
 });
 let playButton = document.querySelector("#play");
 let instrument,
@@ -72,10 +69,8 @@ initializeFilterMode();
 //html string for all letters
 let letterElements = Object.values(data)
   .map(function(value, index) {
-    if (![" ", "-"].includes(value)){
     return `<div class="grid__item" data-blotter="${value.char}">
         </div>`;
-    }
   })
   .join("");
 
@@ -115,7 +110,8 @@ function updateEffects(soundEffects) {
 function resetChar(char) {
   let blotter;
   let soundEffects;
-  if (data[char] && blotters[char]){
+  delete lettersToPlay[char];
+  if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
   }
@@ -134,7 +130,7 @@ function resetChar(char) {
       }
     });
     Object.values(blotter._scopes)[0].render();
-    if (![" ", "-"].includes(char)) {
+    if (char !== " ") {
       var gridItem = document.querySelector(
         `[data-blotter=${data[char].char}]`
       );
@@ -183,7 +179,7 @@ function activateChar(char) {
     });
 
     Object.values(blotter._scopes)[0].render();
-    if (!["-", " "].includes(char)) {
+    if (char !== " ") {
       var gridItem = document.querySelector(
         `[data-blotter=${data[char].char}]`
       );
@@ -215,7 +211,7 @@ function activateChar(char) {
 
 WebFont.load({
   google: {
-    families: ["Frank Ruhl Libre:bold"]
+    families: ["Frank Ruhl Libre" ]
   },
   custom: {
       families: [font],
@@ -225,8 +221,8 @@ WebFont.load({
   //builds blotter and insert pointers to data
   $(document).ready(function() {
 
-    document.getElementById("font").innerHTML = font;
-    document.getElementById("synth").innerHTML = synth;
+    document.getElementById("font").innerHTML = localStorage.getItem("font");
+    document.getElementById("synth").innerHTML = localStorage.getItem("synth");
 
     document
       .querySelectorAll("[data-blotter]")
@@ -259,9 +255,8 @@ WebFont.load({
           Object.assign({}, soundEffects),
           data[char].soundEffects
         );
-        if (blotters[char]){
-          blotters[char].blotter = blotter;
-        }
+        // data[char].blotter = blotter;
+        blotters[char].blotter = blotter;
 
         resetChar(char);
         const scope = blotter.forText(text);
