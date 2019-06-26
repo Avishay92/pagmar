@@ -37,9 +37,9 @@
   
             <label>Tempo</label>
             <input id="tempo" type="range" min="60" max="120" step="1" value="60" />
-            <span id="tempo-val">60</span>
+            <span id="tempo-val" class="tempo-val">60</span>
           </div>
-
+          <div class="seperator"></div>
           <button type="text" class="decrease-button" id="decrease-font-size">
             -
           </button>
@@ -60,11 +60,12 @@
             <div class="dot" id="letter-spacing">
               <span class="number-button">0</span>
             </div>
-            <span>Letter Spacing</span>
+            <span>Tracking</span>
           </div>
           <button type="text" class="increase-button" id="increase-letter-space">
             +
           </button>
+          <div class="seperator"></div>
           <div class="action-item" id="darkMode">
             <img src="../assets/icons/modeICN.svg" alt="" />
             <span>Bright Mode</span>
@@ -72,13 +73,18 @@
         </div>
       </div>
       <div class="top-bar-right f-center">
-        <div class="next f-center" onclick="location.assign('../download')">
-          <div class="arrow rotate-180 back">
+          <div class="next-btn-container" id="play">
+              <button id="nextBtn" class="nav-btn icon-arrow">Next</button>
+              <span class="next-btn-text">Download</span>
+            </div>
+        <!-- <div class="next f-center" onclick="location.assign('../download')"> -->
+
+          <!-- <div class="arrow rotate-180 back"> -->
             <!-- <a href="/menu"> -->
-            <img src="../assets/icons/arrowICN.svg" alt="" />
+            <!-- <img src="../assets/icons/arrowICN.svg" alt="" /> -->
             <!-- </a> -->
-          </div>
-          <div>DOWNLOAD</div>
+          <!-- </div> -->
+          <!-- <div>DOWNLOAD</div> -->
         </div>
       </div>
     </nav>

@@ -135,6 +135,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .action-item img {
@@ -144,6 +145,7 @@ body {
 .pressable img{
   cursor: pointer;
 }
+
 
 .action-item img:hover {
   transform: scale(1.2);
@@ -229,8 +231,7 @@ body {
 }
 
 #darkMode span{
-  width: 70px;
-  padding-left: 10px;
+  width: 75px;
 }
 
 /* .next-btn-container.disable .nav-btn {
