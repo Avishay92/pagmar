@@ -80,8 +80,9 @@ body {
   opacity: 1;
 }
 
-#logo {
+.logo {
   cursor: pointer;
+  outline: none;
 }
 
 /* top bar */
@@ -134,10 +135,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
+
 .action-item img {
   transition: transform 100ms linear;
+}
+
+.pressable img{
+  cursor: pointer;
 }
 
 .action-item img:hover {
@@ -221,10 +226,6 @@ body {
   align-content: center;
   margin-left: 45px;
   text-align: center;
-}
-
-#font-btn, #instrument{
-  cursor: auto;
 }
 
 #darkMode span{
