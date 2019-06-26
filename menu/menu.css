@@ -227,6 +227,11 @@ body {
   cursor: auto;
 }
 
+#darkMode span{
+  width: 70px;
+  padding-left: 10px;
+}
+
 /* .next-btn-container.disable .nav-btn {
   background-color: transparent;
   border: transparent;

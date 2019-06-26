@@ -1,9 +1,12 @@
+const white = "#ffffff";
+const black = "#161616";
+const lightGrey = "#c9c8c8";
+const darkGrey = "#202020";
 
 function initializeInstrument() {
     switch (instrument) {
       case "synth":
-        instrument = new Tone.PolySynth(6, Tone.Synth).toMaster();
-        instrument.connect(tremoloEffect);
+        instrument = new Tone.Synth().connect(tremoloEffect);
         break;
       case "DuoSynth":
         instrument = new Tone.DuoSynth().connect(tremoloEffect);
@@ -18,8 +21,7 @@ function initializeInstrument() {
         instrument = new Tone.FMSynth().connect(tremoloEffect);
         break;
       default:
-          instrument = new Tone.PolySynth(6, Tone.Synth).toMaster();
-          instrument.connect(tremoloEffect);
+          instrument = new Tone.Synth().connect(tremoloEffect);
           break;
     }
   }
@@ -118,30 +120,21 @@ function initializeInstrument() {
 const f1 = parseFloat(0).toPrecision(2);
 
 function initializeFilterMode(){
-  brightModeOn = brightMode;
-  if(brightModeOn === "true"){
+  if(brightMode==="true"){
     brightModeOn = 0;
+  }
+  else{
+    brightModeOn = 1;
   }
   switchFilterMode();
 }
 
 function switchFilterMode() {
   brightModeOn = !brightModeOn;
-  var body = document.querySelector("body");
-  var filter, background, mode;
-  if (brightModeOn == 1) {
-    filter = "invert(1)";
-    background = "white";
-    mode = "Dark Mode";
-  }
-  if (brightModeOn == 0) {
-    filter = "none";
-    background = "#161616";
-    mode = "Bright Mode";
-  }
-  $(".grid").css("filter", filter);
-  $(body).css("background", background);
-  $("#darkMode span").text(mode);
+  $(".grid").css("filter", brightModeOn ? "invert(1)" : "none");
+  $("body").css("background", brightModeOn ? white : black);
+  $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
+  $("#darkMode span").text(brightModeOn ? "Dark Mode" : "Bright Mode");
 }
 
 

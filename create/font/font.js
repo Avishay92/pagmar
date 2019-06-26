@@ -1,6 +1,5 @@
 const white = "#f4f6fa";
 const grey = "#202020";
-const black = "#202020";
 const fontForm = document.querySelectorAll(".card");
 const $btnContainer = $(".next-btn-container");
 

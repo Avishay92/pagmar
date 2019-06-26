@@ -26,7 +26,7 @@ let input,
   sequence = [],
   inputData = [],
   index = 0,
-  fontSize = 100,
+  fontSize = 200,
   letterSpace = 0,
   wordSpace = 50,
   tempo = 80,
@@ -35,13 +35,12 @@ let input,
   brightModeOn,
   tempoRange = document.querySelector("#tempo");
 
-  tempoRange.value = tempo;
-  document.getElementById("tempo-val").innerHTML = tempo;
+tempoRange.value = tempo;
+document.getElementById("tempo-val").innerHTML = tempo;
+colorRange(tempo);
 initializeEffects();
 initializeInstrument();
 initializeFilterMode();
-
-$(".word span").css("color", brightModeOn ? "#c9c8c8" : "#202020");
 
 var seq = new Tone.Sequence(function(time, note) {
   instrument.triggerAttackRelease(note, "1n");
@@ -76,14 +75,11 @@ $("#decrease-font-size").click(function() {
 
 $("#increase-letter-space").click(function() {
   letterSpace += 10;
+  addedNull++;
   $("#letter-spacing span").text(letterSpace.toString());
   for (let i = 0; i < inputData.length; i++) {
-    // inputData[i].texts[0].properties.height = letterSpace;
-    // inputData[i].texts[0].properties.width = letterSpace;
-    $(inputData[i]).css("width", "50px !important");
-
+    inputData[i].texts[0].properties.paddingLeft = letterSpace;
     inputData[i].needsUpdate = true;
-    console.log(inputData[i].texts[0].properties.width);
   }
   initPlay();
 });
@@ -92,54 +88,29 @@ $("#decrease-letter-space").click(function() {
   if (letterSpace > -10) {
     letterSpace -= 10;
   }
+  addedNull--;
   $("#letter-spacing span").text(letterSpace.toString());
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
-      inputData[i].texts[0].properties.height = letterSpace;
-      if (i > 0) inputData[i - 1].needsUpdate = true;
-      console.log(inputData[i].texts[0].properties.height);
+      inputData[i].texts[0].properties.paddingLeft = letterSpace;
+      inputData[i].needsUpdate = true;
     }
   }
-  initPlay();
-});
-
-$("#increase-word-space").click(function() {
-  wordSpace += 5;
-  addedNull++;
-  $("#word-spacing span").text(wordSpace.toString());
-  for (let i = 0; i < inputData.length; i++) {
-    if (inputData[i].texts[0].value === "-") {
-      inputData[i - 1].texts[0].properties.paddingLeft =
-        wordSpace * (addedNull + 1);
-      inputData[i - 1].needsUpdate = true;
-    }
-  }
-  initPlay();
-});
-
-$("#decrease-word-space").click(function() {
-  if (wordSpace) {
-    wordSpace -= 5;
-  }
-  $("#word-spacing span").text(wordSpace.toString());
-  for (let i = 0; i < inputData.length; i++) {
-    if (inputData[i].texts[0].value === "-") {
-      inputData[i - 1].texts[0].properties.paddingLeft = wordSpace * addedNull;
-      inputData[i - 1].needsUpdate = true;
-    }
-  }
-  addedNull--;
   initPlay();
 });
 
 $("#darkMode").click(function() {
   switchFilterMode();
-  let fill = brightModeOn ? "#202020" : "#F4F6FA";
+  let fill ;
+  // = ($(".word > canvas").length>0) ? (brightModeOn ? darkGrey: lightGrey ) : (brightModeOn ? lightGrey : darkGrey);
+  if ($(".word > canvas").length === 0){
+    $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
+  }
+  fill = brightModeOn ? darkGrey : white;
   Object.values(inputData).forEach(function(value) {
     value.texts[0].properties.fill = fill;
     value.needsUpdate = true;
   });
-  $(".word span").css("color", brightModeOn ? "#c9c8c8" : "#2a2b2b");
 });
 
 tempoRange.addEventListener("input", function() {
@@ -174,12 +145,10 @@ function switchPlayMode() {
         char = inputData[i].texts[0].value;
         note = data[char].note;
         sequence.push(note);
-        if (note === null) {
-          spaces = 0;
-          while (spaces < addedNull) {
-            sequence.push(null);
-            spaces++;
-          }
+        spaces = 0;
+        while (spaces < addedNull) {
+          sequence.push(null);
+          spaces++;
         }
       }
       sequence.push(null);
@@ -207,6 +176,8 @@ function switchPlayMode() {
       }, sequence);
       seq.start();
       Tone.Transport.start();
+      console.log(sequence);
+
       while (sequence.length > 0) {
         sequence.pop();
       }
@@ -228,7 +199,7 @@ const font = localStorage.getItem("font");
 const style = {
   family: font,
   weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
-  fill: brightModeOn ? "#202020" : "#F4F6FA",
+  fill: brightModeOn ? darkGrey : white,
   size: 200
 };
 
@@ -247,20 +218,15 @@ WebFont.load({
         location.assign("../menu");
       });
 
-      // $(".word span").show();
-
       $(document).keydown(function(event) {
         const key = event.keyCode;
-        let size = inputData.length;
         if (key == 8 || key == 46) {
           $(".word > canvas")
             .last()
             .remove();
           if ($(".word > canvas").length === 0) {
-            document.querySelector(".word").innerHTML =
-              "<div>Type Something</div>";
-            $(".word span").css("color", brightModeOn ? "#c9c8c8" : "#3c3d3d");
-            console.log(document.querySelector(".word"));
+            document.querySelector(".word").innerHTML = "<div>Type Something</div>";
+            $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
           }
           inputData.pop();
           if (!playPressed) {
@@ -305,6 +271,8 @@ function buildBlotter(char) {
   if (char.char === " ") {
     char.char = "-";
   }
+  console.log(style);
+  style.fill = brightModeOn ? darkGrey : white;
   const text = new Blotter.Text(char.char, style);
   const blotter = new Blotter(material, {
     texts: text
@@ -342,12 +310,17 @@ function buildBlotter(char) {
 }
 
 const ipt = document.querySelector("input[type=range]");
-ipt.oninput = function(e) {
-  const val = e.target.value,
-    progress = ((val - 60) / 60) * 100 + "%";
+ipt.oninput = function(e){
+  const val = e.target.value;
+  colorRange(val);
+} 
+
+function colorRange(val) {
+  progress = ((val - 60) / 60) * 100 + "%";
   document.getElementById("tempo-val").innerHTML = val;
   document.documentElement.style.setProperty("--progress", progress);
 };
+
 ipt.onfocus = function() {
   return false;
 };

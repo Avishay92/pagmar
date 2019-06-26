@@ -334,6 +334,7 @@ let listener;
     switchFilterMode();
   });
 
+
   $("#resetAll").click(function() {
     Object.keys(data).forEach(function(currChar, index) {
       data[currChar].soundEffects = Object.assign({}, defaultSoundEffects);

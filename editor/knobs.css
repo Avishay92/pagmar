@@ -109,18 +109,15 @@ body {
 .knob {
   border-radius: 3px;
   padding: 20px;
-  /* background-color: #2c2d2f; */
-  /* this is the color of the background container of the knobs */
-
   color: #828385;
-
-
-
 }
+
 .knob.style1 .dial-grip {
   height: 72px;
   width: 72px;
   border: 6px solid #181b1c;
+  cursor: pointer;
+
 }
 .knob.style1 .dial-grip::after {
   position: absolute;
