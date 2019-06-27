@@ -77,9 +77,7 @@ WebFont.load({
             }
             else {
                 material.uniforms[visualEffect].value = visualValue;
-                if (!phaser) {
-                    data[char].uniforms[visualEffect] = visualValue;
-                }
+                data[char].uniforms[visualEffect] = visualValue;
             }
             data[char].soundEffects[soundEffect] = soundValue;
             return soundValue;

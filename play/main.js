@@ -153,13 +153,11 @@ function switchPlayMode() {
   const input = $(".word > canvas");
   let img;
   if (inputData.length !== 0 || !playPressed) {
-    var playModeText;
     let char, spaces;
     if (playPressed) {
       let note, stop;
       img = "../assets/icons/stopICN.svg";
       $("#line").css('visibility', 'hidden');
-      playModeText = "Stop";
       for (let i = 0; i < inputData.length; i++) {
         char = inputData[i].texts[0].value;
         note = data[char].note;
@@ -202,13 +200,11 @@ function switchPlayMode() {
       }
     } else {
       seq.stop();
-      playModeText = "Play";
       index = 0;
       img = "../assets/icons/playICN.svg";
       $("#line").css('visibility', 'visible');
     }
     playPressed = !playPressed;
-    $("#play span").text(playModeText);
     $("#play-button").attr("src", img);
   }
 }

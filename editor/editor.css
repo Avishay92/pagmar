@@ -28,7 +28,7 @@ body {
   flex: 1;
   text-align: center;
   align-items: center;
-  margin: -80px;
+  /* margin: -80px; */
 }
 
 canvas{
@@ -37,7 +37,10 @@ canvas{
 
 .knob-container{
   background: #202020 !important;
-  margin: 40px 200px !important;
+  margin-left: 150px !important;
+  margin-right: 150px !important;
+  margin-bottom: 40px !important;
+
   border-radius: 20px !important;
 }
 
@@ -60,7 +63,8 @@ canvas{
   -moz-user-select:none; 
   -ms-user-select:none; 
   user-select:none; 
-  min-height: 120px !important;;
+  min-height: 120px !important;
+  z-index: 2;
 }
 
 .seperator {
