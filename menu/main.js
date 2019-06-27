@@ -9,6 +9,7 @@ let blotters = {},
     lettersToPlay={},
     brightModeOn,
     lastChar = null;
+ 
 const alphabeth = [
   "א",
   "ב",
@@ -220,9 +221,9 @@ WebFont.load({
   active: function (){
   //builds blotter and insert pointers to data
   $(document).ready(function() {
-
     document.getElementById("font").innerHTML = localStorage.getItem("font");
     document.getElementById("synth").innerHTML = localStorage.getItem("synth");
+   
 
     document
       .querySelectorAll("[data-blotter]")

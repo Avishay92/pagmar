@@ -297,3 +297,42 @@ Taamula */
 #alphabet:hover { 
   color: #ADAEB1;
 }
+
+.dropbtn {
+  cursor: pointer;
+}
+
+/* .dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+} */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 100px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  background-color: #161616;
+  padding: 6px;
+  padding-left: 12px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+  background-color: #3c3d3d;
+  cursor: pointer;
+}
+
+.show {display: block;}

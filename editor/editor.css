@@ -18,6 +18,7 @@ body {
 
 .logo {
   margin-right: 40px;
+  outline: none;
 }
 
 #char {
@@ -49,7 +50,7 @@ canvas{
 
 .knob-container{
   background: #202020 !important;
-  margin: 40px !important;
+  margin: 10px !important;
   border-radius: 20px !important;
 }
 
