@@ -2,6 +2,7 @@ const char = localStorage.getItem("char");
 const data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(localStorage.getItem("defaultSoundEffects"));
+const brightMode = localStorage.getItem("brightMode");
 let instrument,
     autoWahEffect,
     phaserEffect,
@@ -10,12 +11,14 @@ let instrument,
     pitchEffect,
     distortionEffect,
     feedbackEffect,
-    tremoloEffect;
-
+    tremoloEffect,
+    brightModeOn;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
 initializeEffects();
 initializeInstrument();
+initializeFilterMode();
+
 
 data[char].uniforms = Object.assign(Object.assign({}, defaultUniforms), data[char].uniforms);
 data[char].soundEffects = Object.assign(Object.assign({}, defaultSoundEffects), data[char].soundEffects);
@@ -35,12 +38,12 @@ WebFont.load({
         var text = new Blotter.Text(char, {
             family: font,
             weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
-            fill: "#F4F6FA",
+            fill: brightModeOn ? darkGrey : white,
             size: 300,
             paddingLeft: 60,
             paddingRight: 60,
         });
-
+        
 
 
         var material = new Blotter.RollingDistortMaterial();
@@ -57,7 +60,7 @@ WebFont.load({
         var blotter = new Blotter(material, {
             texts: text,
         });
-
+        
         var scope = blotter.forText(text);
         scope.appendTo(document.querySelector("#char"));
 
@@ -300,9 +303,15 @@ WebFont.load({
 
         $("#back").click(function () {
             localStorage.setItem("data", JSON.stringify(data));
+            localStorage.setItem("brightMode", brightModeOn);
             location.assign("../menu");
         });
 
+        $("#darkMode").click(function(){
+            switchFilterMode();
+            blotter.texts[0].properties.fill = brightModeOn ? darkGrey : white;
+            blotter.needsUpdate = true;
+          });
 
 
         $("#applyAll").click(function () {
@@ -337,3 +346,4 @@ WebFont.load({
         });
     }
 });
+

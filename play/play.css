@@ -213,7 +213,7 @@ body {
   color: rgb(166, 34, 255);
 }
 
-#darkMode img{
+.action-item img{
   cursor: pointer;
 }
 

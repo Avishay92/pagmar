@@ -140,6 +140,7 @@ body {
 
 .action-item img {
   transition: transform 100ms linear;
+  cursor: pointer;
 }
 
 .pressable img{

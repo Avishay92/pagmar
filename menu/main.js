@@ -271,6 +271,7 @@ WebFont.load({
         $(gridItemElement).click(function() {
           localStorage.setItem("char", char);
           localStorage.setItem("data", JSON.stringify(data));
+          localStorage.setItem("brightMode", brightModeOn);
           location.assign("../editor");
         });
         $(playButton).click(function() {

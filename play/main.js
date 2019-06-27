@@ -47,10 +47,8 @@ var seq = new Tone.Sequence(function(time, note) {
 }, sequence);
 let blotter, char;
 
-$("#increase-font-size").click(function() {
-  if (fontSize < 400) {
-    fontSize += 10;
-  }
+
+function updateFontSize(fontSize) {
   $("#font-size").val((fontSize / 10));
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
@@ -58,37 +56,10 @@ $("#increase-font-size").click(function() {
       inputData[i].needsUpdate = true;
     }
   }
-});
+}
 
-$("#decrease-font-size").click(function() {
-  if (fontSize > 100) {
-    fontSize -= 10;
-  }
-  $("#font-size").val((fontSize / 10).toString());
-  if (inputData.length !== 0) {
-    for (let i = 0; i < inputData.length; i++) {
-      inputData[i].texts[0].properties.size = fontSize;
-      inputData[i].needsUpdate = true;
-    }
-  }
-});
-
-$("#increase-letter-space").click(function() {
-  letterSpace += 10;
-  addedNull++;
-  $("#letter-spacing").val(letterSpace.toString());
-  for (let i = 0; i < inputData.length; i++) {
-    inputData[i].texts[0].properties.paddingLeft = letterSpace;
-    inputData[i].needsUpdate = true;
-  }
-  initPlay();
-});
-
-$("#decrease-letter-space").click(function() {
-  if (letterSpace > -10) {
-    letterSpace -= 10;
-  }
-  addedNull--;
+function updateLetterSpace(letterSpace){
+  addedNull = parseInt(letterSpace/10);
   $("#letter-spacing").val(letterSpace.toString());
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
@@ -97,12 +68,60 @@ $("#decrease-letter-space").click(function() {
     }
   }
   initPlay();
+}
+
+document.querySelector("#letter-spacing").addEventListener("input", function(){
+  letterSpace = event.target.value;
+  if (letterSpace < -10) {
+    letterSpace = -10;
+  }
+  updateLetterSpace(letterSpace);
 });
+
+document.querySelector("#font-size").addEventListener("input", function(){
+  fontSize = event.target.value;
+  if (fontSize < 40) {
+    fontSize = event.target.value*10;
+  }
+  else{
+    fontSize = 400;
+  }
+  updateFontSize(fontSize);
+});
+
+$("#increase-font-size").click(function(){
+  if (fontSize < 400) {
+    fontSize += 10;
+    updateFontSize(fontSize);
+    }
+});
+
+$("#decrease-font-size").click(function() {
+  if (fontSize > 100) {
+    fontSize -= 10;
+  }
+  updateFontSize(fontSize);
+});
+
+$("#increase-letter-space").click(function() {
+  letterSpace += 10;
+  addedNull++;
+  updateLetterSpace(letterSpace);
+});
+
+$("#decrease-letter-space").click(function() {
+  if (letterSpace > -10) {
+    letterSpace -= 10;
+  }
+  addedNull--;
+  updateLetterSpace(letterSpace);
+});
+
+
 
 $("#darkMode").click(function() {
   switchFilterMode();
   let fill ;
-  // = ($(".word > canvas").length>0) ? (brightModeOn ? darkGrey: lightGrey ) : (brightModeOn ? lightGrey : darkGrey);
   if ($(".word > canvas").length === 0){
     $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
   }
@@ -271,7 +290,6 @@ function buildBlotter(char) {
   if (char.char === " ") {
     char.char = "-";
   }
-  console.log(style);
   style.fill = brightModeOn ? darkGrey : white;
   const text = new Blotter.Text(char.char, style);
   const blotter = new Blotter(material, {
