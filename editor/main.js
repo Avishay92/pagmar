@@ -39,12 +39,8 @@ WebFont.load({
             family: font,
             weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
             fill: brightModeOn ? darkGrey : white,
-            size: 300,
-            paddingLeft: 60,
-            paddingRight: 60,
+            size: 330,
         });
-        
-
 
         var material = new Blotter.RollingDistortMaterial();
         Object.keys(material.uniforms).forEach(function (key, index) {
