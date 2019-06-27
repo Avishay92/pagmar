@@ -1,0 +1,52 @@
+body {
+  background: #161616;
+  color: #828385;
+  font-family: "ploni_dl_1.1_aaaregular" !important;
+}
+
+
+.container {
+  padding: 0 180px;
+  display: flex;
+  flex-direction: row;
+}
+
+.step {
+  font-size: 12px;
+  color: #828385;
+  margin: 45 0 20 0;
+  font-family: "ploni_dl_1.1_aaaregular" !important;
+}
+.title {
+  font-size: 45px;
+  line-height: 1.1;
+  color: #f4f6fa;
+  margin: 10px 0 100px 0;
+}
+
+.press {
+    font-size: 45px;
+    line-height: 1.1;
+    color: #9256D7;
+  }
+
+  .click {
+    font-size: 45px;
+    line-height: 1.1;
+    color: #01ED95;
+  }
+
+.par {
+    font-family: "ploni_dl_1.1_aaalight" !important;
+    font-size: 45px;
+    line-height: 1.1;
+    color: #f4f6fa;
+    margin: 3px 0 100px 0;
+  }
+
+ .entry {
+  display: flex;
+  justify-content: top;
+  flex-direction: column;
+  margin: 70px;
+}
