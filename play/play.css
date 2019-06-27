@@ -105,16 +105,11 @@ body {
 }
 
 .top-bar {
-  /* display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(4, 1fr); */
-
   display: flex;
   color: #a7a8ab;
   height: var(--bar-height);
   background-color: var(--bar-background);
   padding: 0 50px;
-  /* justify-content: space-between; */
   font-size: 12px;
   -webkit-user-select:none; 
   -webkit-touch-callout:none; 
@@ -122,25 +117,6 @@ body {
   -ms-user-select:none; 
   user-select:none; 
 }
-
-/* .top-bar-center {
-  grid-column: 2 / span 2;
-}
-.top-bar-left {
-  grid-column: 1 / 1;
-}
-
-
-
-.logo img {
-  width: 56px;
-}
-
-.top-bar-right,
-.top-bar-left {
-	/* width: 15%; */
-/* } */
-
 
 .top-bar-right {
  margin-left: auto;
@@ -163,8 +139,6 @@ body {
   justify-content: center;
   align-items: center;
   transition: transform 100ms linear;
-  cursor: pointer;
-  /* margin: 40px; */
 }
 
 
@@ -206,12 +180,12 @@ body {
   border-radius: 50%;
   display: inline-block;
   background: #161616;
-  /* align-items: center; */
-  /* align-content: center; */
   cursor: auto !important;
   display: flex;
   align-items: center; 
   justify-content: center;
+  border: none;
+  text-align: center;
 }
 
 .number-button{
@@ -223,6 +197,8 @@ body {
   font-size: 16;
   z-index: 10;
   margin: 0 !important;
+  outline: none;
+  cursor: text !important;
 }
 
 .number-button:hover {
@@ -237,8 +213,8 @@ body {
   color: rgb(166, 34, 255);
 }
 
-#word-spacing{
-  color: rgb(57, 103, 255);
+#darkMode img{
+  cursor: pointer;
 }
 
 .word{

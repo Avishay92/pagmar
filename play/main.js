@@ -51,7 +51,7 @@ $("#increase-font-size").click(function() {
   if (fontSize < 400) {
     fontSize += 10;
   }
-  $("#font-size span").text((fontSize / 10).toString());
+  $("#font-size").val((fontSize / 10));
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
       inputData[i].texts[0].properties.size = fontSize;
@@ -64,7 +64,7 @@ $("#decrease-font-size").click(function() {
   if (fontSize > 100) {
     fontSize -= 10;
   }
-  $("#font-size span").text((fontSize / 10).toString());
+  $("#font-size").val((fontSize / 10).toString());
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
       inputData[i].texts[0].properties.size = fontSize;
@@ -76,7 +76,7 @@ $("#decrease-font-size").click(function() {
 $("#increase-letter-space").click(function() {
   letterSpace += 10;
   addedNull++;
-  $("#letter-spacing span").text(letterSpace.toString());
+  $("#letter-spacing").val(letterSpace.toString());
   for (let i = 0; i < inputData.length; i++) {
     inputData[i].texts[0].properties.paddingLeft = letterSpace;
     inputData[i].needsUpdate = true;
@@ -89,7 +89,7 @@ $("#decrease-letter-space").click(function() {
     letterSpace -= 10;
   }
   addedNull--;
-  $("#letter-spacing span").text(letterSpace.toString());
+  $("#letter-spacing").val(letterSpace.toString());
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
       inputData[i].texts[0].properties.paddingLeft = letterSpace;
