@@ -4,7 +4,6 @@
   --clr-grey-dark: #828385;
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -36,7 +35,7 @@ body.dark-mode {
 }
 
 #back {
-  position: relative;
+  position: ;
   top: 20px;
   background: #5e5e60;
   color: var(--clr-white);

@@ -182,7 +182,7 @@ body {
 #nextBtn:hover {
   background: var(--clr-white);
   color: var(--clr-black) !important;
-  transition: none !important;
+  transition: ease-in-out 0.1s !important;
 }
 
 .back-btn:hover {
@@ -234,11 +234,11 @@ body {
 
 body.bright-mode {
   background:var(--clr-white);
-  transition: 0.2s ease-out;
+  transition: 0.3s ease-out;
 
 }
 
 body.dark-mode {
   background: --clr-grey-dark;
-  transition: 0.2s ease-out;
+  transition: 0.3s ease-out;
 }
