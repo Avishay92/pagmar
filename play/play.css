@@ -322,11 +322,14 @@ body.dark-mode {
 #nextBtn {
   position: relative;
   top: 20px;
-  opacity: 0.4 !important;
+  background: #5e5e60;
+  color: var(--clr-white);
+  border: none;
 }
 
 #nextBtn:hover {
-  opacity: 1 !important;
+  background: var(--clr-white);
+  color: var(--clr-black) !important;
   transition: none !important;
 }
 

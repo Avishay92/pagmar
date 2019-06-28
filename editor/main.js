@@ -1,3 +1,4 @@
+
 const char = localStorage.getItem("char");
 const data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
@@ -15,7 +16,6 @@ let instrument,
     brightModeOn,
     autowahValue;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
-
 initializeEffects();
 initializeInstrument();
 initializeFilterMode();
@@ -61,7 +61,6 @@ WebFont.load({
         var scope = blotter.forText(text);
         scope.appendTo(document.querySelector("#char"));
 
-
         function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound, phaser) {
             let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
             let soundValue = convertValueToRange(minSound, maxSound, currentValue);
@@ -81,7 +80,7 @@ WebFont.load({
                 // if (!phaser){
                     data[char].uniforms[visualEffect] = visualValue;
                 // }else{
-                    autowahValue = visualValue;
+                    // autowahValue = visualValue;
                 // }
             }
             data[char].soundEffects[soundEffect] = soundValue;
@@ -240,7 +239,7 @@ WebFont.load({
                                 // );
                                 // let rotationAutoValue = convertValueToRotation("uSineDistortSpread", rotationValue);
                                 // app.knobs[1].rotation = rotationAutoValue;
-                                phaserEffect.octaves = currentValue;
+                                // phaserEffect.octaves = currentValue;
                                 break;
                             }
                             case 'uSineDistortSpread': {
@@ -261,7 +260,7 @@ WebFont.load({
                                 break;
                             }
                             case 'uRotation': {
-                                tremoloEffect.depth.value = currentValue;
+                                tremoloEffect.frequency = currentValue;
                                 break;
                             }
                         }
@@ -282,6 +281,7 @@ WebFont.load({
                         knob.rotation = rotationValue;
                     })
                     $("#app").show();
+
                 }
             },
             methods: {
@@ -314,22 +314,24 @@ WebFont.load({
             switchFilterMode();
             blotter.texts[0].properties.fill = brightModeOn ? darkGrey : white;
             
-            // blotter.uniforms = Object.assign(Object.assign({}, defaultUniforms), data[char].uniforms);
-            console.log(blotter.uniforms);
-            console.log(data[char].uniforms);
+            // Object.keys(material.uniforms).forEach(function (key, index) {
+            //     if (key !== "uDistortPosition") {
+            //         material.uniforms[key].value = Number(data[char].uniforms[key])
+            //     }
+            // });
+
             Object.keys(blotter.material.uniforms).forEach(function (key, index) {
                 if (defaultUniforms[key]) {
-                    if (key === "uDistortPosition") {
-                        blotter.material.uniforms[key].value = [
-                            Number(defaultUniforms[key][0]),
-                            Number(defaultUniforms[key][1])
-                        ];
-                    } else {
-                        blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
+                    if (key !== "uDistortPosition") {
+                        console.log(Number(data[char].uniforms[key]));
+                        blotter.material.uniforms[key].value = Number(data[char].uniforms[key]);
                     }
                 }
             });
-            blotter.needsUpdate = true;
+s            // blotter.needsUpdate = true;
+            Object.values(blotter._scopes)[0].render();
+
+            console.log(blotter);
           });
 
 

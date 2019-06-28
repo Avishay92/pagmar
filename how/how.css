@@ -4,6 +4,7 @@ body {
   font-family: "ploni_dl_1.1_aaaregular" !important;
   display: flex;
   flex-direction: column;
+  user-select: none;
 }
 
 

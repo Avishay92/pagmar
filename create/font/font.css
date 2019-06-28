@@ -60,6 +60,7 @@
 body {
   opacity: 1;
   transition: 0.6s opacity;
+  user-select: none;
 }
 
 body.fade {
@@ -182,6 +183,7 @@ body {
 .next-btn-container.disable .next-btn-text {
   visibility: hidden;
   opacity: 0;
+  
 }
 
 .nav-btn {

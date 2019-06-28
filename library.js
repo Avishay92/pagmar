@@ -27,7 +27,7 @@ function initializeInstrument() {
   }
 
   function initializeEffects() {
-    autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
+    autoWahEffect = new Tone.AutoWah(50, 3, -30).toMaster();
     phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
     vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
     // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
@@ -41,10 +41,10 @@ function initializeInstrument() {
     Object.keys(soundEffects).forEach(function(key, index) {
       switch (key) {
         case "sAutoWahEffect":
-          autoWahEffect.baseFrequency.value = soundEffects[key];
+          autoWahEffect.octaves.value = soundEffects[key];
           break;
         case "sPhaserEffect":
-          phaserEffect.octaves = soundEffects[key];
+          // phaserEffect.octaves = soundEffects[key];
           break;
         case "sVibratoEffect":
           vibratoEffect.frequency = soundEffects[key];
@@ -70,7 +70,7 @@ function initializeInstrument() {
     uSineDistortSpread:{   //autoWah
         minVisual: 0.067,
         maxVisual: 1,
-        minSound: 0,
+        minSound: 4,
         maxSound: 8,
     },
     uSineDistortCycleCount: { //phaser
@@ -100,8 +100,8 @@ function initializeInstrument() {
     uRotation: { //tremolo
         minVisual: 0,
         maxVisual: 180,
-        minSound: 0,
-        maxSound: 10,
+        minSound: 1,
+        maxSound: 8,
     },
     uDistortPositionX:{ //Distortion
         minVisual: 0,

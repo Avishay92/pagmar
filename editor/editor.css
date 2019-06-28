@@ -16,6 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  user-select: none;
 }
 
 body.bright-mode {
@@ -37,11 +38,14 @@ body.dark-mode {
 #back {
   position: relative;
   top: 20px;
-  opacity: 0.4;
+  background: #5e5e60;
+  color: var(--clr-white);
+  border: none;
 }
 
 #back:hover {
-  opacity: 1;
+  background: var(--clr-white);
+  color: var(--clr-black) !important;
   transition: none !important;
 }
 

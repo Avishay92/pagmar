@@ -41,6 +41,7 @@ body {
   font-family: "ploni_dl_1.1_aaamedium" !important;
   z-index: -10;
   margin: 0;
+  user-select: none;
 }
 
 .mdl-textfield {
@@ -103,7 +104,6 @@ body {
   justify-content: space-between;
   color: var(--color);
   font-size: 12px;
-  user-select:none;    
 }
 
 .logo {
@@ -174,11 +174,14 @@ body {
 #nextBtn {
   position: relative;
   top: 20px;
-  opacity: 0.4;
+  background: #5e5e60;
+  color: var(--clr-white);
+  border: none;
 }
 
 #nextBtn:hover {
-  opacity: 1;
+  background: var(--clr-white);
+  color: var(--clr-black) !important;
   transition: none !important;
 }
 
@@ -187,7 +190,6 @@ body {
 }
 
 .nav-btn {
-  user-select: none;
   outline: none;
   max-width: 150px;
   font-family: "ploni_dl_1.1_aaamedium" !important;
