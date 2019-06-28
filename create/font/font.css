@@ -68,7 +68,7 @@ body {
   font-size: 45px;
   line-height: 1.1;
   color: #f4f6fa;
-  margin: 10px 0 100px 0;
+  margin: 10px 0 60px 0;
 }
 
 .logo {
@@ -240,7 +240,7 @@ label .card:hover {
 #actions{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-top: -21;
 
 }
@@ -273,11 +273,11 @@ label .card:hover {
 #upload-content > div{
   
   color: #f4f6fa;
-  line-height: 2;
+  line-height: 1.5;
   font-size: 16px;
   width: 100%;
   height: 100%;
-  border: 2px dashed #f4f6fa;
+  border: 2px dashed #5C5C5C;
   border-radius: 8px;
   
 
@@ -293,6 +293,8 @@ label .card:hover {
 
 .dropbtn {
   cursor: pointer;
+  margin-left:10px;
+
 }
 
 /* .dropbtn:hover, .dropbtn:focus {
@@ -308,6 +310,7 @@ label .card:hover {
 .dropdown:hover,
 #alphabet:hover { 
   color: #f4f6fa;
+  transition: ease-in-out 0.3s;
 }
 
 .dropdown {
@@ -326,20 +329,28 @@ label .card:hover {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: #111111;
   min-width: 100px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   overflow: auto;
+  font-family: "ploni_dl_1.1_aaaregular" !important;
+  font-size: 15px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 2px solid #111111;
 }
 
 .dropdown-content a {
   /* color: white; */
   color: #828385;
 
-  background-color: #161616;
-  padding: 6px;
-  padding-left: 12px;
+  background-color: #111111;
+  padding: 7px;
+  padding-left: 14px;
+  padding-right: 22px;
   text-decoration: none;
   display: block;
 }
