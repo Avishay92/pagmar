@@ -134,7 +134,7 @@ function switchFilterMode() {
   $(".grid").css("filter", brightModeOn ? "invert(1)" : "none");
   $("body").css("background", brightModeOn ? white : black);
   $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
-  $("#darkMode span").text(brightModeOn ? "Dark Mode" : "Bright Mode");
+  $("#darkMode span").text(brightModeOn ? "Bright Mode" : "Dark Mode");
 }
 
 

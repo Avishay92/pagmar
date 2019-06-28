@@ -12,7 +12,8 @@ let instrument,
     distortionEffect,
     feedbackEffect,
     tremoloEffect,
-    brightModeOn;
+    brightModeOn,
+    autowahValue;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
 initializeEffects();
@@ -77,7 +78,11 @@ WebFont.load({
             }
             else {
                 material.uniforms[visualEffect].value = visualValue;
-                data[char].uniforms[visualEffect] = visualValue;
+                if (!phaser){
+                    data[char].uniforms[visualEffect] = visualValue;
+                }else{
+                    autowahValue = visualValue;
+                }
             }
             data[char].soundEffects[soundEffect] = soundValue;
             return soundValue;
@@ -228,7 +233,7 @@ WebFont.load({
 
                         switch (knobVisualEffect) {
                             case 'uSineDistortCycleCount': {
-                                let autowahValue = app.knobs[1];
+                                autowahValue = app.knobs[1];
                                 autowahValue = updateInputValue(autowahValue.visualEffect, autowahValue.soundEffect, rotationValue,
                                     effectRanges["uSineDistortSpread"].minVisual, effectRanges["uSineDistortSpread"].maxVisual,
                                     effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound, true
@@ -296,9 +301,13 @@ WebFont.load({
         })
 
         $("#back").click(function () {
-            localStorage.setItem("data", JSON.stringify(data));
             localStorage.setItem("brightMode", brightModeOn);
-            location.assign("../menu");
+            data[char].uniforms["uSineDistortSpread"] = autowahValue;
+            console.log(autowahValue);
+            console.log(data[char].uniforms["uSineDistortSpread"]);
+            localStorage.setItem("data", JSON.stringify(data));
+            
+            // location.assign("../menu");
         });
 
         $("#darkMode").click(function(){
