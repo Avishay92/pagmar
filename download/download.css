@@ -1,0 +1,191 @@
+@font-face {
+    font-family: "Glyphter";
+    src: url("../../fonts/Glyphter.eot");
+    src: url("../../fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
+      url("../../fonts/Glyphter.woff") format("woff"),
+      url("../../fonts/Glyphter.ttf") format("truetype"),
+      url("../../fonts/Glyphter.svg#Glyphter") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  [class*="icon-"]:after,
+  [class*="icon-"]:before {
+    display: inline-block;
+    font-family: "Glyphter";
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  @font-face {
+    font-family: "frankgbold";
+    src: url("../fonts/frankgbold-webfont.woff2") format("woff2"),
+      url("../fonts/frankgbold-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  
+  :root {
+    --bar-height: 120px;
+    --bar-background: #202020;
+    --clr-white: #f4f6fa;
+    --clr-black: #202020;
+    --clr-grey-dark: #828385;
+  }
+  
+  body {
+    background: #161616;
+    color: #f4f6fa;
+    font-family: "ploni_dl_1.1_aaaregular" !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    user-select: none; 
+    
+  }
+  
+  #menu {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #footer {
+    flex: 1;
+  }
+  
+  .logo {
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .logo {
+    margin-right: 40px;
+  }
+  
+  .logo img {
+    width: 100%;
+  }
+  
+  .top-bar {
+    --color: #a7a8ab;
+    height: var(--bar-height);
+    padding: 0 50px;
+    justify-content: space-between;
+    color: var(--color);
+    font-size: 12px;
+    user-select: none;
+    user-select: none; 
+  }
+  
+  .f-center {
+    display: flex;
+    align-items: center;
+  }
+  
+  .main-container {
+    --edges: 12%;
+    padding: 0 180px;
+    flex-grow: 1;
+  }
+  
+  .title {
+    font-size: 45px;
+    line-height: 1.1;
+    color: #f4f6fa;
+    margin: 0px 0 40px 0;
+    user-select: none; 
+  }
+  
+  .text {
+    font-family:"ploni_dl_1.1_aaaregular" !important;
+    font-size: 16px;
+    padding-top: 40px;
+  }
+
+button {
+    background: #202020;
+    width: 230px;
+    line-height: 40px;
+    font-size: 18px;
+    border-color: transparent;
+    font-family: "ploni_dl_1.1_aaamedium" !important;
+    color: #828385;
+    border-radius: 50px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+    /* transition: 0.3s ease-in-out; */
+    transition: 0.3s ease-in, transform 0.3s ease-in-out;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  
+  }
+  
+  button:focus {
+    outline: none !important;
+  }
+  
+  button.accent {
+    
+    color: white;
+    background: linear-gradient(
+      308deg,
+      #ff0000,
+      #ffa600,
+      #77ff00,
+      #00ffae,
+      #00ebff,
+      #007aff,
+      #1800ff,
+      #8800ff,
+      #ff00e4,
+      #ff005c,
+      #ff0000
+    );
+    background-size: 2400% 2400%;
+    -webkit-animation: AnimationName 45s ease infinite;
+    -moz-animation: AnimationName 45s ease infinite;
+    animation: AnimationName 45s ease infinite;
+  }
+  
+  @-webkit-keyframes AnimationName {
+    0% {
+      background-position: 0% 17%;
+    }
+    50% {
+      background-position: 100% 84%;
+    }
+    100% {
+      background-position: 0% 17%;
+    }
+  }
+  @-moz-keyframes AnimationName {
+    0% {
+      background-position: 0% 17%;
+    }
+    50% {
+      background-position: 100% 84%;
+    }
+    100% {
+      background-position: 0% 17%;
+    }
+  }
+  @keyframes AnimationName {
+    0% {
+      background-position: 0% 17%;
+    }
+    50% {
+      background-position: 100% 84%;
+    }
+    100% {
+      background-position: 0% 17%;
+    }
+  }
+  
