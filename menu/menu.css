@@ -103,11 +103,7 @@ body {
   justify-content: space-between;
   color: var(--color);
   font-size: 12px;
-  -webkit-user-select:none; 
-  -webkit-touch-callout:none; 
-   -moz-user-select:none; 
-   -ms-user-select:none; 
-   user-select:none;    
+  user-select:none;    
 }
 
 .logo {
@@ -178,14 +174,13 @@ body {
 #nextBtn {
   position: relative;
   top: 20px;
+  opacity: 0.4;
 }
 
-/* .arrow {
-  cursor: pointer;
-  padding: 20px;
-} */
-
-
+#nextBtn:hover {
+  opacity: 1;
+  transition: none !important;
+}
 
 .back-btn:hover {
   color: var(--clr-white);
@@ -235,18 +230,13 @@ body {
   width: 75px;
 }
 
-/* .next-btn-container.disable .nav-btn {
-  background-color: transparent;
-  border: transparent;
-  pointer-events: none;
+body.bright-mode {
+  background:var(--clr-white);
+  transition: 0.2s ease-out;
 
-  color: var(--clr-grey-dark);
-} */
-/* .next-btn-container.disable:hover {
-  cursor: not-allowed;
-} */
+}
 
-/* .next-btn-container.disable .next-btn-text {
-  visibility: hidden;
-  opacity: 0;
-} */
+body.dark-mode {
+  background: --clr-grey-dark;
+  transition: 0.2s ease-out;
+}

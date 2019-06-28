@@ -78,11 +78,11 @@ WebFont.load({
             }
             else {
                 material.uniforms[visualEffect].value = visualValue;
-                if (!phaser){
+                // if (!phaser){
                     data[char].uniforms[visualEffect] = visualValue;
-                }else{
+                // }else{
                     autowahValue = visualValue;
-                }
+                // }
             }
             data[char].soundEffects[soundEffect] = soundValue;
             return soundValue;
@@ -233,13 +233,13 @@ WebFont.load({
 
                         switch (knobVisualEffect) {
                             case 'uSineDistortCycleCount': {
-                                autowahValue = app.knobs[1];
-                                autowahValue = updateInputValue(autowahValue.visualEffect, autowahValue.soundEffect, rotationValue,
-                                    effectRanges["uSineDistortSpread"].minVisual, effectRanges["uSineDistortSpread"].maxVisual,
-                                    effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound, true
-                                );
-                                let rotationAutoValue = convertValueToRotation("uSineDistortSpread", rotationValue);
-                                app.knobs[1].rotation = rotationAutoValue;
+                                // autowahValue = app.knobs[1];
+                                // autowahValue = updateInputValue(autowahValue.visualEffect, autowahValue.soundEffect, rotationValue,
+                                //     effectRanges["uSineDistortSpread"].minVisual, effectRanges["uSineDistortSpread"].maxVisual,
+                                //     effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound, true
+                                // );
+                                // let rotationAutoValue = convertValueToRotation("uSineDistortSpread", rotationValue);
+                                // app.knobs[1].rotation = rotationAutoValue;
                                 phaserEffect.octaves = currentValue;
                                 break;
                             }
@@ -307,12 +307,28 @@ WebFont.load({
             console.log(data[char].uniforms["uSineDistortSpread"]);
             localStorage.setItem("data", JSON.stringify(data));
             
-            // location.assign("../menu");
+            location.assign("../menu");
         });
 
         $("#darkMode").click(function(){
             switchFilterMode();
             blotter.texts[0].properties.fill = brightModeOn ? darkGrey : white;
+            
+            // blotter.uniforms = Object.assign(Object.assign({}, defaultUniforms), data[char].uniforms);
+            console.log(blotter.uniforms);
+            console.log(data[char].uniforms);
+            Object.keys(blotter.material.uniforms).forEach(function (key, index) {
+                if (defaultUniforms[key]) {
+                    if (key === "uDistortPosition") {
+                        blotter.material.uniforms[key].value = [
+                            Number(defaultUniforms[key][0]),
+                            Number(defaultUniforms[key][1])
+                        ];
+                    } else {
+                        blotter.material.uniforms[key].value = Number(defaultUniforms[key]);
+                    }
+                }
+            });
             blotter.needsUpdate = true;
           });
 
@@ -324,13 +340,11 @@ WebFont.load({
             })
             $("#apply-all-button").attr("src", "../assets/icons/apply2ICN.svg");
         });
-        let counter = 0;
 
         $("#reset").click(function () {
 
             data[char].soundEffects = Object.assign({}, defaultSoundEffects);
             data[char].uniforms = Object.assign({}, defaultUniforms);
-            counter++;
             app.initializeContorllers();
             Object.keys(blotter.material.uniforms).forEach(function (key, index) {
                 if (defaultUniforms[key]) {

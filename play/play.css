@@ -45,12 +45,26 @@
 :root {
   --bar-height: 120px;
   --bar-background: #202020;
+  --clr-white: #f4f6fa;
+  --clr-black: #202020;
+  --clr-grey-dark: #828385;
 }
 
 body {
   background: #161616;
   color: white;
   font-family: "ploni_dl_1.1_aaamedium" !important;
+
+}
+
+body.bright-mode {
+  background:var(--clr-white);
+  transition: 0.2s ease-out;
+}
+
+body.dark-mode {
+  background: --clr-grey-dark;
+  transition: 0.2s ease-out;
 }
 
 .mdl-textfield {
@@ -302,12 +316,18 @@ body {
 }
 
 .back-btn:hover {
-  color: var(--clr-white);
+  color: var(--clr-white) !important;
 }
 
 #nextBtn {
   position: relative;
-  top: 22px;
+  top: 20px;
+  opacity: 0.4 !important;
+}
+
+#nextBtn:hover {
+  opacity: 1 !important;
+  transition: none !important;
 }
 
 .next-btn-text {
@@ -336,6 +356,11 @@ body {
 
 .logo {
   margin-right: 40px;
+  -webkit-user-select:none; 
+  -webkit-touch-callout:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none; 
 }
 
 .tempo-container {

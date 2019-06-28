@@ -131,9 +131,16 @@ function initializeFilterMode(){
 
 function switchFilterMode() {
   brightModeOn = !brightModeOn;
-  $(".grid").css("filter", brightModeOn ? "invert(1)" : "none");
-  $("body").css("background", brightModeOn ? white : black);
   $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
+  let remove = 'bright-mode',
+  add = 'dark-mode';
+  if (brightModeOn){
+    remove = 'dark-mode';
+    add = 'bright-mode';
+  }
+  $("body").removeClass(remove);
+  $("body").addClass(add);
+  $(".grid").css("filter", brightModeOn ? "invert(1)" : "none");
   $("#darkMode span").text(brightModeOn ? "Bright Mode" : "Dark Mode");
 }
 

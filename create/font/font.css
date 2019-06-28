@@ -297,9 +297,9 @@ label .card:hover {
 
 }
 
-/* .dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-} */
+.dropdown span:hover{
+  font-family: 'ploni_dl_1.1_aaademibold';
+}
 
 .selected{
   color: #f4f6fa !important;

@@ -120,16 +120,15 @@ $("#decrease-letter-space").click(function() {
 
 
 $("#darkMode").click(function() {
+  let fill;
   switchFilterMode();
-  let fill ;
-  if ($(".word > canvas").length === 0){
-    $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
-  }
-  fill = brightModeOn ? darkGrey : white;
-  Object.values(inputData).forEach(function(value) {
-    value.texts[0].properties.fill = fill;
-    value.needsUpdate = true;
-  });
+  if ($(".word > canvas").length !== 0){
+    fill = brightModeOn ? darkGrey : white;
+    Object.values(inputData).forEach(function(value) {
+      value.texts[0].properties.fill = fill;
+      value.needsUpdate = true;
+    });
+  } 
 });
 
 tempoRange.addEventListener("input", function() {
@@ -286,7 +285,7 @@ function buildBlotter(char) {
   if (char.char === " ") {
     char.char = "-";
   }
-  style.fill = brightModeOn ? darkGrey : white;
+  // style.fill = brightModeOn ? darkGrey : white;
   const text = new Blotter.Text(char.char, style);
   const blotter = new Blotter(material, {
     texts: text
