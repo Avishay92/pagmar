@@ -20,6 +20,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: "Glyphter-arrow";
+  src: url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.eot");
+  src: url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.woff") format("woff"),
+    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.ttf") format("truetype"),
+    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.svg#Glyphter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class*='icon-arrow']:before{
+	display: inline-block;
+   font-family: 'Glyphter-arrow';
+   font-style: normal;
+   font-weight: normal;
+   line-height: 1;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale
+}
+.icon-arrow-dropicon:before{content:'\0053';}
+
 :root {
   --clr-Synth: #ffbc00;
   --clr-MembraneSynth: #0ed09b;
@@ -251,6 +272,7 @@ label .card:hover {
 
 #tabs .selected{
   color: #f4f6fa;
+  
 }
 
 #language{
@@ -297,13 +319,14 @@ label .card:hover {
 
 }
 
-.dropdown span:hover{
-  font-family: 'ploni_dl_1.1_aaademibold';
-}
+/* .dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+} */
 
 .selected{
   color: #f4f6fa !important;
   font-family: 'ploni_dl_1.1_aaademibold';
+
 }
 
 #upload:hover,
@@ -315,18 +338,14 @@ label .card:hover {
 
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 
-
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
 .dropdown-content {
+  top: 20px;
+
   display: none;
   position: absolute;
   background-color: #111111;
@@ -343,8 +362,13 @@ label .card:hover {
   border: 2px solid #111111;
 }
 
+.icon-arrow-dropicon {
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+
 .dropdown-content a {
-  /* color: white; */
   color: #828385;
 
   background-color: #111111;

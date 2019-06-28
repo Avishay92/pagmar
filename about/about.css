@@ -54,6 +54,7 @@ a:link, a:visited {
 
 a:hover, a:active {
   color: #f4f6fa;
+  transition: ease-in-out 0.2s;
   /* text-decoration: underline; */
 
 

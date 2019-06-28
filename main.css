@@ -38,6 +38,7 @@ body {
 
 #about:hover { 
   color: #f4f6fa;
+  transition: ease-in-out 0.3s;
 }
 
 button {
