@@ -78,6 +78,12 @@ body {
   width: 100%;
 }
 
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-out;
+
+}
+
 .top-bar {
   --color: #a7a8ab;
   height: var(--bar-height);

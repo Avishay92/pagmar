@@ -30,6 +30,8 @@
   --clr-black: #202020;
   --clr-grey: #59595b;
   --clr-grey-dark: #3c3d3d;
+  --bar-height: 120px;
+  --bar-background: #202020;
 }
 
 * {
@@ -52,7 +54,7 @@ body {
 .step {
   font-size: 12px;
   color: #828385;
-  margin-top: 45px;
+  /* margin-top: 45px; */
   font-family: "ploni_dl_1.1_aaaregular" !important;
 }
 
@@ -63,19 +65,57 @@ body {
   margin: 10px 0 100px 0;
 }
 
+#menu {
+  display: flex;
+  flex-direction: column;
+}
+
+#footer {
+  flex: 1;
+}
+
 .logo {
-  padding: 0 50px;
-  margin-top: 55px;
+  cursor: pointer;
+  outline: none;
+}
+
+.logo {
+  margin-right: 40px;
 }
 
 .logo img {
-  width: auto;
+  width: 100%;
 }
+
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-out;
+
+}
+
+.top-bar {
+  --color: #a7a8ab;
+  height: var(--bar-height);
+  padding: 0 50px;
+  justify-content: space-between;
+  color: var(--color);
+  font-size: 12px;
+  user-select: none;
+  user-select: none; 
+}
+
+.f-center {
+  display: flex;
+  align-items: center;
+}
+
+
 .entry {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
+
 
 .cards-container {
   display: grid;
