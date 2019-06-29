@@ -236,8 +236,8 @@ WebFont.load({
           weight: font === "Frank Ruhl Libre" ? "700" : "normal",
           fill: "#F4F6FA",
           size: 94,
-          paddingLeft: 60,
-          paddingRight: 60
+          paddingLeft: 94,
+          paddingRight: 94
         };
         const char = gridItemElement.dataset.blotter;
         let material = new Blotter.RollingDistortMaterial();

@@ -34,8 +34,6 @@ let input,
   letterSpace = 0,
   wordSpace = 50,
   tempo = 80,
-  addedNull = 0,
-  addedSpace = 0,
   brightModeOn,
   tempoRange = document.querySelector("#tempo");
 
@@ -48,23 +46,20 @@ initializeFilterMode();
 
 let blotter, char;
 
+function updateMargin(){
+  $(".word > canvas").each((index, value) => { 
+    const margin = "-" + (fontSize - letterSpace) + "px";
+    $(value).css({ "marginRight": margin, "marginLeft": margin });
+  });
+  $("#letter-spacing").val(letterSpace.toString());
+}
 
-function updateFontSize(fontSize) {
+function updateFontSize() {
   $("#font-size").val((fontSize / 10));
+  updateMargin();
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
       inputData[i].texts[0].properties.size = fontSize;
-      inputData[i].needsUpdate = true;
-    }
-  }
-}
-
-function updateLetterSpace(letterSpace) {
-  addedNull = parseInt(letterSpace / 10);
-  $("#letter-spacing").val(letterSpace.toString());
-  if (inputData.length !== 0) {
-    for (let i = 0; i < inputData.length; i++) {
-      inputData[i].texts[0].properties.paddingLeft = letterSpace;
       inputData[i].needsUpdate = true;
     }
   }
@@ -75,7 +70,7 @@ document.querySelector("#letter-spacing").addEventListener("input", function () 
   if (letterSpace < -10) {
     letterSpace = -10;
   }
-  updateLetterSpace(letterSpace);
+  updateMargin();
 });
 
 document.querySelector("#font-size").addEventListener("input", function () {
@@ -86,13 +81,13 @@ document.querySelector("#font-size").addEventListener("input", function () {
   else {
     fontSize = 400;
   }
-  updateFontSize(fontSize);
+  updateFontSize();
 });
 
 $("#increase-font-size").click(function () {
   if (fontSize < 400) {
     fontSize += 10;
-    updateFontSize(fontSize);
+    updateFontSize();
   }
 });
 
@@ -100,19 +95,19 @@ $("#decrease-font-size").click(function () {
   if (fontSize > 100) {
     fontSize -= 10;
   }
-  updateFontSize(fontSize);
+  updateFontSize();
 });
 
 $("#increase-letter-space").click(function () {
   letterSpace += 10;
-  updateLetterSpace(letterSpace);
+  updateMargin();
 });
 
 $("#decrease-letter-space").click(function () {
   if (letterSpace > -10) {
     letterSpace -= 10;
   }
-  updateLetterSpace(letterSpace);
+  updateMargin();
 });
 
 
@@ -134,6 +129,10 @@ tempoRange.addEventListener("input", function () {
   Tone.Transport.bpm.value = tempo;
 });
 
+$('.word').arrive('canvas', function(){
+  updateMargin();
+  $(this).show()
+});
 
 
 function startPlay() {
@@ -180,12 +179,13 @@ function stopPlay() {
 }
 
 const font = localStorage.getItem("font");
-
 const style = {
   family: font,
   weight: font === "Frank Ruhl Libre" ? "700" : "normal",
   fill: brightModeOn ? darkGrey : white,
-  size: fontSize
+  size: fontSize,
+  paddingLeft: fontSize,
+  paddingRight: fontSize
 };
 
 WebFont.load({
@@ -273,8 +273,6 @@ function buildBlotter(char) {
   );
   blotter.soundEffects = soundEffects;
   blotter.texts[0].properties.size = fontSize;
-  blotter.texts[0].properties.paddingLeft = letterSpace;
-
   scope.appendTo($(".word"));
   if (char.char === "-") {
     scope.domElement.className = "empty-space";

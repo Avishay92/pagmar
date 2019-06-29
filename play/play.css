@@ -258,6 +258,7 @@ body.dark-mode {
 
 .word > canvas{
   margin: auto 0;
+  display: none;
 }
 
 
