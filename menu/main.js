@@ -1,4 +1,11 @@
 const font = localStorage.getItem("font");
+document.getElementById("font").innerHTML = font;
+document.getElementById("synth").innerHTML = localStorage.getItem("synth");
+
+$.get("../how/index.html", function(data){
+  $("body").children("#how").html(data);
+});
+
 let data = JSON.parse(localStorage.getItem("data"));
 const defaultUniforms = JSON.parse(localStorage.getItem("defaultUniforms"));
 const defaultSoundEffects = JSON.parse(
@@ -70,8 +77,10 @@ initializeFilterMode();
 //html string for all letters
 let letterElements = Object.values(data)
   .map(function(value, index) {
-    return `<div class="grid__item" data-blotter="${value.char}">
-        </div>`;
+    if (!["-",""].includes(value.char)){
+      return `<div class="grid__item" data-blotter="${value.char}">
+      </div>`;
+    }
   })
   .join("");
 
@@ -131,7 +140,7 @@ function resetChar(char) {
       }
     });
     Object.values(blotter._scopes)[0].render();
-    if (char !== " ") {
+    if (![" ", "-"].includes(char)) {
       var gridItem = document.querySelector(
         `[data-blotter=${data[char].char}]`
       );
@@ -180,7 +189,7 @@ function activateChar(char) {
     });
 
     Object.values(blotter._scopes)[0].render();
-    if (char !== " ") {
+    if (!["", "-"].includes(char)) {
       var gridItem = document.querySelector(
         `[data-blotter=${data[char].char}]`
       );
@@ -200,19 +209,17 @@ function activateChar(char) {
     });
   }
   updateEffects(soundEffects);
-  // document.removeEventListener( 'keyup', listener );
 
   Tone.context.resume().then(() => {
     Object.values(lettersToPlay).forEach(function (value){
-    instrument.triggerAttackRelease(value);
-
+      instrument.triggerAttackRelease(value);
     })
   });
 }
 
 WebFont.load({
   google: {
-    families: ["Frank Ruhl Libre" ]
+    families: ["Frank Ruhl Libre:700"]
   },
   custom: {
       families: [font],
@@ -221,16 +228,12 @@ WebFont.load({
   active: function (){
   //builds blotter and insert pointers to data
   $(document).ready(function() {
-    document.getElementById("font").innerHTML = localStorage.getItem("font");
-    document.getElementById("synth").innerHTML = localStorage.getItem("synth");
-   
-
     document
       .querySelectorAll("[data-blotter]")
       .forEach(function(gridItemElement) {
         const style = {
           family: font,
-          weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
+          weight: font === "Frank Ruhl Libre" ? "700" : "normal",
           fill: "#F4F6FA",
           size: 94,
           paddingLeft: 60,
@@ -256,7 +259,6 @@ WebFont.load({
           Object.assign({}, soundEffects),
           data[char].soundEffects
         );
-        // data[char].blotter = blotter;
         blotters[char].blotter = blotter;
 
         resetChar(char);
@@ -288,9 +290,6 @@ WebFont.load({
 
   $(document).keydown(function(event) {
     var char = event.key; // charCode will contain the code of the character inputted
-let listener;
-    // document.removeEventListener( 'keydown', listener);
-    // listener = event => {
       if ("א" <= char && char <= "ת") {
         if (
           defaultSoundEffects[Object.keys(defaultSoundEffects)[0]] ===
@@ -304,24 +303,13 @@ let listener;
           activateChar(char);
         }
       }
-    // };
-  
-    // document.addEventListener( 'keydown',listener );
   });
 
   $(document).keyup(function(event) {
-    let listener;
-    // document.removeEventListener( 'keyup', listener );
-
-    // listener = event => {
       var char = event.key; // charCode will contain the code of the character inputted
       if ("א" <= char && char <= "ת") {
         resetChar(char);
       }
-
-    // document.addEventListener( 'keyup', listener );
-  // };
- 
   });
 
   $("#backBtn").click(function() {
@@ -334,6 +322,10 @@ let listener;
 
   $("#darkMode").click(function(){
     switchFilterMode();
+  });
+
+  $("#info").click(function(){
+    $("#how").show();
   });
 
 

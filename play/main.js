@@ -4,7 +4,7 @@ const defaultSoundEffects = JSON.parse(
   localStorage.getItem("defaultSoundEffects")
 );
 const brightMode = localStorage.getItem("brightMode");
-$(".back").click(function() {
+$(".back").click(function () {
   localStorage.setItem("data", JSON.stringify(data));
   location.assign("../menu");
 });
@@ -23,7 +23,6 @@ instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
 let input,
   playPressed = 1,
-  sequence = [],
   inputData = [],
   index = 0,
   fontSize = 200,
@@ -42,9 +41,6 @@ initializeEffects();
 initializeInstrument();
 initializeFilterMode();
 
-var seq = new Tone.Sequence(function(time, note) {
-  instrument.triggerAttackRelease(note, "1n");
-}, sequence);
 let blotter, char;
 
 
@@ -58,8 +54,8 @@ function updateFontSize(fontSize) {
   }
 }
 
-function updateLetterSpace(letterSpace){
-  addedNull = parseInt(letterSpace/10);
+function updateLetterSpace(letterSpace) {
+  addedNull = parseInt(letterSpace / 10);
   $("#letter-spacing").val(letterSpace.toString());
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
@@ -67,10 +63,9 @@ function updateLetterSpace(letterSpace){
       inputData[i].needsUpdate = true;
     }
   }
-  initPlay();
 }
 
-document.querySelector("#letter-spacing").addEventListener("input", function(){
+document.querySelector("#letter-spacing").addEventListener("input", function () {
   letterSpace = event.target.value;
   if (letterSpace < -10) {
     letterSpace = -10;
@@ -78,162 +73,137 @@ document.querySelector("#letter-spacing").addEventListener("input", function(){
   updateLetterSpace(letterSpace);
 });
 
-document.querySelector("#font-size").addEventListener("input", function(){
+document.querySelector("#font-size").addEventListener("input", function () {
   fontSize = event.target.value;
   if (fontSize < 40) {
-    fontSize = event.target.value*10;
+    fontSize = event.target.value * 10;
   }
-  else{
+  else {
     fontSize = 400;
   }
   updateFontSize(fontSize);
 });
 
-$("#increase-font-size").click(function(){
+$("#increase-font-size").click(function () {
   if (fontSize < 400) {
     fontSize += 10;
     updateFontSize(fontSize);
-    }
+  }
 });
 
-$("#decrease-font-size").click(function() {
+$("#decrease-font-size").click(function () {
   if (fontSize > 100) {
     fontSize -= 10;
   }
   updateFontSize(fontSize);
 });
 
-$("#increase-letter-space").click(function() {
+$("#increase-letter-space").click(function () {
   letterSpace += 10;
-  addedNull++;
   updateLetterSpace(letterSpace);
 });
 
-$("#decrease-letter-space").click(function() {
+$("#decrease-letter-space").click(function () {
   if (letterSpace > -10) {
     letterSpace -= 10;
   }
-  addedNull--;
   updateLetterSpace(letterSpace);
 });
 
 
 
-$("#darkMode").click(function() {
+$("#darkMode").click(function () {
   let fill;
   switchFilterMode();
-  if ($(".word > canvas").length !== 0){
+  if ($(".word > canvas").length !== 0) {
     fill = brightModeOn ? darkGrey : white;
-    Object.values(inputData).forEach(function(value) {
+    Object.values(inputData).forEach(function (value) {
       value.texts[0].properties.fill = fill;
       value.needsUpdate = true;
     });
-  } 
+  }
 });
 
-tempoRange.addEventListener("input", function() {
+tempoRange.addEventListener("input", function () {
   tempo = event.target.value;
   Tone.Transport.bpm.value = tempo;
 });
 
-function initPlay() {
-  if (!playPressed) {
-    playPressed = !playPressed;
-    seq.stop();
-    index = 0;
-    Tone.Transport.bpm.value = tempo;
-    switchPlayMode();
+
+
+function startPlay() {
+  $("#play").addClass("active");
+  $("#line").css('visibility', 'hidden');
+  $("#play > img").attr("src", "../assets/icons/stopICN.svg");
+  Tone.Transport.stop()
+  Tone.Transport.bpm.value = tempo;
+  if (inputData.length !== 0) {
+    let sequenceData = [];
+    for (let i = 0; i < inputData.length; i++) {
+      let char = inputData[i].texts[0].value;
+      let note = data[char].note;
+      sequenceData.push({ char: char, note: note, time: i, blotter: inputData[i] });
+    }
+    var sequence = new Tone.Sequence(function (time, event) {
+      stop = (4 / 8) * (60 / tempo) * 1000;
+      setTimeout(function () {
+        event.blotter.material.uniforms.uSpeed.value = 0.0;
+      }, stop);
+      event.blotter.material.uniforms.uSpeed.value = 0.08;
+      updateEffects(inputData[index].soundEffects);
+      event.note && instrument.triggerAttackRelease(event.note, "16n")
+    }, sequenceData);
+    sequence.start(0)
+    sequence.loop = true;
+    Tone.Transport.start();
   }
 }
 
-$("#play").click(switchPlayMode);
-
-function switchPlayMode() {
-  const input = $(".word > canvas");
-  let img;
-  if (inputData.length !== 0 || !playPressed) {
-    let char, spaces;
-    if (playPressed) {
-      let note, stop;
-      img = "../assets/icons/stopICN.svg";
-      $("#line").css('visibility', 'hidden');
-      for (let i = 0; i < inputData.length; i++) {
-        char = inputData[i].texts[0].value;
-        note = data[char].note;
-        sequence.push(note);
-        spaces = 0;
-        while (spaces < addedNull) {
-          sequence.push(null);
-          spaces++;
-        }
-      }
-      sequence.push(null);
-
-      console.log(sequence);
-      Tone.Transport.bpm.value = tempo;
-      seq = new Tone.Sequence(function(time, note) {
-        let currentIndex = index;
-        char = data[input[index].innerHTML];
-        stop = (4 / 8) * (60 / tempo) * 1000;
-
-        setTimeout(function() {
-          inputData[currentIndex].material.uniforms.uSpeed.value = 0.0;
-        }, stop);
-        inputData[currentIndex].material.uniforms.uSpeed.value = 0.08;
-        console.log(char.note);
-        if (char.note) {
-          instrument.triggerAttackRelease(char.note, "8n");
-        }
-        updateEffects(inputData[index].soundEffects);
-        index++;
-        if (index === inputData.length) {
-          index = 0;
-        }
-      }, sequence);
-      seq.start();
-      Tone.Transport.start();
-      console.log(sequence);
-
-      while (sequence.length > 0) {
-        sequence.pop();
-      }
-    } else {
-      seq.stop();
-      index = 0;
-      img = "../assets/icons/playICN.svg";
-      $("#line").css('visibility', 'visible');
-    }
-    playPressed = !playPressed;
-    $("#play-button").attr("src", img);
+$("#play").click(function () {
+  if ($("#play").hasClass("active")) {
+    stopPlay();
+  } else {
+    startPlay();
   }
+});
+
+function stopPlay() {
+  Tone.Transport.stop();
+  $("#play").removeClass("active");
+  $("#play > img").attr("src", "../assets/icons/playICN.svg");
+  $("#line").css('visibility', 'visible');
 }
 
 const font = localStorage.getItem("font");
 
 const style = {
   family: font,
-  weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
+  weight: font === "Frank Ruhl Libre" ? "700" : "normal",
   fill: brightModeOn ? darkGrey : white,
-  size: 200
+  size: fontSize
 };
 
 WebFont.load({
   google: {
-    families: ["Frank Ruhl Libre"]
+    families: ["Frank Ruhl Libre:700"]
   },
   custom: {
     families: [font],
     urls: ["../../fonts/fonts.css"]
   },
-  active: function() {
-    $(document).ready(function() {
+  active: function () {
+    $(document).ready(function () {
       $("#back").click(() => {
         localStorage.setItem("brightMode", brightModeOn);
         location.assign("../menu");
       });
 
-      $(document).keydown(function(event) {
+      $(document).keydown(function (event) {
         const key = event.keyCode;
+        var char = data[event.key]; // charCode will contain the code of the character inputted
+        if ($("#play").hasClass("active") && char) {
+          stopPlay();
+        }
         if (key == 8 || key == 46) {
           $(".word > canvas")
             .last()
@@ -243,18 +213,9 @@ WebFont.load({
             $(".word div").css("color", brightModeOn ? lightGrey : darkGrey);
           }
           inputData.pop();
-          if (!playPressed) {
-            if (inputData.length !== 0) {
-              initPlay();
-            } else {
-              switchPlayMode();
-            }
-          }
         } else {
-          var char = data[event.key]; // charCode will contain the code of the character inputted
           if (char) {
             inputData.push(buildBlotter(char));
-            initPlay();
           }
         }
       });
@@ -270,7 +231,7 @@ function buildBlotter(char) {
     Object.assign({}, defaultUniforms),
     char.uniforms
   );
-  Object.keys(material.uniforms).forEach(function(key, index) {
+  Object.keys(material.uniforms).forEach(function (key, index) {
     if (defaultUniforms[key]) {
       if (key === "uDistortPosition") {
         material.uniforms[key].value = [
@@ -323,10 +284,10 @@ function buildBlotter(char) {
 }
 
 const ipt = document.querySelector("input[type=range]");
-ipt.oninput = function(e){
+ipt.oninput = function (e) {
   const val = e.target.value;
   colorRange(val);
-} 
+}
 
 function colorRange(val) {
   progress = ((val - 60) / 60) * 100 + "%";
@@ -334,6 +295,6 @@ function colorRange(val) {
   document.documentElement.style.setProperty("--progress", progress);
 };
 
-ipt.onfocus = function() {
+ipt.onfocus = function () {
   return false;
 };

@@ -29,7 +29,7 @@ const font = localStorage.getItem("font");
 
 WebFont.load({
     google: {
-        families: ["Frank Ruhl Libre:bold"]
+        families: ["Frank Ruhl Libre:700"]
     },
     custom: {
         families: [font],
@@ -38,9 +38,9 @@ WebFont.load({
     active: function () {
         var text = new Blotter.Text(char, {
             family: font,
-            weight: font === "Frank Ruhl Libre" ? "bold" : "normal",
+            weight: font === "Frank Ruhl Libre" ? "700" : "normal",
             fill: brightModeOn ? darkGrey : white,
-            size: 330,
+            size: 400,
         });
 
         var material = new Blotter.RollingDistortMaterial();

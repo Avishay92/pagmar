@@ -42,6 +42,8 @@ body {
   z-index: -10;
   margin: 0;
   user-select: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .mdl-textfield {
@@ -61,15 +63,16 @@ body {
 }
 
 .grid {
-  margin: 35 5%;
+  margin-top: 20px;
   display: grid;
   direction: rtl;
   grid-template-columns: repeat(7, 1fr);
   grid-row-start: -1;
+  flex: 1
 }
 
 .grid__item {
-  height: 150px;
+  height: auto;
   position: relative;
   justify-content: center;
   display: flex;
@@ -113,10 +116,7 @@ body {
 .logo img {
   width: 100%;
 }
-.top-bar-right,
-.top-bar-left {
-	width: 33.3%;
-}
+
 .top-bar-left .arrow {
   margin-left: 45px;
 }
@@ -144,7 +144,7 @@ body {
 }
 
 
-.action-item img:hover {
+.action-item:hover > img {
   transform: scale(1.2);
 }
 

@@ -14,7 +14,8 @@ body {
   font-family: "ploni_dl_1.1_aaaregular" !important;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  justify-content: space-between;
+  max-height: 100vh;
   user-select: none;
 }
 
@@ -35,7 +36,6 @@ body.dark-mode {
 }
 
 #back {
-  position: ;
   top: 20px;
   background: #5e5e60;
   color: var(--clr-white);
@@ -49,13 +49,24 @@ body.dark-mode {
 }
 
 #char {
-  flex: 1;
   text-align: center;
   align-items: center;
-  /* margin: -80px; */
+  margin: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  margin: auto;
+  padding-top: 40px !important;
+  padding-bottom: 214px !important;
+  flex-direction: row;
+  justify-content: center;
 }
 
 canvas{
+  margin: auto;
   z-index: -1;
 }
 

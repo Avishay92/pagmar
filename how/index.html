@@ -1,0 +1,145 @@
+    <style>
+      #info-page {
+        background: #161616;
+        color: #828385;
+        font-family: "ploni_dl_1.1_aaaregular" !important;
+        display: flex;
+        flex-direction: column;
+        user-select: none;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+
+      .container {
+        margin: auto;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-gap: 125px;
+        position: relative;
+      }
+
+
+      .step {
+        font-size: 12px;
+        color: #828385;
+        height: 20px;
+        font-family: "ploni_dl_1.1_aaaregular" !important;
+      }
+
+      .title {
+        font-size: 45px;
+        line-height: 1.1;
+        color: #f4f6fa;
+
+      }
+
+      .press {
+        font-size: 45px;
+        line-height: 1.1;
+        color: #9256D7;
+      }
+
+      .click {
+        font-size: 45px;
+        line-height: 1.1;
+        color: #01ED95;
+      }
+
+      .par {
+        font-family: "ploni_dl_1.1_aaalight" !important;
+        font-size: 45px;
+        line-height: 1.1;
+        color: #f4f6fa;
+      }
+
+      .entry {
+        display: flex;
+        justify-content: top;
+        flex-direction: column;
+        margin-top: 20px;
+      }
+
+      .nav-btn {
+        user-select: none;
+        outline: none;
+        max-width: 150px;
+        font-family: "ploni_dl_1.1_aaamedium" !important;
+        font-size: 14px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        width: 89px;
+        height: 32px;
+        transition: all 400ms;
+        cursor: pointer;
+      }
+
+      .nav-btn {
+        bottom: 0;
+        right: 0;
+        text-transform: uppercase;
+      }
+
+      .close {
+        position: fixed;
+        left: 60px;
+        top: 60px;
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+        background-image: url('../assets/svgs/close.svg');
+        opacity: 0.5;
+        transition: opacity ease-out 0.3s;
+      }
+
+      .close:hover {
+        opacity: 1;
+      }
+    </style>
+    <div id="info-page">
+      <div class="container">
+        <div class="tile">
+          <div class="step"></div>
+          <div class="entry title">
+            How <br />
+            to Play
+          </div>
+        </div>
+        <div class="tile">
+          <div class="step">PLAY</div>
+          <div class="entry">
+            <div class="press">
+              Press the <br />
+              keyboard
+            </div>
+            <div class="par">
+              to play<br />
+              music
+            </div>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="step">Edit</div>
+
+          <div class="entry">
+            <div class="click">
+              Click <br />
+              on letters
+            </div>
+            <div class="par">
+              to design<br />
+              their shape
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="close" onclick="$('#how').hide()"></div>
+    </div>
