@@ -14,6 +14,7 @@ let instrument,
     feedbackEffect,
     tremoloEffect,
     brightModeOn,
+    app,
     autowahValue;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
@@ -132,7 +133,7 @@ WebFont.load({
 
 
 
-        var app = new Vue({
+        app = new Vue({
             el: '#app',
             data: {
                 colorArray: ['#FF395D', '#23F376', '#FFFB43', '#FA9C34', '#21CD92', '#ED31A2', '#E22'],

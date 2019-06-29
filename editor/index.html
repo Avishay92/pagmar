@@ -19,7 +19,7 @@
     <script src="../library.js"></script>
   </head>
 
-  <body>
+  <body onmouseup="app.unselectKnobs()">
     <nav class="top-bar f-center">
       <div class="top-bar-left f-center">
         <div class="logo">
@@ -68,7 +68,6 @@
     <!-- PAGE STUFF -->
 
     <div id="app" 
-    @mouseUp="unselectKnobs" 
     style="display:none;"
     >
       <div class="page-container">
