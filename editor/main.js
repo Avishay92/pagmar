@@ -313,25 +313,12 @@ WebFont.load({
         $("#darkMode").click(function(){
             switchFilterMode();
             blotter.texts[0].properties.fill = brightModeOn ? darkGrey : white;
-            
-            // Object.keys(material.uniforms).forEach(function (key, index) {
+            // Object.keys(data[char].uniforms).forEach(function (key, index) {
             //     if (key !== "uDistortPosition") {
             //         material.uniforms[key].value = Number(data[char].uniforms[key])
             //     }
             // });
-
-            Object.keys(blotter.material.uniforms).forEach(function (key, index) {
-                if (defaultUniforms[key]) {
-                    if (key !== "uDistortPosition") {
-                        console.log(Number(data[char].uniforms[key]));
-                        blotter.material.uniforms[key].value = Number(data[char].uniforms[key]);
-                    }
-                }
-            });
-s            // blotter.needsUpdate = true;
-            Object.values(blotter._scopes)[0].render();
-
-            console.log(blotter);
+            blotter.needsUpdate = true;
           });
 
 

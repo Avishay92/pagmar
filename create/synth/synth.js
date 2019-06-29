@@ -93,11 +93,9 @@ let defaultSoundEffects = {
   sAutoWahEffect: f1,
   sPhaserEffect: f1,
   sVibratoEffect: f1,
-  sReverbEffect: f1,
   sPitchEffect: f1,
   sDistortionEffect: f1,
-  sFeedbackEffect: f1,
-  sTremoloEffect: f1
+  sChorusEffect: f1,
 };
 
 initializeInstrument();

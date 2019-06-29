@@ -6,35 +6,37 @@ const darkGrey = "#202020";
 function initializeInstrument() {
     switch (instrument) {
       case "synth":
-        instrument = new Tone.Synth().connect(tremoloEffect);
+        instrument = new Tone.Synth().connect(chorusEffect);
         break;
       case "DuoSynth":
-        instrument = new Tone.DuoSynth().connect(tremoloEffect);
+        instrument = new Tone.DuoSynth().connect(chorusEffect);
         break;
       case "MembraneSynth":
-        instrument = new Tone.MembraneSynth().connect(tremoloEffect);
+        instrument = new Tone.MembraneSynth().connect(chorusEffect);
         break;
       case "AMSynth":
-        instrument = new Tone.AMSynth().connect(tremoloEffect);
+        instrument = new Tone.AMSynth().connect(chorusEffect);
         break;
       case "FMSynth":
-        instrument = new Tone.FMSynth().connect(tremoloEffect);
+        instrument = new Tone.FMSynth().connect(chorusEffect);
         break;
       default:
-          instrument = new Tone.Synth().connect(tremoloEffect);
+        instrument = new Tone.Synth().connect(chorusEffect);
           break;
     }
+    instrument.triggerRelease();
+
   }
 
   function initializeEffects() {
-    autoWahEffect = new Tone.AutoWah(50, 3, -30).toMaster();
+    autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
     phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
-    vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
-    // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
+    vibratoEffect = new Tone.Vibrato(0.0001, 0.1).chain(phaserEffect);
     pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
     distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
-    //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
-    tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
+    // chorusEffect = new Tone.Chorus(0.0001, 0, 0, 0 ,0).chain(distortionEffect);
+    chorusEffect = new Tone.Tremolo(9, 0.5).chain(distortionEffect);
+
   }
 
   function updateEffects(soundEffects) {
@@ -47,9 +49,7 @@ function initializeInstrument() {
           // phaserEffect.octaves = soundEffects[key];
           break;
         case "sVibratoEffect":
-          vibratoEffect.frequency = soundEffects[key];
-          break;
-        case "sReverbEffect":
+          vibratoEffect.depth.value = soundEffects[key];
           break;
         case "sPitchEffect":
           pitchEffect.pitch = soundEffects[key];
@@ -59,8 +59,10 @@ function initializeInstrument() {
           break;
         case "sFeedbackEffect":
           break;
-        case "sTremoloEffect":
-          tremoloEffect.frequency = soundEffects[key];
+        case "sChorusEffect":
+          if (chorusEffect.frequency > 0){
+            chorusEffect = new Tone.Tremolo(9, 0.5).chain(distortionEffect);
+          }
           break;
       }
     });
@@ -97,10 +99,10 @@ function initializeInstrument() {
         minSound: 0,
         maxSound: 24,
     },
-    uRotation: { //tremolo
+    uRotation: { //chorus
         minVisual: 0,
         maxVisual: 180,
-        minSound: 1,
+        minSound: 0,
         maxSound: 8,
     },
     uDistortPositionX:{ //Distortion
@@ -143,6 +145,3 @@ function switchFilterMode() {
   $(".grid").css("filter", brightModeOn ? "invert(1)" : "none");
   $("#darkMode span").text(brightModeOn ? "Bright Mode" : "Dark Mode");
 }
-
-
-

@@ -8,6 +8,11 @@ $(".back").click(function () {
   localStorage.setItem("data", JSON.stringify(data));
   location.assign("../menu");
 });
+
+$("#nextBtn").click(function () {
+  location.assign("../download");
+});
+
 $(".word").children().length = 0;
 
 let instrument,
