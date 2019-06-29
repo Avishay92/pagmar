@@ -15,6 +15,8 @@ let instrument,
     tremoloEffect,
     brightModeOn,
     app,
+    material,
+    blotter,
     autowahValue;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 initializeEffects();
@@ -44,7 +46,7 @@ WebFont.load({
             size: 400,
         });
 
-        var material = new Blotter.RollingDistortMaterial();
+        material = new Blotter.RollingDistortMaterial();
         Object.keys(material.uniforms).forEach(function (key, index) {
             if (defaultUniforms[key]) {
                 if (key === "uDistortPosition") {
@@ -55,7 +57,7 @@ WebFont.load({
             }
         })
 
-        var blotter = new Blotter(material, {
+        blotter = new Blotter(material, {
             texts: text,
         });
         
@@ -304,8 +306,6 @@ WebFont.load({
         $("#back").click(function () {
             localStorage.setItem("brightMode", brightModeOn);
             data[char].uniforms["uSineDistortSpread"] = autowahValue;
-            console.log(autowahValue);
-            console.log(data[char].uniforms["uSineDistortSpread"]);
             localStorage.setItem("data", JSON.stringify(data));
             
             location.assign("../menu");
@@ -313,13 +313,32 @@ WebFont.load({
 
         $("#darkMode").click(function(){
             switchFilterMode();
-            blotter.texts[0].properties.fill = brightModeOn ? darkGrey : white;
-            // Object.keys(data[char].uniforms).forEach(function (key, index) {
-            //     if (key !== "uDistortPosition") {
-            //         material.uniforms[key].value = Number(data[char].uniforms[key])
-            //     }
-            // });
-            blotter.needsUpdate = true;
+            var text = new Blotter.Text(char, {
+                family: font,
+                weight: font === "Frank Ruhl Libre" ? "700" : "normal",
+                fill: brightModeOn ? darkGrey : white,
+                size: 400,
+            });
+    
+            material = new Blotter.RollingDistortMaterial();
+            Object.keys(material.uniforms).forEach(function (key, index) {
+                if (defaultUniforms[key]) {
+                    if (key === "uDistortPosition") {
+                        material.uniforms[key].value = [Number(data[char].uniforms[key][0]), Number(data[char].uniforms[key][1])];
+                    } else {
+                        material.uniforms[key].value = Number(data[char].uniforms[key])
+                    }
+                }
+            })
+    
+            
+            blotter = new Blotter(material, {
+                texts: text,
+            });
+            
+            var scope = blotter.forText(text);
+            document.querySelector("#char").innerHTML = null;
+            scope.appendTo(document.querySelector("#char"));
           });
 
 

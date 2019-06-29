@@ -251,7 +251,6 @@ function buildBlotter(char) {
   if (char.char === " ") {
     char.char = "-";
   }
-  // style.fill = brightModeOn ? darkGrey : white;
   const text = new Blotter.Text(char.char, style);
   const blotter = new Blotter(material, {
     texts: text
