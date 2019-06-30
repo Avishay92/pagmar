@@ -211,7 +211,7 @@ body {
   background-color: transparent;
   border: transparent;
   color: var(--clr-grey-dark);
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .back-btn.icon-arrow:before {

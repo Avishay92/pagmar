@@ -195,11 +195,11 @@ body {
 }
 
 .gallery-item:nth-child(5) .image {
-  background-image: url("../assets/discover/po20.png");
+  background-image: url("../assets/discover/alef.jpg");
 }
 
 .gallery-item:nth-child(6) .image {
-  background-image: url("../assets/discover/alef.jpg");
+  background-image: url("../assets/discover/tonic4.gif");
 }
 
 .gallery-item:nth-child(7) .image {

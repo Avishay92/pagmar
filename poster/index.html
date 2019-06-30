@@ -102,6 +102,7 @@ let customSoundEffects = {
       background: #161616;
       color: #828385;
       font-family: "ploni_dl_1.1_aaaregular" !important;
+      font-size: 12px;
       display: flex;
       flex-direction: column;
       user-select: none;
@@ -114,12 +115,10 @@ let customSoundEffects = {
     }
 
     .container {
-      margin: auto;
-      display: grid;
-      grid-template-columns: auto auto auto;
-      grid-gap: 125px;
-      position: relative;
-    }
+  --edges: 12%;
+  padding: 90 var(--edges) 80px var(--edges);
+  flex-grow: 1;
+}
 
     .step {
       font-size: 12px;
@@ -129,8 +128,9 @@ let customSoundEffects = {
     }
 
     .page-title {
-      font-size: 45px;
-      line-height: 1.1;
+      font-size: 28px;
+      
+      line-height: 1.5;
       color: #f4f6fa;
     }
 
@@ -138,7 +138,7 @@ let customSoundEffects = {
       display: flex;
       justify-content: top;
       flex-direction: column;
-      margin-top: 20px;
+      /* margin-top: 60px; */
     }
 
     .close {
@@ -158,11 +158,10 @@ let customSoundEffects = {
     }
 
     .container {
-        margin: auto;
+  
         display: grid;
         grid-template-columns: auto auto auto;
-        grid-gap: 125px;
-        position: relative;
+      
      }
 
     .under-line-text{
@@ -173,8 +172,9 @@ let customSoundEffects = {
     .lost-in-space{
         background-repeat: no-repeat;
         background-size: contain;
-        width: 350px !important;
-        height: 600px !important;
+        /* margin-top: 60px; */
+        width: 450px !important;
+        height: 700px !important;
         background-image: url("../assets/discover/lostinspace.jpg");
     }
 
@@ -188,6 +188,8 @@ let customSoundEffects = {
 
     #play{
         cursor: pointer;
+        width: 35px;
+        height: 35px;
         margin-right: 10px;
     }
     :root {
@@ -285,11 +287,12 @@ let customSoundEffects = {
                     Lost in space
             </span>
             <span class="text">
-                By
+                By Avishay Ram
+                <br>
+                <br>
+              
             </span>
-            <span class="under-line-text">
-                    Avishay Ram
-            </span>
+            
             <div class="tempo-grid f-center">
               <div>
                   <img id="play" src="../assets/icons/playICN.svg" alt="" />
