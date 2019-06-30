@@ -62,10 +62,8 @@ let instrument,
   autoWahEffect,
   phaserEffect,
   vibratoEffect,
-  reverbEffect,
   pitchEffect,
   distortionEffect,
-  feedbackEffect,
   tremoloEffect;
 
 //initializing instruments and sound effects
@@ -87,35 +85,6 @@ let letterElements = Object.values(data)
 const gridElement = (document.querySelector(
   ".grid"
 ).innerHTML = letterElements);
-
-function updateEffects(soundEffects) {
-  Object.keys(soundEffects).forEach(function(key, index) {
-    switch (key) {
-      case "sAutoWahEffect":
-        autoWahEffect.baseFrequency.value = soundEffects[key];
-        break;
-      case "sPhaserEffect":
-        phaserEffect.octaves = soundEffects[key];
-        break;
-      case "sVibratoEffect":
-        vibratoEffect.frequency = soundEffects[key];
-        break;
-      case "sReverbEffect":
-        break;
-      case "sPitchEffect":
-        pitchEffect.pitch = soundEffects[key];
-        break;
-      case "sDistortionEffect":
-        distortionEffect.distortion = soundEffects[key];
-        break;
-      case "sFeedbackEffect":
-        break;
-      case "sTremoloEffect":
-        tremoloEffect.frequency = soundEffects[key];
-        break;
-    }
-  });
-}
 
 function resetChar(char) {
   let blotter;
@@ -160,6 +129,7 @@ function resetChar(char) {
 
 function activateChar(char) {
   let blotter;
+  console.log(char, data[char].note);
   let soundEffects;
   if (Object.keys(lettersToPlay).length <4 ){
     lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});

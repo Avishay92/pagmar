@@ -68,6 +68,7 @@ body {
 .logo {
   cursor: pointer;
   outline: none;
+  user-select: none; 
 }
 
 .logo {
@@ -218,4 +219,8 @@ body {
   font-size: 12px;
   color: #828385;
   font-family: "ploni_dl_1.1_aaaregular" !important;
+}
+
+#lost-in-space{
+  cursor: pointer;
 }
