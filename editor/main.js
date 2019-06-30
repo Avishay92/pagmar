@@ -225,12 +225,12 @@ WebFont.load({
                             }
                             case 'uSineDistortSpread': {
                                 data[char].autowahValue = false;
-                                autoWahEffect.octaves = currentValue;
+                                autoWahEffect.frequency = currentValue;
                                 break;
                             }
 
                             case 'uSineDistortAmplitude': {
-                                vibratoEffect.depth.value = currentValue;
+                                // vibratoEffect.depth.value = currentValue;
                                 break;
                             }
                             case 'uNoiseDistortAmplitude': {

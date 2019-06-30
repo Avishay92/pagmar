@@ -125,10 +125,6 @@ body.dark-mode {
   background-color: var(--bar-background);
   padding: 0 50px;
   font-size: 12px;
-  -webkit-user-select:none; 
-  -webkit-touch-callout:none; 
-  -moz-user-select:none; 
-  -ms-user-select:none; 
   user-select:none; 
 }
 

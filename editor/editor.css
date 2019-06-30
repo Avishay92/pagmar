@@ -21,13 +21,13 @@ body {
 
 body.bright-mode {
   background:var(--clr-white);
-  transition: 0.2s ease-out;
+  /* transition: 0.2s ease-out; */
 
 }
 
 body.dark-mode {
   background: --clr-grey-dark;
-  transition: 0.2s ease-out;
+  /* transition: 0.2s ease-out; */
 }
 
 .logo {

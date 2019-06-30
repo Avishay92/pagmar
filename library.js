@@ -31,25 +31,24 @@ function initializeInstrument() {
   function initializeEffects() {
     autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
     phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
-    vibratoEffect = new Tone.Vibrato(0.0001, 0.1).chain(phaserEffect);
+    vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
+    // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
     pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
     distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
-    // chorusEffect = new Tone.Chorus(0.0001, 0, 0, 0 ,0).chain(distortionEffect);
-    chorusEffect = new Tone.Tremolo(9, 0.5).chain(distortionEffect);
-
+    //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
+    chorusEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
   }
-
   function updateEffects(soundEffects) {
     Object.keys(soundEffects).forEach(function(key, index) {
       switch (key) {
         case "sAutoWahEffect":
-          autoWahEffect.octaves.value = soundEffects[key];
+          autoWahEffect.frequency = soundEffects[key];
           break;
         case "sPhaserEffect":
           // phaserEffect.octaves = soundEffects[key];
           break;
         case "sVibratoEffect":
-          vibratoEffect.depth.value = soundEffects[key];
+          // vibratoEffect.depth.value = soundEffects[key];
           break;
         case "sPitchEffect":
           pitchEffect.pitch = soundEffects[key];
@@ -60,9 +59,7 @@ function initializeInstrument() {
         case "sFeedbackEffect":
           break;
         case "sChorusEffect":
-          if (chorusEffect.frequency > 0){
-            chorusEffect = new Tone.Tremolo(9, 0.5).chain(distortionEffect);
-          }
+            // chorusEffect.frequency = soundEffects[key];
           break;
       }
     });
@@ -72,7 +69,7 @@ function initializeInstrument() {
     uSineDistortSpread:{   //autoWah
         minVisual: 0.067,
         maxVisual: 1,
-        minSound: 4,
+        minSound: 6,
         maxSound: 8,
     },
     uSineDistortCycleCount: { //phaser
