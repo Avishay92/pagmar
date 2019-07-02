@@ -17,6 +17,12 @@ body {
   justify-content: space-between;
   max-height: 100vh;
   user-select: none;
+  opacity: 1;
+}
+
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
 }
 
 body.bright-mode {

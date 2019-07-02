@@ -20,6 +20,9 @@
   </head>
 
   <body onmouseup="app.unselectKnobs()">
+    <script>
+        document.body.classList.add('fade');
+    </script> 
     <nav class="top-bar f-center">
       <div class="top-bar-left f-center">
         <div class="logo">
@@ -111,5 +114,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
     <script src="./main.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+          document.body.classList.remove('fade');
+        });
+    </script>
   </body>
 </html>

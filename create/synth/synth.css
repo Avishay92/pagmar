@@ -47,6 +47,12 @@ body {
   user-select: none;
 
 }
+
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
+}
+
 .container {
   padding: 0 180px;
 }

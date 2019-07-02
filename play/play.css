@@ -57,6 +57,11 @@ body {
 
 }
 
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
+}
+
 body.bright-mode {
   background:var(--clr-white);
   transition: 0.2s ease-out;

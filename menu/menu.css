@@ -80,6 +80,11 @@ body {
   cursor: pointer;
 }
 
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
+}
+
 .grid__item:hover {
   opacity: 1;
 }

@@ -15,6 +15,9 @@
   </head>
 
   <body class="dark-mode">
+      <script>
+          document.body.classList.add('fade');
+      </script> 
     <!-- row -->
     <nav class="top-bar f-center">
       <div class="top-bar-left f-center">
@@ -87,5 +90,10 @@
 
     <script src="https://tonejs.github.io/build/Tone.js"></script>
     <script src="./main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+          document.body.classList.remove('fade');
+        });
+    </script>
   </body>
 </html>

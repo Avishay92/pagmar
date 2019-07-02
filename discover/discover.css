@@ -46,7 +46,12 @@ body {
   display: flex;
   flex-direction: column;
   user-select: none; 
-  
+  opacity: 1 !important;
+}
+
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
 }
 
 .tiny {

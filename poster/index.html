@@ -84,8 +84,14 @@ let customSoundEffects = {
           console.log(sequence[noteIndex]);
         }, sequence);
         seq.start();
-        // seq.loop=true;
+        seq.loop=true;
         Tone.Transport.start();
+        var sounds = document.querySelector("#sounds");
+        sounds.play();
+      }
+      else{
+        sounds.stop();
+
       }
     });
 
@@ -296,6 +302,9 @@ let customSoundEffects = {
             <div class="tempo-grid f-center">
               <div>
                   <img id="play" src="../assets/icons/playICN.svg" alt="" />
+                  <audio id="sounds">
+                    <source src="../assets/discover/lostmusic.mp3" type="audio/mpeg">
+                  </audio>
               </div>
               <div class="tempo-container">
                   <input id="tempo" type="range" min="60" max="120" step="1" value="60" />

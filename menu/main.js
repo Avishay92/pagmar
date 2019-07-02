@@ -13,7 +13,6 @@ const defaultSoundEffects = JSON.parse(
 );
 const brightMode = localStorage.getItem("brightMode");
 let blotters = {},
-    lettersToPlay={},
     brightModeOn,
     lastChar = null;
  
@@ -89,7 +88,6 @@ const gridElement = (document.querySelector(
 function resetChar(char) {
   let blotter;
   let soundEffects;
-  delete lettersToPlay[char];
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -129,11 +127,7 @@ function resetChar(char) {
 
 function activateChar(char) {
   let blotter;
-  console.log(char, data[char].note);
   let soundEffects;
-  if (Object.keys(lettersToPlay).length <4 ){
-    lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});
-  }
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -181,9 +175,7 @@ function activateChar(char) {
   updateEffects(soundEffects);
 
   Tone.context.resume().then(() => {
-    Object.values(lettersToPlay).forEach(function (value){
-      instrument.triggerAttackRelease(value);
-    })
+      instrument.triggerAttackRelease(data[char].note);
   });
 }
 
