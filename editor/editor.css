@@ -41,6 +41,12 @@ body.dark-mode {
   outline: none;
 }
 
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-out;
+
+}
+
 #back {
   top: 20px;
   background: #5e5e60;

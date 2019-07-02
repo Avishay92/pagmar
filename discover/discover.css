@@ -171,6 +171,12 @@ body.fade {
   height: 353.5px;
 }
 
+.gallery-item .image:hover {
+  transform: scale(1.01);
+  transition: 0.1s ease-out;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
 
 
 .gallery-item:nth-child(1) .image {

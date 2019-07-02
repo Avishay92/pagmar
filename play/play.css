@@ -93,6 +93,12 @@ body.dark-mode {
   cursor: pointer;
 }
 
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-out;
+
+}
+
 /* top bar */
 
 .f-center {

@@ -94,6 +94,12 @@ body.fade {
   outline: none;
 }
 
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-out;
+
+}
+
 /* top bar */
 
 .f-center {
@@ -112,6 +118,13 @@ body.fade {
   justify-content: space-between;
   color: var(--color);
   font-size: 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.top-bar-center {
+  grid-column: 2 / span 2;
 }
 
 .logo {
@@ -129,6 +142,7 @@ body.fade {
 .actions-container {
   flex-grow: 1;
   flex-shrink: 0;
+  justify-content: center;
 }
 
 .action-item {

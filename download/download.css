@@ -1,197 +1,276 @@
 @font-face {
-    font-family: "Glyphter";
-    src: url("../../fonts/Glyphter.eot");
-    src: url("../../fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
-      url("../../fonts/Glyphter.woff") format("woff"),
-      url("../../fonts/Glyphter.ttf") format("truetype"),
-      url("../../fonts/Glyphter.svg#Glyphter") format("svg");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  [class*="icon-"]:after,
-  [class*="icon-"]:before {
-    display: inline-block;
-    font-family: "Glyphter";
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  @font-face {
-    font-family: "frankgbold";
-    src: url("../fonts/frankgbold-webfont.woff2") format("woff2"),
-      url("../fonts/frankgbold-webfont.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  
-  :root {
-    --bar-height: 120px;
-    --bar-background: #202020;
-    --clr-white: #f4f6fa;
-    --clr-black: #202020;
-    --clr-grey-dark: #828385;
-  }
-  
-  body {
-    background: #161616;
-    color: #f4f6fa;
-    font-family: "ploni_dl_1.1_aaaregular" !important;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    user-select: none; 
-    
-  }
-  
-  #menu {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #footer {
-    flex: 1;
-  }
-  
-  .logo {
-    cursor: pointer;
-    outline: none;
-  }
-  
-  .logo {
-    margin-right: 40px;
-  }
-  
-  .logo img {
-    width: 100%;
-  }
+  font-family: "Glyphter";
+  src: url("../../fonts/Glyphter.eot");
+  src: url("../../fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/Glyphter.woff") format("woff"),
+    url("../../fonts/Glyphter.ttf") format("truetype"),
+    url("../../fonts/Glyphter.svg#Glyphter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+[class*="icon-"]:after,
+[class*="icon-"]:before {
+  display: inline-block;
+  font-family: "Glyphter";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  .logo:hover {
-    transform: scale(1.06);
-    transition: 0.2s ease-in;
-  
-  }
-  
-  .top-bar {
-    --color: #a7a8ab;
-    height: var(--bar-height);
-    padding: 0 50px;
-    justify-content: space-between;
-    color: var(--color);
-    font-size: 12px;
-    user-select: none;
-    user-select: none; 
-  }
-  
-  .f-center {
-    display: flex;
-    align-items: center;
-  }
-  
-  .main-container {
-    --edges: 12%;
-    padding: 0 180px;
-    flex-grow: 1;
-  }
-  
-  .title {
-    font-size: 45px;
-    line-height: 1.1;
-    color: #f4f6fa;
-    margin: 0px 0 40px 0;
-    user-select: none; 
-  }
-  
-  .text {
-    font-family:"ploni_dl_1.1_aaaregular" !important;
-    font-size: 16px;
-    padding-top: 40px;
-  }
+@font-face {
+  font-family: "frankgbold";
+  src: url("../fonts/frankgbold-webfont.woff2") format("woff2"),
+    url("../fonts/frankgbold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bar-height: 120px;
+  --bar-background: #202020;
+  --clr-white: #f4f6fa;
+  --clr-black: #202020;
+  --clr-grey-dark: #828385;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #161616;
+  color: #f4f6fa;
+  font-family: "ploni_dl_1.1_aaaregular" !important;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+#menu {
+  display: flex;
+  flex-direction: column;
+}
+
+#footer {
+  flex: 1;
+}
+
+.logo {
+  cursor: pointer;
+  outline: none;
+}
+
+.logo {
+  margin-right: 40px;
+}
+
+.logo img {
+  width: 100%;
+}
+
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-in;
+}
+
+.top-bar {
+  --color: #a7a8ab;
+  height: var(--bar-height);
+  padding: 0 50px;
+  justify-content: space-between;
+  color: var(--color);
+  font-size: 12px;
+  user-select: none;
+  user-select: none;
+}
+
+.f-center {
+  display: flex;
+  align-items: center;
+}
+
+.main-container {
+  --edges: 12%;
+  padding: 0 180px;
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 45px;
+  line-height: 1.1;
+  color: #f4f6fa;
+  margin: 0px 0 80px 0;
+  user-select: none;
+}
+
+.format-select {
+  margin: 80px 0 30px 0;
+  font-size: 16px;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+
+}
+
+.text {
+  font-family: "ploni_dl_1.1_aaaregular" !important;
+  font-size: 16px;
+  padding-top: 40px;
+}
 
 button {
-    background: #202020;
-    width: 230px;
-    line-height: 40px;
-    font-size: 18px;
-    border-color: transparent;
-    font-family: "ploni_dl_1.1_aaamedium" !important;
-    color: #828385;
-    border-radius: 50px;
-    margin: 10px;
-    cursor: pointer;
+  background: #202020;
+  width: 230px;
+  line-height: 40px;
+  font-size: 18px;
+  border-color: transparent;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+  color: #828385;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+  /* transition: 0.3s ease-in-out; */
+  transition: 0.3s ease-in, transform 0.3s ease-in-out;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+button:focus {
+  outline: none !important;
+}
+
+button.accent {
+  color: white;
+  background: linear-gradient(
+    308deg,
+    #ff0000,
+    #ffa600,
+    #77ff00,
+    #00ffae,
+    #00ebff,
+    #007aff,
+    #1800ff,
+    #8800ff,
+    #ff00e4,
+    #ff005c,
+    #ff0000
+  );
+  background-size: 2400% 2400%;
+  -webkit-animation: AnimationName 45s ease infinite;
+  -moz-animation: AnimationName 45s ease infinite;
+  animation: AnimationName 45s ease infinite;
+  margin-right: 20px;
+}
+
+.input-wrapper {
+  width: 360px;
+  position: relative;
+}
+
+.input-wrapper input {
+  --clr-bright: #f4f6fa;
+  --clr-line: #a7a8ab;
+  color: var(--clr-bright);
+  font-size: 16px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  width: auto;
+  min-width: 100%;
+  /* line-height: 3em; */
+  border-bottom: 1px solid var(--clr-line);
+  background-color: transparent;
+  padding-bottom: 10px;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #a7a8ab;
+  opacity: 1; /* Firefox */
+}
+
+.formats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  grid-template-rows: 80px;
+  justify-content: space-between;
+}
+
+.format {
+  height: 100%;
+  width: 100%;
+  background-color: #202020;
+  color: #f4f6fa;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: "ploni_dl_1.1_aaaregular" !important;
+  /* width: 260px; */
+  cursor: pointer;
+  transition: all 100ms ease-out ;
+}
+
+.format.selected {
+  background-color: #f4f6fa;
+  color: #202020;
+  box-shadow: 0 2px 4px 1px rgba(0,0,0,0.23);
+
+}
+
+.format:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 4px 1px rgba(0,0,0,0.23);
+}
+.format-image {
+  margin-right: 20px;
+}
+
+.actions-container {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 17%;
   }
-  
-  button:hover {
-    transform: scale(1.05);
-    /* transition: 0.3s ease-in-out; */
-    transition: 0.3s ease-in, transform 0.3s ease-in-out;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  
+  50% {
+    background-position: 100% 84%;
   }
-  
-  button:focus {
-    outline: none !important;
+  100% {
+    background-position: 0% 17%;
   }
-  
-  button.accent {
-    
-    color: white;
-    background: linear-gradient(
-      308deg,
-      #ff0000,
-      #ffa600,
-      #77ff00,
-      #00ffae,
-      #00ebff,
-      #007aff,
-      #1800ff,
-      #8800ff,
-      #ff00e4,
-      #ff005c,
-      #ff0000
-    );
-    background-size: 2400% 2400%;
-    -webkit-animation: AnimationName 45s ease infinite;
-    -moz-animation: AnimationName 45s ease infinite;
-    animation: AnimationName 45s ease infinite;
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 17%;
   }
-  
-  @-webkit-keyframes AnimationName {
-    0% {
-      background-position: 0% 17%;
-    }
-    50% {
-      background-position: 100% 84%;
-    }
-    100% {
-      background-position: 0% 17%;
-    }
+  50% {
+    background-position: 100% 84%;
   }
-  @-moz-keyframes AnimationName {
-    0% {
-      background-position: 0% 17%;
-    }
-    50% {
-      background-position: 100% 84%;
-    }
-    100% {
-      background-position: 0% 17%;
-    }
+  100% {
+    background-position: 0% 17%;
   }
-  @keyframes AnimationName {
-    0% {
-      background-position: 0% 17%;
-    }
-    50% {
-      background-position: 100% 84%;
-    }
-    100% {
-      background-position: 0% 17%;
-    }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 17%;
   }
-  
+  50% {
+    background-position: 100% 84%;
+  }
+  100% {
+    background-position: 0% 17%;
+  }
+}

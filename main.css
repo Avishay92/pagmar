@@ -17,6 +17,7 @@ body {
 }
 
 #about {
+  font-family: "ploni_dl_1.1_aaaregular" !important;
   text-align: right;
   margin: 0px;
   color: gray;
