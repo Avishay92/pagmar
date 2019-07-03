@@ -12,6 +12,7 @@
   </head>
 
   <body>
+      <iframe id="my_iframe" style="display:none;"></iframe>
       <script>
           document.body.classList.add('fade');
       </script> 
@@ -66,7 +67,7 @@
 
 
       <div class="actions-container">
-         <button class="accent" onclick="location.assign('./create/font')">
+         <button id="download" class="accent">
             Download
         </button>
         <button onclick="location.assign('../discover')">
