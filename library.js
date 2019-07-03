@@ -37,10 +37,11 @@ function initializeEffects() {
 }
 
 function updateEffects(soundEffects) {
+  console.log(soundEffects);
   Object.keys(soundEffects).forEach(function(key, index) {
     switch (key) {
       case "sAutoWahEffect":
-        autoWahEffect.baseFrequency.value = soundEffects[key];
+        autoWahEffect.frequency = soundEffects[key];
         break;
       case "sPhaserEffect":
         phaserEffect.octaves = soundEffects[key];
@@ -52,6 +53,7 @@ function updateEffects(soundEffects) {
         break;
       case "sPitchEffect":
         pitchEffect.pitch = soundEffects[key];
+
         break;
       case "sDistortionEffect":
         distortionEffect.distortion = soundEffects[key];

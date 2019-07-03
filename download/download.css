@@ -222,7 +222,7 @@ button.accent {
   background-color: #f4f6fa;
   color: #202020;
   box-shadow: 0 2px 4px 1px rgba(0,0,0,0.23);
-
+  transform: none !important;
 }
 
 .format:hover {

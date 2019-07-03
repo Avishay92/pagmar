@@ -54,7 +54,7 @@ body {
   background: #161616;
   color: white;
   font-family: "ploni_dl_1.1_aaamedium" !important;
-
+  outline: none;
 }
 
 body.fade {

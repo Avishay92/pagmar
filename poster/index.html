@@ -1,107 +1,143 @@
 <script>
-  let autoWahEffect,
-  phaserEffect,
-  vibratoEffect,
-  pitchEffect,
-  distortionEffect,
-  tremoloEffect,
-  play = 0,
-  img,
-  noteIndex = 0,
-  tempo = 60,
-  seq,
-  instrument = new Tone.Synth().toMaster();
+  
+function initializeEffects() {
+  autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
+  phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
+  vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
+  // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
+  pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
+  distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
+  //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
+  tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
+}
 
-  const sentence = ["א", "ב", "ו", "ד", "י", "ם", "ב", "ח", "ל", "ל"]
-  const sequence = ["C3", "D3", "A3", "F3", "E4", "C5", "D3", "C4", "A4", "A4"]
-  let data = {};
-  const tempoRange = document.querySelector("#tempo");
-  tempoRange.value = tempo;
-  const f1 = parseFloat(0).toPrecision(2);
-  let defaultSoundEffects = {
-      sAutoWahEffect: f1,
-      sPhaserEffect: f1,
-      sVibratoEffect: f1,
-      sPitchEffect: f1,
-      sDistortionEffect: f1,
-      sChorusEffect: f1,
-  };
+let autoWahEffect,
+phaserEffect,
+vibratoEffect,
+pitchEffect,
+distortionEffect,
+tremoloEffect,
+play = 0,
+img,
+noteIndex = 0,
+tempo = 60,
+seq,
+effects = 0,
+duration,
+instrument = new Tone.Synth().toMaster();
+initializeEffects();
+const sentence = ["א", "ב", "ו", "ד", "י", "ם", "ב", "ח", "ל", "ל"]
+const sequence = ["C3", "D3", "A3", "F3", "E4", "C5", "D3", "C4", "A4", "A4"]
+let data = {};
+const tempoRange = document.querySelector("#tempo");
+tempoRange.value = tempo;
+f1 = parseFloat(0).toPrecision(2);
+const defaultSoundEffects = {
+    sAutoWahEffect: f1,
+    sPhaserEffect: f1,
+    sVibratoEffect: f1,
+    sPitchEffect: f1,
+    sDistortionEffect: f1,
+    sChorusEffect: f1,
+};
 
-  sentence.forEach(function(value, index) {
-    Object.assign(data, {
-      [value]: {
-        note: sequence[noteIndex],
-        soundEffects: defaultSoundEffects,
-        char: value
-      }
-  });
-  noteIndex++;
+const specialSoundEffects = {
+    sAutoWahEffect: parseFloat(6).toPrecision(2),
+    sPhaserEffect: parseFloat(5).toPrecision(2),
+    sVibratoEffect: parseFloat(5).toPrecision(2),
+    sPitchEffect: parseFloat(15).toPrecision(2),
+    sDistortionEffect: parseFloat(0.1).toPrecision(2),
+    sChorusEffect: parseFloat(9).toPrecision(2),
+};
+
+sentence.forEach(function(value, index) {
+  Object.assign(data, {
+    [value]: {
+      note: sequence[noteIndex],
+      soundEffects: defaultSoundEffects,
+      char: value
+    }
+});
+noteIndex++;
 });
 
 tempoRange.addEventListener("input", function () {
-  tempo = event.target.value;
-  Tone.Transport.bpm.value = tempo;
+tempo = event.target.value;
+Tone.Transport.bpm.value = tempo;
 });
 
-let customSoundEffects = {
-      sAutoWahEffect: f1,
-      sPhaserEffect: f1,
-      sVibratoEffect: f1,
-      sPitchEffect: f1,
-      sDistortionEffect: f1,
-      sChorusEffect: f1,
+  const inputBtn = document.querySelector("input[type=range]");
+  inputBtn.oninput = function (e) {
+    const val = e.target.value;
+    colorRange(val);
+  }
+
+  function colorRange(val) {
+    progress = ((val - 60) / 60) * 100 + "%";
+    document.documentElement.style.setProperty("--progress", progress);
   };
 
-    const ipt = document.querySelector("input[type=range]");
-    ipt.oninput = function (e) {
-      const val = e.target.value;
-      colorRange(val);
-    }
-
-    function colorRange(val) {
-      progress = ((val - 60) / 60) * 100 + "%";
-      document.documentElement.style.setProperty("--progress", progress);
-    };
-
-    ipt.onfocus = function () {
-      return false;
-    };
-    seq = new Tone.Sequence();
-    $("#play").click(function(){
-      play = !play;
-      img = play ? "../assets/icons/stopICN.svg" : "../assets/icons/playICN.svg";
-      $("#play").attr("src",img);
-      seq.stop()
-      noteIndex = 0;
-      if (play){
-        Tone.Transport.bpm.value = tempo;
+  inputBtn.onfocus = function () {
+    return false;
+  };
+  
+  seq = new Tone.Sequence();
+  $("#play").click(function(){
+    play = !play;
+    img = play ? "../assets/icons/stopICN.svg" : "../assets/icons/playICN.svg";
+    $("#play").attr("src",img);
+    seq.stop()
+    noteIndex = 0;
+    if (play){
+      // Tone.Transport.bpm.value = tempo;
+        animateTimeLine();
         seq = new Tone.Sequence(function (time, event) {
-          // updateEffects(inputData[index].soundEffects);
-          instrument.triggerAttackRelease(sequence[noteIndex], "8n");
-          if (noteIndex++===sequence.length-1){
-            noteIndex=0;
-          }
-          console.log(sequence[noteIndex]);
-        }, sequence);
-        seq.start();
-        seq.loop=true;
-        Tone.Transport.start();
-        var sounds = document.querySelector("#sounds");
-        sounds.play();
-      }
-      else{
-        sounds.stop();
-
-      }
-    });
-
-    function closeFunction(){
-      tempoRange.value = 60;
-      colorRange(tempoRange.value);
-      seq.stop();
-      $("#play").attr("src","../assets/icons/playICN.svg");
-      $('#poster').hide();
+        effects = !effects;
+        updateEffects(effects ? defaultSoundEffects : specialSoundEffects);
+        console.log(effects);
+        instrument.triggerAttackRelease(sequence[noteIndex], "8n");
+        if (noteIndex++===sequence.length-1){
+          seq.stop();
+          $("#play").attr("src","../assets/icons/playICN.svg");
+        }
+      }, sequence);
+      duration = seq.start()._loopEnd;
+      Tone.Transport.start();
     }
+    else{
+      tempoRange.value=0;
+    }
+  });
+
+  function closeFunction(){
+    tempoRange.value = 60;
+    colorRange(tempoRange.value);
+    seq.stop();
+    $("#play").attr("src","../assets/icons/playICN.svg");
+    $('#poster').hide();
+  }
+
+function animateTimeLine(){
+    var val = Number(inputBtn.value);
+    val++;
+    if (val === Number(tempoRange.max) || !play){
+        val = 0;
+    }
+    else{
+      window.requestAnimationFrame(animateTimeLine);
+    }
+    tempoRange.value = val.toString();
+    colorRange(tempoRange.value);
+    if (!play){
+        return;
+    }
+    for(var i=0;i<220000000;i++){
+      if (!play){
+        break;
+      }
+    }
+  }
+
 </script>
 <style>
     #info-page {
@@ -118,6 +154,11 @@ let customSoundEffects = {
       top: 0;
       left: 0;
       opacity: 0.98;
+    }
+
+    #info-page.fade {
+        opacity: 0 !important;
+        transition: ease-out !important;
     }
 
     .container {
@@ -164,10 +205,8 @@ let customSoundEffects = {
     }
 
     .container {
-  
         display: grid;
-        grid-template-columns: auto auto auto;
-      
+        grid-template-columns: 420px 420px 420px;
      }
 
     .under-line-text{
@@ -178,14 +217,13 @@ let customSoundEffects = {
     .lost-in-space{
         background-repeat: no-repeat;
         background-size: contain;
-        /* margin-top: 60px; */
+        /* left : -10%; */
         width: 419px !important;
         height: 593px !important;
         background-image: url("../assets/discover/lostinspace.jpg");
         position: absolute;
         top: 0;
-        left: 50%;
-        transform: translateX(-50%);
+        transform: none !important;
     }
 
     .tempo-grid{
@@ -295,8 +333,9 @@ let customSoundEffects = {
     }
   </style>
 <div id="info-page">
+    <script src="../library.js"></script>
     <div class="container">
-        <div class="tile">
+        <div>
             <span class="entry page-title">
                     Lost in space
             </span>
@@ -320,7 +359,7 @@ let customSoundEffects = {
           </div>
         </div>
 
-        <div class="tile">
+        <div>
                 <div class="gallery-item">
                     <div class="image lost-in-space"></div>
                 </div>
