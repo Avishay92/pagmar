@@ -45,8 +45,15 @@ body {
   color: #828385;
   font-family: "ploni_dl_1.1_aaamedium" !important;
   user-select: none;
+  opacity: 1;
 
 }
+
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
+}
+
 .container {
   padding: 0 180px;
 }

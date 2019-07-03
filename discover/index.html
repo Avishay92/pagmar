@@ -9,7 +9,6 @@
       type="image/x-icon"
     />
     <link rel="shortcut icon" href="../assets/icons/favicon.ico" type="image/x-icon">
-
   </head>
 
   <body>
@@ -38,7 +37,7 @@
 
       <div class="gallery">
         <div class="gallery-item">
-          <div class="image"></div>
+          <div class="image" id="lost-in-space"></div>
           <span class="name">Lost in space</span>
           <span class="tag">Print</span>
         </div>
@@ -62,26 +61,34 @@
 
         <div class="gallery-item">
           <div class="image"></div>
-          <span class="name">Arcade</span>
-          <span class="tag">Print</span>
-        </div>
-
-        <div class="gallery-item">
-          <div class="image"></div>
           <span class="name">Alef</span>
           <span class="tag">Print</span>
         </div>
 
         <div class="gallery-item">
           <div class="image"></div>
-          <span class="name">UAL Club</span>
+          <span class="name">Tonic</span>
+          <span class="tag">Motion</span>
+        </div>
+
+        <div class="gallery-item">
+          <div class="image"></div>
+          <span class="name">Machine learning</span>
           <span class="tag">Print</span>
         </div>
 
       </div>
     </main>
+    <div id="poster"  style="display: none;"></div>
+    <!-- <div id="poster" ></div> -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://tonejs.github.io/build/Tone.js"></script>
     <script src="./discover.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+          document.body.classList.remove('fade');
+        });
+    </script>
   </body>
 </html>

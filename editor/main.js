@@ -23,7 +23,6 @@ initializeEffects();
 initializeInstrument();
 initializeFilterMode();
 
-
 data[char].uniforms = Object.assign(Object.assign({}, defaultUniforms), data[char].uniforms);
 data[char].soundEffects = Object.assign(Object.assign({}, defaultSoundEffects), data[char].soundEffects);
 const note = data[char].note;
@@ -66,28 +65,11 @@ WebFont.load({
         var scope = blotter.forText(text);
         scope.appendTo(document.querySelector("#char"));
 
-        function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound, phaser) {
+        function updateInputValue(visualEffect, soundEffect, currentValue, minVisual, maxVisual, minSound, maxSound) {
             let visualValue = convertValueToRange(minVisual, maxVisual, currentValue);
             let soundValue = convertValueToRange(minSound, maxSound, currentValue);
-            const [x, y] = material.uniforms.uDistortPosition.value;
-            if (visualEffect === 'uDistortPositionX' || visualEffect === 'uDistortPositionY') {
-                if (visualEffect === 'uDistortPositionX') {
-                    material.uniforms.uDistortPosition.value[0] = Number(visualValue);
-                    data[char].uniforms.uDistortPosition[0] = Number(visualValue);
-                }
-                if (visualEffect === 'uDistortPositionY') {
-                    material.uniforms.uDistortPosition.value[1] = Number(visualValue);
-                    data[char].uniforms.uDistortPosition[1] = Number(visualValue);
-                }
-            }
-            else {
-                material.uniforms[visualEffect].value = visualValue;
-                // if (!phaser){
-                    data[char].uniforms[visualEffect] = visualValue;
-                // }else{
-                    // autowahValue = visualValue;
-                // }
-            }
+            material.uniforms[visualEffect].value = visualValue;
+            data[char].uniforms[visualEffect] = visualValue;
             data[char].soundEffects[soundEffect] = soundValue;
             return soundValue;
         }
@@ -108,7 +90,7 @@ WebFont.load({
             return value;
         }
 
-        function convertValueToRotation(effect, phaserValue) {
+        function convertValueToRotation(effect) {
             const controllerRange = 264;
             const min = effectRanges[effect].minVisual;
             const max = effectRanges[effect].maxVisual;
@@ -222,38 +204,35 @@ WebFont.load({
                         // Knob Rotation
                         if (e.pageY - app.currentY !== 0) {
                             selectedKnob.rotation -= (e.pageY - app.currentY);
-
                         }
                         app.currentY = e.pageY;
 
                         let knobVisualEffect = selectedKnob.visualEffect;
                         let knobSoundEffect = selectedKnob.soundEffect;
                         let rotationValue = selectedKnob.rotation;
-
                         let currentValue = updateInputValue(knobVisualEffect, knobSoundEffect, rotationValue,
                             effectRanges[knobVisualEffect].minVisual, effectRanges[knobVisualEffect].maxVisual,
-                            effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound, false
+                            effectRanges[knobVisualEffect].minSound, effectRanges[knobVisualEffect].maxSound
                         );
 
                         switch (knobVisualEffect) {
                             case 'uSineDistortCycleCount': {
-                                // autowahValue = app.knobs[1];
-                                // autowahValue = updateInputValue(autowahValue.visualEffect, autowahValue.soundEffect, rotationValue,
-                                //     effectRanges["uSineDistortSpread"].minVisual, effectRanges["uSineDistortSpread"].maxVisual,
-                                //     effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound, true
-                                // );
-                                // let rotationAutoValue = convertValueToRotation("uSineDistortSpread", rotationValue);
-                                // app.knobs[1].rotation = rotationAutoValue;
-                                // phaserEffect.octaves = currentValue;
+                                const autowahKnob = app.knobs[1];
+                                let autowahConvertValue = updateInputValue(autowahKnob.visualEffect, autowahKnob.soundEffect, rotationValue,
+                                    effectRanges["uSineDistortSpread"].minVisual, effectRanges["uSineDistortSpread"].maxVisual,
+                                    effectRanges["uSineDistortSpread"].minSound, effectRanges["uSineDistortSpread"].maxSound);
+                                data[char].autowahValue = true;
+                                phaserEffect.octaves = currentValue;
                                 break;
                             }
                             case 'uSineDistortSpread': {
-                                autoWahEffect.octaves = currentValue;
+                                data[char].autowahValue = false;
+                                autoWahEffect.frequency = currentValue;
                                 break;
                             }
 
                             case 'uSineDistortAmplitude': {
-                                vibratoEffect.depth.value = currentValue;
+                                // vibratoEffect.depth.value = currentValue;
                                 break;
                             }
                             case 'uNoiseDistortAmplitude': {
@@ -282,8 +261,20 @@ WebFont.load({
                 },
                 initializeContorllers: function (e) {
                     app.knobs.forEach(function (knob) {
-                        rotationValue = convertValueToRotation(knob.visualEffect, false);
-                        knob.rotation = rotationValue;
+                        if (knob.label === "AutoWah"){
+                            if (data[char].autowahValue === true){
+                                rotationValue=-132;
+                            }
+                            else{
+                                rotationValue = convertValueToRotation(knob.visualEffect);
+                                knob.rotation = rotationValue;
+                            }
+                        }
+                        else{
+                            rotationValue = convertValueToRotation(knob.visualEffect);
+                            knob.rotation = rotationValue;
+                        }
+                        
                     })
                     $("#app").show();
 
@@ -307,9 +298,7 @@ WebFont.load({
 
         $("#back").click(function () {
             localStorage.setItem("brightMode", brightModeOn);
-            data[char].uniforms["uSineDistortSpread"] = autowahValue;
             localStorage.setItem("data", JSON.stringify(data));
-            
             location.assign("../menu");
         });
 

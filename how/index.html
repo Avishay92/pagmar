@@ -11,8 +11,13 @@
         position: fixed;
         top: 0;
         left: 0;
+        opacity: 0.9;
       }
 
+      #info-page.fade {
+        opacity: 0 !important;
+        transition: ease-out !important;  
+      }
 
       .container {
         margin: auto;
@@ -126,7 +131,7 @@
         </div>
 
         <div class="tile">
-          <div class="step">Edit</div>
+          <div class="step">EDIT</div>
 
           <div class="entry">
             <div class="click">
@@ -143,3 +148,4 @@
       </div>
       <div class="close" onclick="$('#how').hide()"></div>
     </div>
+    

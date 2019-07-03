@@ -35,8 +35,8 @@ body {
 }
 
 body.fade {
-    opacity: 0;
-    transition: ease-out;
+    opacity: 0 !important;
+    transition: ease-out !important;
 }
 
 .links {

@@ -80,6 +80,11 @@ body {
   cursor: pointer;
 }
 
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
+}
+
 .grid__item:hover {
   opacity: 1;
 }
@@ -87,6 +92,12 @@ body {
 .logo {
   cursor: pointer;
   outline: none;
+}
+
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-out;
+
 }
 
 /* top bar */
@@ -107,6 +118,13 @@ body {
   justify-content: space-between;
   color: var(--color);
   font-size: 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.top-bar-center {
+  grid-column: 2 / span 2;
 }
 
 .logo {
@@ -124,6 +142,7 @@ body {
 .actions-container {
   flex-grow: 1;
   flex-shrink: 0;
+  justify-content: center;
 }
 
 .action-item {
@@ -211,7 +230,7 @@ body {
   background-color: transparent;
   border: transparent;
   color: var(--clr-grey-dark);
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .back-btn.icon-arrow:before {

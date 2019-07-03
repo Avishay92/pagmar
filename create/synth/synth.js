@@ -42,7 +42,8 @@ alphabeth.forEach(function(value, index) {
     [value]: {
       note: `${notes[noteIndex]}${octave}`,
       effects: [],
-      char: value
+      char: value,
+      autowahValue: false,
     }
   });
   if (noteIndex === notes.length - 1) {

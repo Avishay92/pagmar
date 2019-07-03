@@ -57,6 +57,11 @@ body {
 
 }
 
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
+}
+
 body.bright-mode {
   background:var(--clr-white);
   transition: 0.2s ease-out;
@@ -83,29 +88,15 @@ body.dark-mode {
   font-size: 16px;
 }
 
-.grid {
-  margin: 0 5%;
-  display: grid;
-  direction: rtl;
-  grid-template-columns: repeat(7, 1fr);
-  grid-row-start: -1;
-}
-
-.grid__item {
-  height: 120px;
-  position: relative;
-  justify-content: center;
-  display: flex;
-  opacity: 0.5;
-  cursor: pointer;
-}
-
-.grid__item:hover {
-  opacity: 1;
-}
 
 #logo {
   cursor: pointer;
+}
+
+.logo:hover {
+  transform: scale(1.06);
+  transition: 0.2s ease-out;
+
 }
 
 /* top bar */
@@ -125,10 +116,6 @@ body.dark-mode {
   background-color: var(--bar-background);
   padding: 0 50px;
   font-size: 12px;
-  -webkit-user-select:none; 
-  -webkit-touch-callout:none; 
-  -moz-user-select:none; 
-  -ms-user-select:none; 
   user-select:none; 
 }
 

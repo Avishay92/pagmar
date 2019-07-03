@@ -12,9 +12,13 @@
     <script src="./arrive.min.js"></script>
     <script src="../library.js"></script>
     <link rel="shortcut icon" href="../assets/icons/favicon.ico" type="image/x-icon">
+    
   </head>
 
   <body class="dark-mode">
+      <script>
+          document.body.classList.add('fade');
+      </script> 
     <!-- row -->
     <nav class="top-bar f-center">
       <div class="top-bar-left f-center">
@@ -83,7 +87,14 @@
     </div>
     <script src="../blotter/blotter.min.js"></script>
     <script src="../blotter/RollingDistortMaterial.js"></script>
+    
+
     <script src="https://tonejs.github.io/build/Tone.js"></script>
     <script src="./main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+          document.body.classList.remove('fade');
+        });
+    </script>
   </body>
 </html>

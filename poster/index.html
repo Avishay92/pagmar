@@ -1,0 +1,330 @@
+<script>
+  let autoWahEffect,
+  phaserEffect,
+  vibratoEffect,
+  pitchEffect,
+  distortionEffect,
+  tremoloEffect,
+  play = 0,
+  img,
+  noteIndex = 0,
+  tempo = 60,
+  seq,
+  instrument = new Tone.Synth().toMaster();
+
+  const sentence = ["א", "ב", "ו", "ד", "י", "ם", "ב", "ח", "ל", "ל"]
+  const sequence = ["C3", "D3", "A3", "F3", "E4", "C5", "D3", "C4", "A4", "A4"]
+  let data = {};
+  const tempoRange = document.querySelector("#tempo");
+  tempoRange.value = tempo;
+  const f1 = parseFloat(0).toPrecision(2);
+  let defaultSoundEffects = {
+      sAutoWahEffect: f1,
+      sPhaserEffect: f1,
+      sVibratoEffect: f1,
+      sPitchEffect: f1,
+      sDistortionEffect: f1,
+      sChorusEffect: f1,
+  };
+
+  sentence.forEach(function(value, index) {
+    Object.assign(data, {
+      [value]: {
+        note: sequence[noteIndex],
+        soundEffects: defaultSoundEffects,
+        char: value
+      }
+  });
+  noteIndex++;
+});
+
+tempoRange.addEventListener("input", function () {
+  tempo = event.target.value;
+  Tone.Transport.bpm.value = tempo;
+});
+
+let customSoundEffects = {
+      sAutoWahEffect: f1,
+      sPhaserEffect: f1,
+      sVibratoEffect: f1,
+      sPitchEffect: f1,
+      sDistortionEffect: f1,
+      sChorusEffect: f1,
+  };
+
+    const ipt = document.querySelector("input[type=range]");
+    ipt.oninput = function (e) {
+      const val = e.target.value;
+      colorRange(val);
+    }
+
+    function colorRange(val) {
+      progress = ((val - 60) / 60) * 100 + "%";
+      document.documentElement.style.setProperty("--progress", progress);
+    };
+
+    ipt.onfocus = function () {
+      return false;
+    };
+    seq = new Tone.Sequence();
+    $("#play").click(function(){
+      play = !play;
+      img = play ? "../assets/icons/stopICN.svg" : "../assets/icons/playICN.svg";
+      $("#play").attr("src",img);
+      seq.stop()
+      noteIndex = 0;
+      if (play){
+        Tone.Transport.bpm.value = tempo;
+        seq = new Tone.Sequence(function (time, event) {
+          // updateEffects(inputData[index].soundEffects);
+          instrument.triggerAttackRelease(sequence[noteIndex], "8n");
+          if (noteIndex++===sequence.length-1){
+            noteIndex=0;
+          }
+          console.log(sequence[noteIndex]);
+        }, sequence);
+        seq.start();
+        seq.loop=true;
+        Tone.Transport.start();
+        var sounds = document.querySelector("#sounds");
+        sounds.play();
+      }
+      else{
+        sounds.stop();
+
+      }
+    });
+
+    function closeFunction(){
+      tempoRange.value = 60;
+      colorRange(tempoRange.value);
+      seq.stop();
+      $("#play").attr("src","../assets/icons/playICN.svg");
+      $('#poster').hide();
+    }
+</script>
+<style>
+    #info-page {
+      background: #161616;
+      color: #828385;
+      font-family: "ploni_dl_1.1_aaaregular" !important;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      opacity: 0.98;
+    }
+
+    .container {
+  --edges: 12%;
+  padding: 90 var(--edges) 80px var(--edges);
+  flex-grow: 1;
+}
+
+    .step {
+      font-size: 12px;
+      color: #828385;
+      height: 20px;
+      font-family: "ploni_dl_1.1_aaaregular" !important;
+    }
+
+    .page-title {
+      font-size: 28px;
+      
+      line-height: 1.5;
+      color: #f4f6fa;
+    }
+
+    .entry {
+      display: flex;
+      justify-content: top;
+      flex-direction: column;
+      /* margin-top: 60px; */
+    }
+
+    .close {
+      position: fixed;
+      left: 60px;
+      top: 60px;
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+      background-image: url('../assets/svgs/close.svg');
+      opacity: 0.5;
+      transition: opacity ease-out 0.3s;
+    }
+
+    .close:hover {
+      opacity: 1;
+    }
+
+    .container {
+  
+        display: grid;
+        grid-template-columns: auto auto auto;
+      
+     }
+
+    .under-line-text{
+        text-decoration: underline;
+    }
+
+
+    .lost-in-space{
+        background-repeat: no-repeat;
+        background-size: contain;
+        /* margin-top: 60px; */
+        width: 419px !important;
+        height: 593px !important;
+        background-image: url("../assets/discover/lostinspace.jpg");
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .tempo-grid{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 14px;
+      margin-top: 20px !important;
+    }
+
+    #play{
+        cursor: pointer;
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+    :root {
+      --progress: 0%;
+      --line-height: 4px;
+      --color: #01eD95;
+    }
+
+    input[type="range"] {
+    /*   display: block; */
+      -webkit-appearance: none;
+      background-color: black;
+      width: 157px;
+      height: var(--line-height);
+      border-radius: 5px;
+      outline: 0;
+      margin: 0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: var(--color);
+      margin-top: -10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+    input[type="range"]::-moz-range-thumb,
+    input[type="range"]::-ms-thumb {
+      border: 2px solid #979797;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(1.1);
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      background: #979797;
+      height: var(--line-height);
+      border-radius: var(--line-height);
+    }
+
+    input[type="range"]::-moz-range-track {
+      background-color: #979797;
+      border-radius: 4px;
+    }
+    input[type="range"]::-ms-track {
+      background-color: #979797;
+      color: transparent;
+      border: none;
+    }
+    input[type="range"]::-ms-fill-lower {
+      background-color: var(--color);
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      background: linear-gradient(
+        to right,
+        var(--color) 0%,
+        var(--color) var(--progress),
+        #979797 var(--progress),
+        #979797
+      );
+    }
+    input[type="range"]::-moz-range-track {
+      background: linear-gradient(
+        to right,
+        var(--color) 0%,
+        var(--color) var(--progress),
+        #979797 var(--progress),
+        #979797
+      );
+    }
+    input[type="range"]::-ms-fill-lower {
+      background: linear-gradient(
+        to right,
+        var(--color) 0%,
+        var(--color) var(--progress),
+        #979797 var(--progress),
+        #979797
+      );
+    }
+
+    .gallery-item {
+      position: relative;
+    }
+  </style>
+<div id="info-page">
+    <div class="container">
+        <div class="tile">
+            <span class="entry page-title">
+                    Lost in space
+            </span>
+            <span class="text">
+                By Avishay Ram
+                <br>
+                <br>
+              
+            </span>
+            
+            <div class="tempo-grid f-center">
+              <div>
+                  <img id="play" src="../assets/icons/playICN.svg" alt="" />
+                  <audio id="sounds">
+                    <source src="../assets/discover/lostmusic.mp3" type="audio/mpeg">
+                  </audio>
+              </div>
+              <div class="tempo-container">
+                  <input id="tempo" type="range" min="60" max="120" step="1" value="60" />
+              </div>
+          </div>
+        </div>
+
+        <div class="tile">
+                <div class="gallery-item">
+                    <div class="image lost-in-space"></div>
+                </div>
+        </div>
+    </div>
+<div class="close" onclick="closeFunction()"></div>
+

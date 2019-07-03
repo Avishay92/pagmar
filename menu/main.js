@@ -13,7 +13,6 @@ const defaultSoundEffects = JSON.parse(
 );
 const brightMode = localStorage.getItem("brightMode");
 let blotters = {},
-    lettersToPlay={},
     brightModeOn,
     lastChar = null;
  
@@ -62,10 +61,8 @@ let instrument,
   autoWahEffect,
   phaserEffect,
   vibratoEffect,
-  reverbEffect,
   pitchEffect,
   distortionEffect,
-  feedbackEffect,
   tremoloEffect;
 
 //initializing instruments and sound effects
@@ -88,39 +85,9 @@ const gridElement = (document.querySelector(
   ".grid"
 ).innerHTML = letterElements);
 
-function updateEffects(soundEffects) {
-  Object.keys(soundEffects).forEach(function(key, index) {
-    switch (key) {
-      case "sAutoWahEffect":
-        autoWahEffect.baseFrequency.value = soundEffects[key];
-        break;
-      case "sPhaserEffect":
-        phaserEffect.octaves = soundEffects[key];
-        break;
-      case "sVibratoEffect":
-        vibratoEffect.frequency = soundEffects[key];
-        break;
-      case "sReverbEffect":
-        break;
-      case "sPitchEffect":
-        pitchEffect.pitch = soundEffects[key];
-        break;
-      case "sDistortionEffect":
-        distortionEffect.distortion = soundEffects[key];
-        break;
-      case "sFeedbackEffect":
-        break;
-      case "sTremoloEffect":
-        tremoloEffect.frequency = soundEffects[key];
-        break;
-    }
-  });
-}
-
 function resetChar(char) {
   let blotter;
   let soundEffects;
-  delete lettersToPlay[char];
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -161,9 +128,6 @@ function resetChar(char) {
 function activateChar(char) {
   let blotter;
   let soundEffects;
-  if (Object.keys(lettersToPlay).length <4 ){
-    lettersToPlay = Object.assign(lettersToPlay , {[char]: data[char].note});
-  }
   if (data[char]) {
     blotter = blotters[char].blotter;
     soundEffects = data[char].soundEffects;
@@ -211,9 +175,7 @@ function activateChar(char) {
   updateEffects(soundEffects);
 
   Tone.context.resume().then(() => {
-    Object.values(lettersToPlay).forEach(function (value){
-      instrument.triggerAttackRelease(value);
-    })
+      instrument.triggerAttackRelease(data[char].note);
   });
 }
 

@@ -14,7 +14,9 @@
   </head>
 
   <body>
-
+    <script>
+      document.body.classList.add('fade');
+  </script>  
 
     <nav class="top-bar f-center">
       <div class="top-bar-left f-center">
@@ -342,8 +344,11 @@
         </button> -->
       </div>
     </div>
-
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+          document.body.classList.remove('fade');
+        });
+    </script>
     <script src="https://tonejs.github.io/build/Tone.js"></script>
     <script src="./synth.js"></script>
   </body>

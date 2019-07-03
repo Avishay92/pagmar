@@ -46,7 +46,12 @@ body {
   display: flex;
   flex-direction: column;
   user-select: none; 
-  
+  opacity: 1 !important;
+}
+
+body.fade {
+  opacity: 0 !important;
+  transition: ease-out !important;
 }
 
 .tiny {
@@ -68,6 +73,7 @@ body {
 .logo {
   cursor: pointer;
   outline: none;
+  user-select: none; 
 }
 
 .logo {
@@ -165,6 +171,12 @@ body {
   height: 353.5px;
 }
 
+.gallery-item .image:hover {
+  transform: scale(1.01);
+  transition: 0.1s ease-out;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
 
 
 .gallery-item:nth-child(1) .image {
@@ -194,11 +206,11 @@ body {
 }
 
 .gallery-item:nth-child(5) .image {
-  background-image: url("../assets/discover/po20.png");
+  background-image: url("../assets/discover/alef.jpg");
 }
 
 .gallery-item:nth-child(6) .image {
-  background-image: url("../assets/discover/alef.jpg");
+  background-image: url("../assets/discover/tonic4.gif");
 }
 
 .gallery-item:nth-child(7) .image {
@@ -218,4 +230,8 @@ body {
   font-size: 12px;
   color: #828385;
   font-family: "ploni_dl_1.1_aaaregular" !important;
+}
+
+#lost-in-space{
+  cursor: pointer;
 }

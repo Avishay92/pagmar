@@ -23,23 +23,29 @@
 @font-face {
   font-family: "Glyphter-arrow";
   src: url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.eot");
-  src: url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
-    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.woff") format("woff"),
-    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.ttf") format("truetype"),
-    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.svg#Glyphter") format("svg");
+  src: url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.eot?#iefix")
+      format("embedded-opentype"),
+    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.woff")
+      format("woff"),
+    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.ttf")
+      format("truetype"),
+    url("../../fonts/arrow-font/glyphter-font/fonts/Glyphter.svg#Glyphter")
+      format("svg");
   font-weight: normal;
   font-style: normal;
 }
-[class*='icon-arrow']:before{
-	display: inline-block;
-   font-family: 'Glyphter-arrow';
-   font-style: normal;
-   font-weight: normal;
-   line-height: 1;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale
+.icon-arrow-dropicon:before {
+  display: inline-block;
+  font-family: "Glyphter-arrow";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.icon-arrow-dropicon:before{content:'\0053';}
+.icon-arrow-dropicon:before {
+  content: "\0053";
+}
 
 :root {
   --clr-Synth: #ffbc00;
@@ -67,8 +73,8 @@ body {
 }
 
 body.fade {
-    opacity: 0;
-    transition: ease-out;
+  opacity: 0;
+  transition: ease-out;
 }
 
 body {
@@ -76,7 +82,6 @@ body {
   color: #828385;
   font-family: "ploni_dl_1.1_aaaregular" !important;
 }
-
 
 #menu {
   display: flex;
@@ -103,7 +108,6 @@ body {
 .logo:hover {
   transform: scale(1.06);
   transition: 0.2s ease-out;
-
 }
 
 .top-bar {
@@ -114,7 +118,6 @@ body {
   color: var(--color);
   font-size: 12px;
   user-select: none;
-  user-select: none; 
 }
 
 .f-center {
@@ -122,13 +125,11 @@ body {
   align-items: center;
 }
 
-
 .entry {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
-
 
 .container {
   padding: 0 180px;
@@ -169,8 +170,8 @@ body {
 }
 
 .card.Taamula {
-    font-size: 100px;
-    padding: 43px 20px 30px 20px;
+  font-size: 100px;
+  padding: 43px 20px 30px 20px;
 }
 
 .card:hover {
@@ -223,7 +224,6 @@ body {
 .next-btn-container.disable .next-btn-text {
   visibility: hidden;
   opacity: 0;
-  
 }
 
 .nav-btn {
@@ -296,84 +296,76 @@ body {
 
 input:checked + .card,
 label .card:hover {
-    background-color: var(--clr-white);
-    color: var(--clr-black);
+  background-color: var(--clr-white);
+  color: var(--clr-black);
 }
 
-#actions{
+#actions {
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
   margin-top: -21;
-
 }
 
-#tabs > span{
+#tabs > span {
   cursor: pointer;
 }
 
-#tabs .selected{
+#tabs .selected {
   color: #f4f6fa;
-  
 }
 
-#language{
+#language {
   cursor: pointer;
 }
 
-#upload-content{
-  
+#upload-content {
   height: 226px;
   width: 100%;
   background-color: #202020;
   border-radius: 8px;
-  padding: 40px;
+  padding: 24px;
 }
 
-#upload-content > input{
+#upload-content > input {
   display: none;
 }
 
-#upload-content > div{
-  
+#upload-content > div {
   color: #f4f6fa;
   line-height: 1.5;
   font-size: 16px;
   width: 100%;
   height: 100%;
-  border: 2px dashed #5C5C5C;
+  border: 2px dashed #5c5c5c;
   border-radius: 8px;
-  
-
 }
 
-#upload:hover { 
-  color: #ADAEB1;
+#upload:hover {
+  color: #adaeb1;
 }
 
-#alphabet:hover { 
-  color: #ADAEB1;
+#alphabet:hover {
+  color: #adaeb1;
 }
 
 .dropbtn {
   cursor: pointer;
-  margin-left:10px;
-
+  margin-left: 10px;
 }
 
 /* .dropbtn:hover, .dropbtn:focus {
   background-color: #2980B9;
 } */
 
-.selected{
+.selected {
   color: #f4f6fa !important;
-  font-family: 'ploni_dl_1.1_aaademibold';
-
+  font-family: "ploni_dl_1.1_aaademibold";
 }
 
 #upload:hover,
 .dropdown:hover,
-#alphabet:hover { 
+#alphabet:hover {
   color: #f4f6fa;
   transition: ease-in-out 0.3s;
 }
@@ -396,7 +388,7 @@ label .card:hover {
   overflow: auto;
   font-family: "ploni_dl_1.1_aaaregular" !important;
   font-size: 15px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   margin-top: 10px;
   border-radius: 8px;
@@ -407,7 +399,6 @@ label .card:hover {
   font-size: 12px;
   margin-left: 10px;
 }
-
 
 .dropdown-content a {
   color: #828385;
@@ -424,4 +415,6 @@ label .card:hover {
   cursor: pointer;
 }
 
-.show {display: block;}
+.show {
+  display: block;
+}
