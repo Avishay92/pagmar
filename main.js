@@ -31,6 +31,9 @@ WebFont.load({
     $(".container").mousemove(function(e) {	
       material.uniforms.uSpeed.value = 0.05;
       const formula = ((e.pageX * e.pageY) / 1000000) / 1.5;
+      if (formula){
+        formula*-1;
+      }
       material.uniforms.uVolatility.value = formula;
       material.uniforms.uSeed.value = formula;
       console.log(material.uniforms);

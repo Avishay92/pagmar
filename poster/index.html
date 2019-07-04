@@ -69,18 +69,21 @@ const specialSoundEffects = {
       Tone.Transport.start();
   });
 
-  function stop(){
+  function stopMusic(){
     tempoRange.value = 0;
     play = false;
     colorRange(0);
     seq.stop();
     $("#play").attr("src","../assets/icons/playICN.svg");
-    // $('#poster').hide();
+  }
+
+  function closePage(){
+    $('#poster').hide();
   }
 
 function animateTimeLine(){
     setTimeout(function () {
-        stop();
+        stopMusic();
     }, duration);
     setInterval(function(){
       if (play){
@@ -212,9 +215,9 @@ function animateTimeLine(){
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       background-color: var(--color);
-      margin-top: -10px;
-      width: 24px;
-      height: 24px;
+      margin-top: -6px;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       cursor: pointer;
       transition: 0.3s ease-in-out;
@@ -312,10 +315,10 @@ function animateTimeLine(){
         </div>
 
         <div>
-                <div class="gallery-item">
-                    <div class="image lost-in-space"></div>
-                </div>
+            <div class="gallery-item">
+                <div class="image lost-in-space"></div>
+            </div>
         </div>
     </div>
-<div class="close" onclick="closeFunction()"></div>
+<div class="close" onclick="closePage()"></div>
 
