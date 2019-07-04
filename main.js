@@ -28,15 +28,16 @@ WebFont.load({
     let elem = document.getElementById('plain-text');
     scope.appendTo(elem);
 
-    $("canvas").mousemove(function(e) {	
+    $(".container").mousemove(function(e) {	
       material.uniforms.uSpeed.value = 0.05;
       const formula = ((e.pageX * e.pageY) / 1000000) / 1.5;
       material.uniforms.uVolatility.value = formula;
       material.uniforms.uSeed.value = formula;
+      console.log(material.uniforms);
     });
-    $("canvas").mouseleave(function(e) {	
-      material.uniforms.uSpeed.value = 0;
-      material.uniforms.uVolatility.value = 0;
+    $(".container").mouseleave(function(e) {	
+      material.uniforms.uSpeed.value = 0.1;
+      material.uniforms.uVolatility.value = 0.1;
       material.uniforms.uSeed.value = 0;
   
     });

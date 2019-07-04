@@ -16,7 +16,7 @@
 
       #info-page.fade {
         opacity: 0 !important;
-        transition: ease-out !important;  
+        transition: opacity 3s ease-out !important;  
       }
 
       .container {
@@ -108,6 +108,9 @@
       }
     </style>
     <div id="info-page">
+      <script>
+          $("#page-info").addClass('fade');
+        </script>
       <div class="container">
         <div class="tile">
           <div class="step"></div>
@@ -147,5 +150,11 @@
 
       </div>
       <div class="close" onclick="$('#how').hide()"></div>
+      <!-- <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+          $("#page-info").removeClass('fade');
+        });
+    </script> -->
     </div>
+
     
