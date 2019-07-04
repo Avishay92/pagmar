@@ -65,11 +65,14 @@ body {
 
 .grid {
   margin-top: 20px;
+  position: relative;
   display: grid;
   direction: rtl;
   grid-template-columns: repeat(7, 1fr);
   grid-row-start: -1;
-  flex: 1
+  flex: 1;
+  /* align-content: center;
+  position: relative; */
 }
 
 .grid__item {

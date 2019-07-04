@@ -144,6 +144,12 @@ button:focus {
   outline: none !important;
 }
 
+#download{
+  margin-right: 20px !important;
+  transition: 0.4s ease-out ;
+
+}
+
 button.accent {
   color: white;
   background: linear-gradient(
@@ -165,6 +171,7 @@ button.accent {
   -moz-animation: AnimationName 45s ease infinite;
   animation: AnimationName 45s ease infinite;
   margin-right: 20px;
+
 }
 
 .input-wrapper {
