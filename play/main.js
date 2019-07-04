@@ -49,7 +49,7 @@ let blotter, char;
 
 function updateMargin(){
   $(".word > canvas").each((index, value) => { 
-    const margin = "-" + (fontSize - letterSpace) + "px";
+    const margin = "-" + ((fontSize / 2) - letterSpace) + "px";
     $(value).css({ "marginRight": margin, "marginLeft": margin });
   });
   $("#letter-spacing").val(letterSpace.toString());
@@ -133,7 +133,7 @@ tempoRange.addEventListener("input", function () {
 $('.word').arrive('canvas', function(){
   $(this).attrchange(  {trackValues: true,  callback: function (event) { 
     if (event.attributeName === "width"){
-      const margin = "-" + (fontSize - letterSpace) + "px";
+      const margin = "-" + ((fontSize / 2)- letterSpace) + "px";
       $(this).css({ "marginRight": margin, "marginLeft": margin });
       $(this).show()
     }
@@ -192,8 +192,8 @@ const style = {
   weight: font === "Frank Ruhl Libre" ? "700" : "normal",
   fill: brightModeOn ? darkGrey : white,
   size: fontSize,
-  paddingLeft: fontSize,
-  paddingRight: fontSize
+  paddingLeft: fontSize / 2,
+  paddingRight: fontSize / 2
 };
 
 WebFont.load({

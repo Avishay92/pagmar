@@ -190,6 +190,7 @@ WebFont.load({
   active: function (){
   //builds blotter and insert pointers to data
   $(document).ready(function() {
+    const fontSize = 94;
     document
       .querySelectorAll("[data-blotter]")
       .forEach(function(gridItemElement) {
@@ -197,9 +198,9 @@ WebFont.load({
           family: font,
           weight: font === "Frank Ruhl Libre" ? "700" : "normal",
           fill: "#F4F6FA",
-          size: 94,
-          paddingLeft: 94,
-          paddingRight: 94
+          size: fontSize,
+          paddingLeft: fontSize / 2,
+          paddingRight: fontSize / 2
         };
         const char = gridItemElement.dataset.blotter;
         let material = new Blotter.RollingDistortMaterial();
