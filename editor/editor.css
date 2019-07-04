@@ -18,6 +18,7 @@ body {
   max-height: 100vh;
   user-select: none;
   opacity: 1;
+  width: 100%;
 }
 
 body.fade {

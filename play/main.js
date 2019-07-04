@@ -131,10 +131,14 @@ tempoRange.addEventListener("input", function () {
 });
 
 $('.word').arrive('canvas', function(){
-  updateMargin();
-  $(this).show()
+  $(this).attrchange(  {trackValues: true,  callback: function (event) { 
+    if (event.attributeName === "width"){
+      const margin = "-" + (fontSize - letterSpace) + "px";
+      $(this).css({ "marginRight": margin, "marginLeft": margin });
+      $(this).show()
+    }
+  }});
 });
-
 
 function startPlay() {
   $("#play").addClass("active");
@@ -277,10 +281,12 @@ function buildBlotter(char) {
   );
   blotter.soundEffects = soundEffects;
   blotter.texts[0].properties.size = fontSize;
-  scope.appendTo($(".word"));
   if (char.char === "-") {
     scope.domElement.className = "empty-space";
+  }else{
+    scope.domElement.style.display = "none";
   }
+  scope.appendTo($(".word"));
   $(".word").append("<span id='line'></span>");
   Object.values(blotter._scopes)[0].render();
   (function blink() {
