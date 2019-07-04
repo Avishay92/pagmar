@@ -23,13 +23,14 @@ let instrument,
   pitchEffect,
   distortionEffect,
   feedbackEffect,
-  tremoloEffect;
+  chorusEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
 let input,
   playPressed = 1,
   inputData = [],
   index = 0,
+  sequence,
   fontSize = 200,
   letterSpace = 0,
   wordSpace = 50,
@@ -149,8 +150,8 @@ function startPlay() {
       let note = data[char].note;
       sequenceData.push({ char: char, note: note, time: i, blotter: inputData[i] });
     }
-    var sequence = new Tone.Sequence(function (time, event) {
-      stop = (4 / 8) * (60 / tempo) * 1000;
+    sequence = new Tone.Sequence(function (time, event) {
+      stop = (4 / 16) * (60 / tempo) * 1000;
       setTimeout(function () {
         event.blotter.material.uniforms.uSpeed.value = 0.0;
       }, stop);
@@ -173,7 +174,10 @@ $("#play").click(function () {
 });
 
 function stopPlay() {
+  sequence.stop();
+  sequence.dispose();
   Tone.Transport.stop();
+  Tone.Transport.clear();
   $("#play").removeClass("active");
   $("#play > img").attr("src", "../assets/icons/playICN.svg");
   $("#line").css('visibility', 'visible');
@@ -265,7 +269,7 @@ function buildBlotter(char) {
     sPitchEffect: f1,
     sDistortionEffect: f1,
     sFeedbackEffect: f1,
-    sTremoloEffect: f1
+    sChorusEffect: f1
   };
   soundEffects = Object.assign(
     Object.assign({}, defaultSoundEffects),

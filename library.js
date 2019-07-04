@@ -5,22 +5,22 @@ const darkGrey = "#202020";
 function initializeInstrument() {
   switch (instrument) {
     case "synth":
-      instrument = new Tone.Synth().connect(tremoloEffect);
+      instrument = new Tone.Synth().connect(chorusEffect);
       break;
     case "DuoSynth":
-      instrument = new Tone.DuoSynth().connect(tremoloEffect);
+      instrument = new Tone.DuoSynth().connect(chorusEffect);
       break;
     case "MembraneSynth":
-      instrument = new Tone.MembraneSynth().connect(tremoloEffect);
+      instrument = new Tone.MembraneSynth().connect(chorusEffect);
       break;
     case "AMSynth":
-      instrument = new Tone.AMSynth().connect(tremoloEffect);
+      instrument = new Tone.AMSynth().connect(chorusEffect);
       break;
     case "FMSynth":
-      instrument = new Tone.FMSynth().connect(tremoloEffect);
+      instrument = new Tone.FMSynth().connect(chorusEffect);
       break;
     default:
-      instrument = new Tone.Synth().connect(tremoloEffect);
+      instrument = new Tone.Synth().connect(chorusEffect);
       break;
   }
 }
@@ -29,25 +29,22 @@ function initializeEffects() {
   autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
   phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
   vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
-  // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
   pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
   distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
-  //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
-  tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
+  chorusEffect = new Tone.Chorus(0,0, 0).chain(distortionEffect);
 }
 
 function updateEffects(soundEffects) {
-  console.log(soundEffects);
   Object.keys(soundEffects).forEach(function(key, index) {
     switch (key) {
       case "sAutoWahEffect":
-        autoWahEffect.frequency = soundEffects[key];
+        autoWahEffect.octavas = soundEffects[key];
         break;
       case "sPhaserEffect":
         phaserEffect.octaves = soundEffects[key];
         break;
       case "sVibratoEffect":
-        vibratoEffect.frequency = soundEffects[key];
+        vibratoEffect.depth.value = soundEffects[key];
         break;
       case "sReverbEffect":
         break;
@@ -60,8 +57,8 @@ function updateEffects(soundEffects) {
         break;
       case "sFeedbackEffect":
         break;
-      case "sTremoloEffect":
-        tremoloEffect.frequency = soundEffects[key];
+    case "sChorusEffect":
+      chorusEffect.frequency = soundEffects[key];
         break;
     }
   });
@@ -71,7 +68,7 @@ const effectRanges = {
   uSineDistortSpread:{   //autoWah
       minVisual: 0.067,
       maxVisual: 1,
-      minSound: 0,
+      minSound: 4,
       maxSound: 8,
   },
   uSineDistortCycleCount: { //phaser
@@ -98,7 +95,7 @@ const effectRanges = {
       minSound: 0,
       maxSound: 24,
   },
-  uRotation: { //tremolo
+  uRotation: { //chorus
       minVisual: 0,
       maxVisual: 180,
       minSound: 0,

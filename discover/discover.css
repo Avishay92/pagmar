@@ -46,13 +46,13 @@ body {
   display: flex;
   flex-direction: column;
   user-select: none; 
-  opacity: 1 !important;
+  opacity: 1;
 }
 
-body.fade {
+/* main.fade {
   opacity: 0 !important;
-  transition: ease-out !important;
-}
+  transition:  opacity 1s ease-out !important;
+} */
 
 .tiny {
   font-size: 10px;
@@ -118,6 +118,13 @@ body.fade {
   color: #f4f6fa;
   margin: 0px 0 40px 0;
   user-select: none; 
+  opacity: 1;
+
+}
+
+.title.fade{
+  opacity: 0 !important;
+  transition:  opacity 1s ease-out !important;
 }
 
 .tabs span {
