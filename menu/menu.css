@@ -45,11 +45,6 @@ body {
   display: flex;
   flex-direction: column;
   outline: none;
-  overflow: hidden;
-  right: 0;
-  position: fixed;
-  height: 100vh;
-  width: 100%;
 }
 
 .mdl-textfield {
@@ -69,11 +64,15 @@ body {
 }
 
 .grid {
-  margin: auto 0;
+  margin-top: 20px;
+  position: relative;
   display: grid;
   direction: rtl;
   grid-template-columns: repeat(7, 1fr);
   grid-row-start: -1;
+  flex: 1;
+  /* align-content: center;
+  position: relative; */
 }
 
 .grid__item {
@@ -83,8 +82,6 @@ body {
   display: flex;
   opacity: 0.1;
   cursor: pointer;
-  margin-left: -48px;
-  margin-right: -48px;
 }
 
 body.fade {

@@ -192,8 +192,9 @@ const style = {
   weight: font === "Frank Ruhl Libre" ? "700" : "normal",
   fill: brightModeOn ? darkGrey : white,
   size: fontSize,
-  paddingLeft: fontSize / 2,
+  paddingLeft: fontSize / 1.9,
   paddingRight: fontSize / 2
+
 };
 
 WebFont.load({

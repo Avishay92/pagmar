@@ -67,31 +67,31 @@ function updateEffects(soundEffects) {
 const effectRanges = {
   uSineDistortSpread:{   //autoWah
       minVisual: 0.067,
-      maxVisual: 1,
+      maxVisual: 0.50,
       minSound: 4,
       maxSound: 8,
   },
   uSineDistortCycleCount: { //phaser
       minVisual: 60,
-      maxVisual: 200,
+      maxVisual: 100,
       minSound: 0,
       maxSound: 8,
   },
   uSineDistortAmplitude: { //vibrato
       minVisual: 0,
-      maxVisual: 1,
+      maxVisual: 0.20,
       minSound: 0,
       maxSound: 10,
   },
-  uNoiseDistortVolatility: { //reverb
+  uNoiseDistortVolatility: { //distortion
       minVisual: 1,
-      maxVisual: 80,
+      maxVisual: 20,
       minSound: 0,
       maxSound: 2,
   },
   uNoiseDistortAmplitude: { //pitch
       minVisual: 0.008,
-      maxVisual: 1,
+      maxVisual: 0.70,
       minSound: 0,
       maxSound: 24,
   },
@@ -101,13 +101,13 @@ const effectRanges = {
       minSound: 0,
       maxSound: 10,
   },
-  uDistortPositionX:{ //Distortion
+  uDistortPositionX:{ 
       minVisual: 0,
       maxVisual: 1,
       minSound: 0,
       maxSound: 1,
   },
-  uDistortPositionY:{ //Feedback
+  uDistortPositionY:{ 
       minVisual: 0,
       maxVisual: 1,
       minSound: 0,
