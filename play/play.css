@@ -54,7 +54,7 @@ body {
   background: #161616;
   color: white;
   font-family: "ploni_dl_1.1_aaamedium" !important;
-
+  outline: none;
 }
 
 body.fade {
@@ -88,7 +88,6 @@ body.dark-mode {
   font-size: 16px;
 }
 
-
 #logo {
   cursor: pointer;
 }
@@ -98,8 +97,6 @@ body.dark-mode {
   transition: 0.2s ease-out;
 
 }
-
-/* top bar */
 
 .f-center {
   display: flex;

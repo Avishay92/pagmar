@@ -16,14 +16,22 @@ body {
   justify-content: center;
 }
 
+.container{
+  margin-top: 100px;
+  height:500px;
+  width:100%;
+}
+
 #about {
   font-family: "ploni_dl_1.1_aaaregular" !important;
   text-align: right;
-  margin: 0px;
+  /* margin: 0px; */
   color: gray;
   text-decoration: none;
   position: absolute;
-  margin: 50px;
+  margin-right: 100px;
+  margin-top: -20px;
+
   right: 10;
 }
 

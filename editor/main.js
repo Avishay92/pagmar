@@ -8,11 +8,9 @@ let instrument,
     autoWahEffect,
     phaserEffect,
     vibratoEffect,
-    reverbEffect,
     pitchEffect,
     distortionEffect,
-    feedbackEffect,
-    tremoloEffect,
+    chorusEffect,
     brightModeOn,
     app,
     material,
@@ -182,8 +180,8 @@ WebFont.load({
                     {
                         id: 5,
                         visualEffect: 'uRotation',
-                        soundEffect: 'sTremoloEffect',
-                        label: 'Tremolo',
+                        soundEffect: 'sChorusEffect',
+                        label: 'Chorus',
                         rotation: -132,
                         color: '#ED31A2',
                         active: true,
@@ -227,12 +225,12 @@ WebFont.load({
                             }
                             case 'uSineDistortSpread': {
                                 data[char].autowahValue = false;
-                                autoWahEffect.frequency = currentValue;
+                                autoWahEffect.octavas = currentValue;
                                 break;
                             }
 
                             case 'uSineDistortAmplitude': {
-                                // vibratoEffect.depth.value = currentValue;
+                                vibratoEffect.depth.value = currentValue;
                                 break;
                             }
                             case 'uNoiseDistortAmplitude': {
@@ -244,11 +242,10 @@ WebFont.load({
                                 break;
                             }
                             case 'uRotation': {
-                                tremoloEffect.frequency = currentValue;
+                               chorusEffect.frequency = currentValue;
                                 break;
                             }
                         }
-                        instrument.set("detune", -1200);
                         instrument.triggerAttackRelease(note, '16n');
 
                         // Setting Max rotation

@@ -63,7 +63,7 @@ let instrument,
   vibratoEffect,
   pitchEffect,
   distortionEffect,
-  tremoloEffect;
+  chorusEffect;
 
 //initializing instruments and sound effects
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
@@ -215,7 +215,7 @@ WebFont.load({
           sPitchEffect: f1,
           sDistortionEffect: f1,
           sFeedbackEffect: f1,
-          sTremoloEffect: f1
+          sChorusEffect: f1
         };
         data[char].soundEffects = Object.assign(
           Object.assign({}, soundEffects),
@@ -289,7 +289,6 @@ WebFont.load({
   $("#info").click(function(){
     $("#how").show();
   });
-
 
   $("#resetAll").click(function() {
     Object.keys(data).forEach(function(currChar, index) {
