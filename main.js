@@ -12,6 +12,8 @@ WebFont.load({
       family: "'ploni_dl_1.1_aaabold'",
       size: 180,
       fill: '#ffffff',
+      paddingLeft: 300,
+      paddingRight: 300,
     });
 
     let material = new Blotter.LiquidDistortMaterial();

@@ -55,6 +55,7 @@ body {
   color: white;
   font-family: "ploni_dl_1.1_aaamedium" !important;
   outline: none;
+  width: 100%;
 }
 
 body.fade {
@@ -242,6 +243,7 @@ body.dark-mode {
 
 .word > canvas{
   margin: auto 0;
+  display: none;
 }
 
 

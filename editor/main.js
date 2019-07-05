@@ -36,11 +36,14 @@ WebFont.load({
         urls: ['../../fonts/fonts.css']
     },
     active: function () {
+        const fontSize = 400;
         var text = new Blotter.Text(char, {
             family: font,
             weight: font === "Frank Ruhl Libre" ? "700" : "normal",
             fill: brightModeOn ? darkGrey : white,
-            size: 400,
+            size: fontSize,
+            paddingLeft: fontSize / 2,
+            paddingRight: fontSize / 2
         });
 
         material = new Blotter.RollingDistortMaterial();
