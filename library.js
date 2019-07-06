@@ -67,7 +67,7 @@ function updateEffects(soundEffects) {
 const effectRanges = {
   uSineDistortSpread:{   //autoWah
       minVisual: 0.067,
-      maxVisual: 0.50,
+      maxVisual: 0.90,
       minSound: 4,
       maxSound: 8,
   },
@@ -85,7 +85,7 @@ const effectRanges = {
   },
   uNoiseDistortVolatility: { //distortion
       minVisual: 1,
-      maxVisual: 20,
+      maxVisual: 30,
       minSound: 0,
       maxSound: 2,
   },

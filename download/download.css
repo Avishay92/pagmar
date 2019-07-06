@@ -51,6 +51,16 @@ body {
   user-select: none;
 }
 
+body {
+  opacity: 1;
+  transition: 0.6s opacity;
+}
+
+body.fade {
+    opacity: 0 !important;
+    transition: ease-out !important;
+}
+
 #menu {
   display: flex;
   flex-direction: column;
