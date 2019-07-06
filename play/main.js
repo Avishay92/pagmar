@@ -19,11 +19,10 @@ let instrument,
   autoWahEffect,
   phaserEffect,
   vibratoEffect,
-  reverbEffect,
   pitchEffect,
   distortionEffect,
   feedbackEffect,
-  chorusEffect;
+  reverbEffect;
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
 
 let input,
@@ -49,7 +48,7 @@ let blotter, char;
 
 function updateMargin(){
   $(".word > canvas").each((index, value) => { 
-    const margin = "-" + ((210 / 2) - letterSpace) + "px";
+    const margin = "-" + ((fontSize / 2) - letterSpace) + "px";
     $(value).css({ "marginRight": margin, "marginLeft": margin });
   });
   $("#letter-spacing").val(letterSpace.toString());
@@ -60,9 +59,10 @@ function updateFontSize() {
   if (inputData.length !== 0) {
     for (let i = 0; i < inputData.length; i++) {
       inputData[i].texts[0].properties.size = fontSize;
+      inputData[i].texts[0].properties.paddingLeft = fontSize/2;
+      inputData[i].texts[0].properties.paddingRight = fontSize/2;
       inputData[i].needsUpdate = true;
     }
-    updateMargin();
   }
 }
 
@@ -192,7 +192,7 @@ const style = {
   weight: font === "Frank Ruhl Libre" ? "700" : "normal",
   fill: brightModeOn ? darkGrey : white,
   size: fontSize,
-  paddingLeft: fontSize / 1.9,
+  paddingLeft: fontSize / 2,
   paddingRight: fontSize / 2
 };
 
@@ -273,7 +273,7 @@ function buildBlotter(char) {
     sPitchEffect: f1,
     sDistortionEffect: f1,
     sFeedbackEffect: f1,
-    sChorusEffect: f1
+    sReverbEffect: f1
   };
   soundEffects = Object.assign(
     Object.assign({}, defaultSoundEffects),

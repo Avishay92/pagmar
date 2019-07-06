@@ -63,7 +63,7 @@ let instrument,
   vibratoEffect,
   pitchEffect,
   distortionEffect,
-  chorusEffect;
+  reverbEffect;
 
 //initializing instruments and sound effects
 instrument = defaultSoundEffects[Object.keys(defaultSoundEffects)[0]];
@@ -216,7 +216,7 @@ WebFont.load({
           sPitchEffect: f1,
           sDistortionEffect: f1,
           sFeedbackEffect: f1,
-          sChorusEffect: f1
+          sReverbEffect: f1
         };
         data[char].soundEffects = Object.assign(
           Object.assign({}, soundEffects),

@@ -5,7 +5,10 @@ function initializeEffects() {
   vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
   pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
   distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
-  chorusEffect = new Tone.Chorus(0,0,0).chain(distortionEffect);
+  reverbEffect =   reverbEffect = new Tone.Freeverb({
+    roomSize  : 0.5 ,
+    dampening  : 6000
+    }).chain(distortionEffect);
 }
 
 let autoWahEffect,
@@ -13,7 +16,7 @@ phaserEffect,
 vibratoEffect,
 pitchEffect,
 distortionEffect,
-chorusEffect,
+reverbEffect,
 play = 0,
 img,
 noteIndex = 0,
@@ -29,28 +32,13 @@ let data = {};
 const tempoRange = document.querySelector("#tempo");
 Tone.Transport.bpm.value = tempo;
 f1 = parseFloat(0).toPrecision(2);
-const defaultSoundEffects = {
-    sAutoWahEffect: f1,
-    sPhaserEffect: f1,
-    sVibratoEffect: f1,
-    sPitchEffect: f1,
-    sDistortionEffect: f1,
-    sChorusEffect: f1,
-};
+
 const duration = (4 / 8) * (60 / tempo) * 1000 * sequence.length *2;
 $(window).ready(()=>{
   tempoRange.max = duration/4;
 })
-const specialSoundEffects = {
-    sAutoWahEffect: parseFloat(6).toPrecision(2),
-    sPhaserEffect: parseFloat(5).toPrecision(2),
-    sVibratoEffect: parseFloat(5).toPrecision(2),
-    sPitchEffect: parseFloat(15).toPrecision(2),
-    sDistortionEffect: parseFloat(0.1).toPrecision(2),
-    sChorusEffect: parseFloat(9).toPrecision(2),
-};
 
-  function colorRange(val) {
+function colorRange(val) {
     const progress = (val / duration) * 400 + "%";
     document.documentElement.style.setProperty("--progress", progress);
   };
@@ -61,8 +49,6 @@ const specialSoundEffects = {
     if (play){
     $("#play").attr("src",img);
         seq = new Tone.Sequence(function (time, event) {
-        effects = !effects;
-        updateEffects(effects ? defaultSoundEffects : specialSoundEffects);
         instrument.triggerAttackRelease(event, "8n");
       }, sequence);
       animateTimeLine();

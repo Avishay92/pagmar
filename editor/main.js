@@ -10,7 +10,7 @@ let instrument,
     vibratoEffect,
     pitchEffect,
     distortionEffect,
-    chorusEffect,
+    reverbEffect,
     brightModeOn,
     app,
     material,
@@ -181,8 +181,8 @@ WebFont.load({
                     {
                         id: 5,
                         visualEffect: 'uRotation',
-                        soundEffect: 'sChorusEffect',
-                        label: 'Chorus',
+                        soundEffect: 'sReverbEffect',
+                        label: 'Reverb',
                         rotation: -132,
                         color: '#ED31A2',
                         active: true,
@@ -243,8 +243,10 @@ WebFont.load({
                                 break;
                             }
                             case 'uRotation': {
-                               chorusEffect.wet = currentValue;
-                                break;
+                               reverbEffect.roomSize.input.value = currentValue;
+                               reverbEffect.dampening.input.value = 10000;
+                               console.log(reverbEffect.dampening.input.value);
+                               break;
                             }
                         }
                         instrument.triggerAttackRelease(note, '16n');

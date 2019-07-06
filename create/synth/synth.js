@@ -96,7 +96,7 @@ let defaultSoundEffects = {
   sVibratoEffect: f1,
   sPitchEffect: f1,
   sDistortionEffect: f1,
-  sChorusEffect: f1,
+  sReverbEffect: f1,
 };
 
 initializeInstrument();

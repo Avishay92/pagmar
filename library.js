@@ -5,22 +5,22 @@ const darkGrey = "#202020";
 function initializeInstrument() {
   switch (instrument) {
     case "synth":
-      instrument = new Tone.Synth().connect(tremoloEffect);
+      instrument = new Tone.Synth().connect(reverbEffect);
       break;
     case "DuoSynth":
-      instrument = new Tone.DuoSynth().connect(tremoloEffect);
+      instrument = new Tone.DuoSynth().connect(reverbEffect);
       break;
     case "MembraneSynth":
-      instrument = new Tone.MembraneSynth().connect(tremoloEffect);
+      instrument = new Tone.MembraneSynth().connect(reverbEffect);
       break;
     case "AMSynth":
-      instrument = new Tone.AMSynth().connect(tremoloEffect);
+      instrument = new Tone.AMSynth().connect(reverbEffect);
       break;
     case "FMSynth":
-      instrument = new Tone.FMSynth().connect(tremoloEffect);
+      instrument = new Tone.FMSynth().connect(reverbEffect);
       break;
     default:
-      instrument = new Tone.Synth().connect(tremoloEffect);
+      instrument = new Tone.Synth().connect(reverbEffect);
       break;
   }
 }
@@ -29,11 +29,12 @@ function initializeEffects() {
   autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
   phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
   vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
-  // reverbEffect = new Tone.Reverb(0).chain(vibratoEffect);
   pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
   distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
-  //feedbackEffect = new Tone.FeedbackEffect(0.125).chain(distortionEffect);
-  tremoloEffect = new Tone.Tremolo(9, 0.75).chain(distortionEffect);
+  reverbEffect = new Tone.Freeverb({
+    roomSize  : 0.2 ,
+    dampening  : 1000
+    }).chain(distortionEffect);
 }
 
 function updateEffects(soundEffects) {
@@ -48,18 +49,15 @@ function updateEffects(soundEffects) {
       case "sVibratoEffect":
         vibratoEffect.frequency = soundEffects[key];
         break;
-      case "sReverbEffect":
-        break;
       case "sPitchEffect":
         pitchEffect.pitch = soundEffects[key];
         break;
       case "sDistortionEffect":
         distortionEffect.distortion = soundEffects[key];
         break;
-      case "sFeedbackEffect":
-        break;
-      case "sTremoloEffect":
-        tremoloEffect.frequency = soundEffects[key];
+      case "sReverbEffect":
+        reverbEffect.roomSize.input.value = soundEffects[key];
+        reverbEffect.dampening.input.value = 10000;
         break;
     }
   });
@@ -96,11 +94,11 @@ const effectRanges = {
       minSound: 0,
       maxSound: 24,
   },
-  uRotation: { //tremolo
+  uRotation: { //Reverb
       minVisual: 0,
       maxVisual: 180,
       minSound: 0,
-      maxSound: 10,
+      maxSound: 0.6,
   },
   uDistortPositionX:{ //Distortion
       minVisual: 0,
