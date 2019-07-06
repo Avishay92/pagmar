@@ -36,7 +36,6 @@ let input,
   wordSpace = 50,
   tempo = 80,
   brightModeOn,
-  additionalMargin =0,
   tempoRange = document.querySelector("#tempo");
 
 tempoRange.value = tempo;
@@ -49,16 +48,10 @@ initializeFilterMode();
 let blotter, char;
 
 function updateMargin(){
-    if (inputData.length !== 0) {
-      if (fontSize <=200){
-        additionalMargin = 0;
-      }
-      for (let i = 0; i < inputData.length; i++) {
-        const margin =((fontSize / 2) + letterSpace + additionalMargin);
-        inputData[i].texts[0].properties.paddingLeft = margin;
-        inputData[i].needsUpdate = true;
-      }
-    }
+  $(".word > canvas").each((index, value) => { 
+    const margin = "-" + ((210 / 2) - letterSpace) + "px";
+    $(value).css({ "marginRight": margin, "marginLeft": margin });
+  });
   $("#letter-spacing").val(letterSpace.toString());
 }
 
@@ -68,8 +61,6 @@ function updateFontSize() {
     for (let i = 0; i < inputData.length; i++) {
       inputData[i].texts[0].properties.size = fontSize;
       inputData[i].needsUpdate = true;
-      console.log(inputData[i].texts[0].properties.paddingLeft);
-      
     }
     updateMargin();
   }
@@ -85,7 +76,6 @@ document.querySelector("#letter-spacing").addEventListener("input", function () 
 
 document.querySelector("#font-size").addEventListener("input", function () {
   fontSize = event.target.value;
-  additionalMargin = (fontSize-20)*5;
   if (fontSize < 40) {
     fontSize = event.target.value * 10;
   }
@@ -97,7 +87,6 @@ document.querySelector("#font-size").addEventListener("input", function () {
 
 $("#increase-font-size").click(function () {
   if (fontSize < 400) {
-    additionalMargin+=5;
     fontSize += 10;
     updateFontSize();
   }
@@ -107,7 +96,6 @@ $("#decrease-font-size").click(function () {
   if (fontSize > 100) {
     fontSize -= 10;
   }
-  additionalMargin-=5;
   updateFontSize();
 });
 

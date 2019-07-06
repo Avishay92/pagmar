@@ -243,7 +243,7 @@ WebFont.load({
                                 break;
                             }
                             case 'uRotation': {
-                               chorusEffect.frequency = currentValue;
+                               chorusEffect.wet = currentValue;
                                 break;
                             }
                         }

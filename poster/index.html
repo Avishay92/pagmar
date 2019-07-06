@@ -1,6 +1,4 @@
 <script>
-    $('#poster').show();
-  
 function initializeEffects() {
   autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
   phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
@@ -19,7 +17,7 @@ chorusEffect,
 play = 0,
 img,
 noteIndex = 0,
-tempo = 100,
+tempo = 120,
 seq,
 effects = 0,
 instrument = new Tone.Synth().toMaster();

@@ -55,11 +55,11 @@
       const text = new Blotter.Text(textEl.innerHTML, {
           family : "'ploni_dl_1.1_aaabold'",
           weight: 900,
-          size : 200,
+          size : 160,
           paddingLeft: 100,
           paddingRight: 100,
           paddingTop: 100,
-          paddingBottom: 100,
+          paddingBottom: 10,
           fill : 'white'
       });
       elem.removeChild(textEl);
