@@ -68,9 +68,15 @@ function updateEffects(soundEffects) {
 const effectRanges = {
   uSineDistortSpread:{   //autoWah
       minVisual: 0.067,
+<<<<<<< HEAD
       maxVisual: 1,
       minSound: 3,
       maxSound: 10,
+=======
+      maxVisual: 0.90,
+      minSound: 4,
+      maxSound: 8,
+>>>>>>> 1a5fad64165ed60aa037d0f7b1636f4643ffa060
   },
   uSineDistortCycleCount: { //phaser
       minVisual: 60,
@@ -86,7 +92,11 @@ const effectRanges = {
   },
   uNoiseDistortVolatility: { //reverb
       minVisual: 1,
+<<<<<<< HEAD
       maxVisual: 80,
+=======
+      maxVisual: 30,
+>>>>>>> 1a5fad64165ed60aa037d0f7b1636f4643ffa060
       minSound: 0,
       maxSound: 2,
   },
