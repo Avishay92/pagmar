@@ -1,3 +1,4 @@
+      
     <style>
       #info-page {
         background: #161616;
@@ -16,7 +17,7 @@
 
       #info-page.fade {
         opacity: 0 !important;
-        transition: opacity 3s ease-out !important;  
+        transition: opacity 2s ease-out !important;  
       }
 
       .container {
@@ -107,10 +108,8 @@
         opacity: 1;
       }
     </style>
-    <div id="info-page">
-      <script>
-          $("#page-info").addClass('fade');
-        </script>
+    <div id="info-page" class="fade">
+      
       <div class="container">
         <div class="tile">
           <div class="step"></div>
@@ -147,14 +146,18 @@
             </div>
           </div>
         </div>
-
+        <script>
+          
+            $("#info-page").on('load', function(){
+              console.log("hah");
+              $("#info-page").removeClass("fade");
+            });
+  
+            </script>
       </div>
+
       <div class="close" onclick="$('#how').hide()"></div>
-      <!-- <script>
-        document.addEventListener("DOMContentLoaded", function(e) {
-          $("#page-info").removeClass('fade');
-        });
-    </script> -->
+     
     </div>
 
     

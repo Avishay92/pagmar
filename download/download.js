@@ -13,21 +13,17 @@ $(document).ready(function() {
 
 
   $('.formats-container').on('click', '.format', function() {
-
     const $currentFormat = $(this);
     const isFormatSelected = $currentFormat.hasClass('selected');
     if (isFormatSelected) {
-      $("#download").removeClass('accent');
       $currentFormat.removeClass('selected');
     } else {
-      $("#download").addClass('accent');
       $currentFormat.addClass('selected');
     }
-    // @avishay - change css to make the button enable/disabled, grayed-out/colored
     if (document.querySelector('div.format.selected')){
-      // something is selected - enable
+      $("#download").addClass('accent');
     }else{
-      // nothing is selected - disable
+      $("#download").removeClass('accent');
     }
   })
 });

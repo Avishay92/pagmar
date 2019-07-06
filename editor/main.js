@@ -80,13 +80,13 @@ WebFont.load({
             precent = parseFloat(value / controllerRange).toPrecision(3);
             range = Math.abs(min) + Math.abs(max);
             value = parseFloat(range * precent).toPrecision(3);
-            if (min < 0) {
+            if (min < 0 || value < min) {
                 value = parseFloat(value) + parseFloat(min);
             }
-            if (max < 0) {
+            if (max < 0 || value > max) {
                 value = parseFloat(value) + parseFloat(max);
             }
-            return value;
+            return Number(value);
         }
 
         function convertValueToRotation(effect) {

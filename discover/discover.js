@@ -8,7 +8,6 @@ $.get("../poster/index.html", function(data){
 
   $(document).ready(()=>{
     setTimeout(()=>{
-        console.log("fade")
       $(".title").removeClass('fade');
       })
   })

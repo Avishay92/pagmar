@@ -1,4 +1,5 @@
 <script>
+    $('#poster').show();
   
 function initializeEffects() {
   autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
@@ -22,6 +23,7 @@ tempo = 100,
 seq,
 effects = 0,
 instrument = new Tone.Synth().toMaster();
+var inter;
 initializeEffects();
 const sentence = ["א", "ב", "ו", "ד", "י", "ם", "ב", "ח", "ל", "ל"]
 const sequence = ["C3", "D3", "A3", "F3", "E4", "C5", "D3", "C4", "A4", "A4"]
@@ -37,9 +39,9 @@ const defaultSoundEffects = {
     sDistortionEffect: f1,
     sChorusEffect: f1,
 };
-const duration = (4 / 8) * (60 / tempo) * 1000 * sequence.length;
+const duration = (4 / 8) * (60 / tempo) * 1000 * sequence.length *2;
 $(window).ready(()=>{
-tempoRange.max = duration;
+  tempoRange.max = duration/4;
 })
 const specialSoundEffects = {
     sAutoWahEffect: parseFloat(6).toPrecision(2),
@@ -51,13 +53,14 @@ const specialSoundEffects = {
 };
 
   function colorRange(val) {
-    progress = (val / duration) + "%";
+    const progress = (val / duration) * 400 + "%";
     document.documentElement.style.setProperty("--progress", progress);
   };
 
   $("#play").click(function(){
     play = !play;
     img = play ? "../assets/icons/stopICN.svg" : "../assets/icons/playICN.svg";
+    if (play){
     $("#play").attr("src",img);
         seq = new Tone.Sequence(function (time, event) {
         effects = !effects;
@@ -67,6 +70,13 @@ const specialSoundEffects = {
       animateTimeLine();
       seq.start();
       Tone.Transport.start();
+    }
+    else{
+      clearTimeout(timeout);
+      clearInterval(inter);
+      stopMusic();
+    
+    }
   });
 
   function stopMusic(){
@@ -76,22 +86,23 @@ const specialSoundEffects = {
     seq.stop();
     $("#play").attr("src","../assets/icons/playICN.svg");
   }
-
-  function closePage(){
-    $('#poster').hide();
-  }
-
-function animateTimeLine(){
-    setTimeout(function () {
-        stopMusic();
+var timeout;
+  function animateTimeLine(){
+    timeout = setTimeout(function () {
+      stopMusic();
     }, duration);
-    setInterval(function(){
+    clearInterval(inter);
+    inter = setInterval(function(){
       if (play){
         tempoRange.stepUp();
         colorRange(tempoRange.value);
       }
-    }, 1);
+    });
   }
+
+function closePage(){
+    $('#poster').hide();
+}
 
 </script>
 <style>

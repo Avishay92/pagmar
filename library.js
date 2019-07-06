@@ -31,17 +31,18 @@ function initializeEffects() {
   vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
   pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
   distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
-  chorusEffect = new Tone.Chorus(0,0, 0).chain(distortionEffect);
+  chorusEffect = new Tone.Effect(0).chain(distortionEffect);
 }
 
 function updateEffects(soundEffects) {
   Object.keys(soundEffects).forEach(function(key, index) {
     switch (key) {
       case "sAutoWahEffect":
-        autoWahEffect.octavas = soundEffects[key];
+        autoWahEffect.octaves = soundEffects[key];
         break;
       case "sPhaserEffect":
         phaserEffect.octaves = soundEffects[key];
+        
         break;
       case "sVibratoEffect":
         vibratoEffect.depth.value = soundEffects[key];
@@ -58,7 +59,7 @@ function updateEffects(soundEffects) {
       case "sFeedbackEffect":
         break;
     case "sChorusEffect":
-      chorusEffect.frequency = soundEffects[key];
+      chorusEffect.order = soundEffects[key];
         break;
     }
   });
@@ -67,31 +68,31 @@ function updateEffects(soundEffects) {
 const effectRanges = {
   uSineDistortSpread:{   //autoWah
       minVisual: 0.067,
-      maxVisual: 0.50,
-      minSound: 4,
-      maxSound: 8,
+      maxVisual: 1,
+      minSound: 3,
+      maxSound: 10,
   },
   uSineDistortCycleCount: { //phaser
       minVisual: 60,
-      maxVisual: 100,
+      maxVisual: 200,
       minSound: 0,
       maxSound: 8,
   },
   uSineDistortAmplitude: { //vibrato
       minVisual: 0,
-      maxVisual: 0.20,
+      maxVisual: 1,
       minSound: 0,
       maxSound: 10,
   },
-  uNoiseDistortVolatility: { //distortion
+  uNoiseDistortVolatility: { //reverb
       minVisual: 1,
-      maxVisual: 20,
+      maxVisual: 80,
       minSound: 0,
       maxSound: 2,
   },
   uNoiseDistortAmplitude: { //pitch
       minVisual: 0.008,
-      maxVisual: 0.70,
+      maxVisual: 1,
       minSound: 0,
       maxSound: 24,
   },
@@ -99,15 +100,15 @@ const effectRanges = {
       minVisual: 0,
       maxVisual: 180,
       minSound: 0,
-      maxSound: 10,
+      maxSound: 0.8,
   },
-  uDistortPositionX:{ 
+  uDistortPositionX:{ //Distortion
       minVisual: 0,
       maxVisual: 1,
       minSound: 0,
       maxSound: 1,
   },
-  uDistortPositionY:{ 
+  uDistortPositionY:{ //Feedback
       minVisual: 0,
       maxVisual: 1,
       minSound: 0,
