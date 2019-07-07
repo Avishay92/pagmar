@@ -217,6 +217,7 @@ body.dark-mode {
 }
 
 .word{
+  transition: transform 200ms linear;
   position: absolute;
   display: flex;
   margin: auto;

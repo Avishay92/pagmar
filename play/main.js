@@ -56,14 +56,8 @@ function updateMargin(){
 
 function updateFontSize() {
   $("#font-size").val((fontSize / 10));
-  if (inputData.length !== 0) {
-    for (let i = 0; i < inputData.length; i++) {
-      inputData[i].texts[0].properties.size = fontSize;
-      inputData[i].texts[0].properties.paddingLeft = fontSize/2;
-      inputData[i].texts[0].properties.paddingRight = fontSize/2;
-      inputData[i].needsUpdate = true;
-    }
-  }
+  const scale = 1 + ((fontSize / 10) - 20) / 20;
+  $(".word").css({"transform": `scale(${scale})`})
 }
 
 document.querySelector("#letter-spacing").addEventListener("input", function () {
