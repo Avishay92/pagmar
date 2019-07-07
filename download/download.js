@@ -30,6 +30,6 @@ $(document).ready(function() {
 
 $("#download").click(()=>{
   if (document.querySelector('div.format.selected')){
-    document.getElementById('my_iframe').src = './fontune.zip';
+    document.getElementById('my_iframe').src = './MyFont.zip';
   }
 })
