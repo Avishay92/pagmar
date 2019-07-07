@@ -71,14 +71,14 @@ const effectRanges = {
       maxSound: 10,
   },
   uSineDistortCycleCount: { //phaser
-      minVisual: 60,
+      minVisual: 0,
       maxVisual: 200,
       minSound: 0,
       maxSound: 8,
   },
   uSineDistortAmplitude: { //vibrato
       minVisual: 0,
-      maxVisual: 1,
+      maxVisual: 0.3,
       minSound: 0,
       maxSound: 10,
   },
