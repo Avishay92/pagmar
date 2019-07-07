@@ -55,8 +55,8 @@ const createBlotterText = () => {
         family: "'ploni_dl_1.1_aaabold'",
         weight: 900,
         size: 160,
-        paddingLeft: 100,
-        paddingRight: 100,
+        paddingLeft: 300,
+        paddingRight: 300,
         paddingTop: 100,
         paddingBottom: 10,
         fill: 'white'

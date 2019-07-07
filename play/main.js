@@ -114,6 +114,8 @@ $("#darkMode").click(function () {
     fill = brightModeOn ? darkGrey : white;
     Object.values(inputData).forEach(function (value) {
       value.texts[0].properties.fill = fill;
+      value.texts[0].properties.paddingLeft = fontSize/2;
+      value.texts[0].properties.paddingRight = fontSize/2;
       value.needsUpdate = true;
     });
   }

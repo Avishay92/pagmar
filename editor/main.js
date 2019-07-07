@@ -245,7 +245,6 @@ WebFont.load({
                             case 'uRotation': {
                                reverbEffect.roomSize.input.value = currentValue;
                                reverbEffect.dampening.input.value = 10000;
-                               console.log(reverbEffect.dampening.input.value);
                                break;
                             }
                         }
