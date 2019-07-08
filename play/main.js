@@ -56,7 +56,7 @@ function updateMargin() {
 }
 
 function updateFontSize() {
-  $("#font-size").val((letterSize));
+  $("#font-size").val(letterSize);
   const scale = 1 + "." + ('0' + letterSize).slice(-2);
   $(".word").css({ "transform": `scale(${scale})` })
 }
@@ -89,7 +89,7 @@ $("#font-size").on("keyup", function (event) {
 
 $("#increase-font-size").click(function () {
   if (letterSize + 5 <= document.querySelector("#font-size").max) {
-    letterSize += 5;
+    letterSize = Number(letterSize)+5;
     updateFontSize();
   }
 });
