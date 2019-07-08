@@ -33,10 +33,11 @@ let input,
   fontSize = 200,
   letterSpace = 0,
   wordSpace = 50,
+  letterSize = document.querySelector("#font-size").value,
   tempo = 80,
   brightModeOn,
   tempoRange = document.querySelector("#tempo");
-
+$(".word").css({ "transform": `scale(${1 + "." + ("0" + letterSize).slice(-2)})` })
 tempoRange.value = tempo;
 document.getElementById("tempo-val").innerHTML = tempo;
 colorRange(tempo);
@@ -46,8 +47,8 @@ initializeFilterMode();
 
 let blotter, char;
 
-function updateMargin(){
-  $(".word > canvas").each((index, value) => { 
+function updateMargin() {
+  $(".word > canvas").each((index, value) => {
     const margin = "-" + ((fontSize / 2) - letterSpace) + "px";
     $(value).css({ "marginRight": margin, "marginLeft": margin });
   });
@@ -55,9 +56,9 @@ function updateMargin(){
 }
 
 function updateFontSize() {
-  $("#font-size").val((fontSize / 10));
-  const scale = 1 + ((fontSize / 10) - 20) / 20;
-  $(".word").css({"transform": `scale(${scale})`})
+  $("#font-size").val((letterSize));
+  const scale = 1 + "." + ('0' + letterSize).slice(-2);
+  $(".word").css({ "transform": `scale(${scale})` })
 }
 
 document.querySelector("#letter-spacing").addEventListener("input", function () {
@@ -68,29 +69,36 @@ document.querySelector("#letter-spacing").addEventListener("input", function () 
   updateMargin();
 });
 
-document.querySelector("#font-size").addEventListener("input", function () {
-  fontSize = event.target.value;
-  if (fontSize < 40) {
-    fontSize = event.target.value * 10;
+$("#font-size").on("keyup", function (event) {
+  const value = Number($("#font-size")[0].value);
+  if (event.keyCode == 13) {
+    if (!isNaN(value)){
+      if (value < Number(document.querySelector("#font-size").min)) {
+        letterSize = document.querySelector("#font-size").min
+      } else {
+        if (Number(document.querySelector("#font-size").max) < value) {
+          letterSize = document.querySelector("#font-size").max
+        } else {
+          letterSize = value;
+        }
+      }
+    }
+    updateFontSize();
   }
-  else {
-    fontSize = 400;
-  }
-  updateFontSize();
 });
 
 $("#increase-font-size").click(function () {
-  if (fontSize < 400) {
-    fontSize += 10;
+  if (letterSize + 5 <= document.querySelector("#font-size").max) {
+    letterSize += 5;
     updateFontSize();
   }
 });
 
 $("#decrease-font-size").click(function () {
-  if (fontSize > 100) {
-    fontSize -= 10;
+  if (letterSize - 5 >= document.querySelector("#font-size").min) {
+    letterSize -= 5;
+    updateFontSize();
   }
-  updateFontSize();
 });
 
 $("#increase-letter-space").click(function () {
@@ -114,8 +122,8 @@ $("#darkMode").click(function () {
     fill = brightModeOn ? darkGrey : white;
     Object.values(inputData).forEach(function (value) {
       value.texts[0].properties.fill = fill;
-      value.texts[0].properties.paddingLeft = fontSize/2;
-      value.texts[0].properties.paddingRight = fontSize/2;
+      value.texts[0].properties.paddingLeft = fontSize / 2;
+      value.texts[0].properties.paddingRight = fontSize / 2;
       value.needsUpdate = true;
     });
   }
@@ -126,14 +134,16 @@ tempoRange.addEventListener("input", function () {
   Tone.Transport.bpm.value = tempo;
 });
 
-$('.word').arrive('canvas', function(){
-  $(this).attrchange(  {trackValues: true,  callback: function (event) { 
-    if (event.attributeName === "width"){
-      const margin = "-" + ((fontSize / 2)- letterSpace) + "px";
-      $(this).css({ "marginRight": margin, "marginLeft": margin });
-      $(this).show()
+$('.word').arrive('canvas', function () {
+  $(this).attrchange({
+    trackValues: true, callback: function (event) {
+      if (event.attributeName === "width") {
+        const margin = "-" + ((fontSize / 2) - letterSpace) + "px";
+        $(this).css({ "marginRight": margin, "marginLeft": margin });
+        $(this).show()
+      }
     }
-  }});
+  });
 });
 
 function startPlay() {
@@ -142,7 +152,7 @@ function startPlay() {
   $("#play > img").attr("src", "../assets/icons/stopICN.svg");
   Tone.Transport.stop()
   Tone.Transport.bpm.value = tempo;
-  index=0;
+  index = 0;
   if (inputData.length !== 0) {
     let sequenceData = [];
     for (let i = 0; i < inputData.length; i++) {
@@ -154,8 +164,8 @@ function startPlay() {
       stop = (4 / 16) * (60 / tempo) * 1000;
       setTimeout(function () {
         event.blotter.material.uniforms.uSpeed.value = 0.0;
-        if (index++){
-          index=0;
+        if (index++) {
+          index = 0;
         }
       }, stop);
       event.blotter.material.uniforms.uSpeed.value = 0.08;
@@ -192,8 +202,8 @@ const style = {
   weight: font === "Frank Ruhl Libre" ? "700" : "normal",
   fill: brightModeOn ? darkGrey : white,
   size: fontSize,
-  paddingLeft: fontSize / 2,
-  paddingRight: fontSize / 2
+  paddingLeft: fontSize / 2 + 10,
+  paddingRight: fontSize / 2 + 10
 };
 
 WebFont.load({
@@ -212,6 +222,7 @@ WebFont.load({
       });
 
       $(document).keydown(function (event) {
+        if(!$("#font-size").is(":focus") && !$("#letter-spacing").is(":focus")){
         const key = event.keyCode;
         var char = data[event.key]; // charCode will contain the code of the character inputted
         if ($("#play").hasClass("active") && char) {
@@ -231,6 +242,7 @@ WebFont.load({
             inputData.push(buildBlotter(char));
           }
         }
+      }
       });
     });
   }
@@ -283,7 +295,7 @@ function buildBlotter(char) {
   blotter.texts[0].properties.size = fontSize;
   if (char.char === "-") {
     scope.domElement.className = "empty-space";
-  }else{
+  } else {
     scope.domElement.style.display = "none";
   }
   scope.appendTo($(".word"));
