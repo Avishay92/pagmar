@@ -214,7 +214,7 @@ WebFont.load({
           sVibratoEffect: f1,
           sReverbEffect: f1,
           sPitchEffect: f1,
-          sDistortionEffect: f1,
+          sDistortionEffect: parseFloat(0),
           sFeedbackEffect: f1,
           sReverbEffect: f1
         };

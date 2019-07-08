@@ -142,6 +142,7 @@ function startPlay() {
   $("#play > img").attr("src", "../assets/icons/stopICN.svg");
   Tone.Transport.stop()
   Tone.Transport.bpm.value = tempo;
+  index=0;
   if (inputData.length !== 0) {
     let sequenceData = [];
     for (let i = 0; i < inputData.length; i++) {
@@ -153,6 +154,9 @@ function startPlay() {
       stop = (4 / 16) * (60 / tempo) * 1000;
       setTimeout(function () {
         event.blotter.material.uniforms.uSpeed.value = 0.0;
+        if (index++){
+          index=0;
+        }
       }, stop);
       event.blotter.material.uniforms.uSpeed.value = 0.08;
       updateEffects(inputData[index].soundEffects);

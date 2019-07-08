@@ -1,319 +1,438 @@
 <script>
-function initializeEffects() {
-  autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
-  phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
-  vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
-  pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
-  distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
-  reverbEffect =   reverbEffect = new Tone.Freeverb({
-    roomSize  : 0.5 ,
-    dampening  : 6000
-    }).chain(distortionEffect);
-}
-
-let autoWahEffect,
-phaserEffect,
-vibratoEffect,
-pitchEffect,
-distortionEffect,
-reverbEffect,
-play = 0,
-img,
-noteIndex = 0,
-tempo = 120,
-seq,
-effects = 0,
-instrument = new Tone.Synth().toMaster();
-var inter;
-initializeEffects();
-const sentence = ["א", "ב", "ו", "ד", "י", "ם", "ב", "ח", "ל", "ל"]
-const sequence = ["C3", "D3", "A3", "F3", "E4", "C5", "D3", "C4", "A4", "A4"]
-let data = {};
-const tempoRange = document.querySelector("#tempo");
-Tone.Transport.bpm.value = tempo;
-f1 = parseFloat(0).toPrecision(2);
-
-const duration = (4 / 8) * (60 / tempo) * 1000 * sequence.length *2;
-$(window).ready(()=>{
-  tempoRange.max = duration/4;
-})
-
-function colorRange(val) {
-    const progress = (val / duration) * 400 + "%";
-    document.documentElement.style.setProperty("--progress", progress);
-  };
-
-  $("#play").click(function(){
-    play = !play;
-    img = play ? "../assets/icons/stopICN.svg" : "../assets/icons/playICN.svg";
-    if (play){
-    $("#play").attr("src",img);
-        seq = new Tone.Sequence(function (time, event) {
-        instrument.triggerAttackRelease(event, "8n");
-      }, sequence);
-      animateTimeLine();
-      seq.start();
-      Tone.Transport.start();
-    }
-    else{
-      clearTimeout(timeout);
-      clearInterval(inter);
-      stopMusic();
-    
-    }
-  });
-
-  function stopMusic(){
-    tempoRange.value = 0;
-    play = false;
-    colorRange(0);
-    seq.stop();
-    $("#play").attr("src","../assets/icons/playICN.svg");
+  function initializeEffects() {
+    autoWahEffect = new Tone.AutoWah(50, 6, -30).toMaster();
+    phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
+    vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
+    pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
+    distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
+    reverbEffect =   reverbEffect = new Tone.Freeverb({
+      roomSize  : 0.5 ,
+      dampening  : 6000
+      }).chain(distortionEffect);
   }
-var timeout;
-  function animateTimeLine(){
-    timeout = setTimeout(function () {
-      stopMusic();
-    }, duration);
-    clearInterval(inter);
-    inter = setInterval(function(){
-      if (play){
-        tempoRange.stepUp();
-        colorRange(tempoRange.value);
+  var f1 = parseFloat(0).toPrecision(2);
+  
+  let soundEffects = {
+      sAutoWahEffect: f1,
+      sPhaserEffect: f1,
+      sVibratoEffect: f1,
+      sReverbEffect: f1,
+      sPitchEffect: f1,
+      sDistortionEffect: f1,
+      sReverbEffect: f1
+  };
+  
+  let autoWahEffect,
+  phaserEffect,
+  vibratoEffect,
+  pitchEffect,
+  distortionEffect,
+  reverbEffect,
+  play = 0,
+  img,
+  noteIndex = 0,
+  tempo = 120,
+  seq,
+  effects = 0,
+  instrument = new Tone.Synth().toMaster();
+  var inter;
+  let audio = document.getElementById("sounds"); 
+  initializeEffects();
+  const sentence = ["א", "ב", "ו", "ד", "י", "ם", "ב", "ח", "ל", "ל"]
+  const sequence = ["C3", "D3", "A3", "F3", "E4", "C5", "D3", "C4", "A4", "A4"]
+  let data = {};
+  const tempoRange = document.querySelector("#tempo");
+  Tone.Transport.bpm.value = tempo;
+  f1 = parseFloat(0).toPrecision(2);
+  var values = [[
+    Number(parseFloat(6).toPrecision(2)),
+    Number(parseFloat(8).toPrecision(2)),
+    Number(parseFloat(0.9).toPrecision(2)),
+    Number(parseFloat(15).toPrecision(2)),
+    Number(parseFloat(0.1).toPrecision(2)),
+    Number(parseFloat(0.9).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(5).toPrecision(2)),
+    Number(parseFloat(10).toPrecision(2)),
+    Number(parseFloat(0.5).toPrecision(2)),
+    Number(parseFloat(10).toPrecision(2)),
+    Number(parseFloat(0.9).toPrecision(2)),
+    Number(parseFloat(0.1).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(3).toPrecision(2)),
+    Number(parseFloat(8).toPrecision(2)),
+    Number(parseFloat(0.1).toPrecision(2)),
+    Number(parseFloat(9).toPrecision(2)),
+    Number(parseFloat(0.1).toPrecision(2)),
+    Number(parseFloat(0.1).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(4).toPrecision(2)),
+    Number(parseFloat(1).toPrecision(2)),
+    Number(parseFloat(1).toPrecision(2)),
+    Number(parseFloat(2).toPrecision(2)),
+    Number(parseFloat(0.2).toPrecision(2)),
+    Number(parseFloat(0).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(5).toPrecision(2)),
+    Number(parseFloat(4).toPrecision(2)),
+    Number(parseFloat(0.4).toPrecision(2)),
+    Number(parseFloat(9).toPrecision(2)),
+    Number(parseFloat(0.6).toPrecision(2)),
+    Number(parseFloat(0.1).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(9).toPrecision(2)),
+    Number(parseFloat(8).toPrecision(2)),
+    Number(parseFloat(0.3).toPrecision(2)),
+    Number(parseFloat(11).toPrecision(2)),
+    Number(parseFloat(0.2).toPrecision(2)),
+    Number(parseFloat(0.7).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(5).toPrecision(2)),
+    Number(parseFloat(4).toPrecision(2)),
+    Number(parseFloat(0.2).toPrecision(2)),
+    Number(parseFloat(6).toPrecision(2)),
+    Number(parseFloat(0.4).toPrecision(2)),
+    Number(parseFloat(0.4).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(5).toPrecision(2)),
+    Number(parseFloat(4).toPrecision(2)),
+    Number(parseFloat(0.4).toPrecision(2)),
+    Number(parseFloat(9).toPrecision(2)),
+    Number(parseFloat(0.6).toPrecision(2)),
+    Number(parseFloat(0.1).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(9).toPrecision(2)),
+    Number(parseFloat(8).toPrecision(2)),
+    Number(parseFloat(0.3).toPrecision(2)),
+    Number(parseFloat(11).toPrecision(2)),
+    Number(parseFloat(0.2).toPrecision(2)),
+    Number(parseFloat(0.7).toPrecision(2)),
+  ],
+  [
+    Number(parseFloat(5).toPrecision(2)),
+    Number(parseFloat(4).toPrecision(2)),
+    Number(parseFloat(0.2).toPrecision(2)),
+    Number(parseFloat(6).toPrecision(2)),
+    Number(parseFloat(0.4).toPrecision(2)),
+    Number(parseFloat(0.4).toPrecision(2)),
+  ]
+  ]
+  
+  sentence.forEach(function(value, index) {
+    Object.assign(data, {
+      [value]: {
+        note: sequence[index],
+        effects: values[index],
+        char: value,
       }
     });
-  }
-
-function closePage(){
-    $('#poster').hide();
-}
-
-</script>
-<style>
-    #info-page {
-      background: #161616;
-      color: #828385;
-      font-family: "ploni_dl_1.1_aaaregular" !important;
-      font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-      height: 100vh;
-      width: 100vw;
-      position: fixed;
-      top: 0;
-      left: 0;
-      opacity: 0.98;
-    }
-
-    #info-page.fade {
-        opacity: 0 !important;
-        transition: ease-out !important;
-    }
-
-    .container {
-  --edges: 12%;
-  padding: 90 var(--edges) 80px var(--edges);
-  flex-grow: 1;
-}
-
-    .step {
-      font-size: 12px;
-      color: #828385;
-      height: 20px;
-      font-family: "ploni_dl_1.1_aaaregular" !important;
-    }
-
-    .page-title {
-      font-size: 28px;
+  });
+  
+  const duration = (4 / 8) * (60 / tempo) * 1000 * sequence.length *2.2;
+  
+  $(window).ready(()=>{
+    tempoRange.max = duration/4;
+  })
+  
+  function colorRange(val) {
+      const progress = (val / duration) * 400 + "%";
+      document.documentElement.style.setProperty("--progress", progress);
+    };
+  let charIndex = 0;
+    $("#play").click(function(){
+      play = !play;
+      img = play ? "../assets/icons/stopICN.svg" : "../assets/icons/playICN.svg";
+      charIndex = 0;
+      if (play){
+      $("#play").attr("src",img);
+          seq = new Tone.Sequence(function (time, event) {
+            instrument.triggerAttackRelease(event, "8n");
+            updateEffects(data[sentence[charIndex]].effects);
+            charIndex++;
+        }, sequence);
+        charIndex = 0;
+  
+        animateTimeLine();
+        // seq.start();
+        // Tone.Transport.start();
+        audio.play();
+      }
+      else{
+        clearTimeout(timeout);
+        clearInterval(inter);
+        stopMusic();
       
-      line-height: 1.5;
-      color: #f4f6fa;
+      }
+    });
+  
+    function stopMusic(){
+      tempoRange.value = 0;
+      play = false;
+      colorRange(0);
+      // seq.stop();
+      audio.pause();
+      audio.currentTime = 0;
+      $("#play").attr("src","../assets/icons/playICN.svg");
     }
-
-    .entry {
-      display: flex;
-      justify-content: top;
-      flex-direction: column;
-      /* margin-top: 60px; */
+  var timeout;
+    function animateTimeLine(){
+      timeout = setTimeout(function () {
+        stopMusic();
+      }, duration);
+      clearInterval(inter);
+      inter = setInterval(function(){
+        if (play){
+          tempoRange.stepUp();
+          colorRange(tempoRange.value);
+        }
+      });
     }
-
-    .close {
-      position: fixed;
-      left: 60px;
-      top: 60px;
-      cursor: pointer;
-      height: 20px;
-      width: 20px;
-      background-image: url('../assets/svgs/close.svg');
-      opacity: 0.5;
-      transition: opacity ease-out 0.3s;
+  
+    function closePage(){
+        $('#poster').hide();
     }
-
-    .close:hover {
-      opacity: 1;
+  
+    function updateEffects(soundEffects) {
+      autoWahEffect.baseFrequency.value = soundEffects[0];
+      phaserEffect.octaves = soundEffects[1];
+      vibratoEffect.frequency = soundEffects[2];
+      pitchEffect.pitch = soundEffects[3];
+      distortionEffect.distortion = soundEffects[4];
+      reverbEffect.roomSize.input.value = soundEffects[5];
     }
-
-    .container {
-        display: grid;
-        grid-template-columns: 420px 420px 420px;
-     }
-
-    .under-line-text{
-        text-decoration: underline;
-    }
-
-
-    .lost-in-space{
-        background-repeat: no-repeat;
-        background-size: contain;
-        /* left : -10%; */
-        width: 419px !important;
-        height: 593px !important;
-        background-image: url("../assets/discover/lostinspace.jpg");
-        position: absolute;
+  
+  </script>
+  <style>
+      #info-page {
+        background: #161616;
+        color: #828385;
+        font-family: "ploni_dl_1.1_aaaregular" !important;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        user-select: none;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
         top: 0;
-        transform: none !important;
-    }
-
-    .tempo-grid{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      font-size: 14px;
-      margin-top: 20px !important;
-    }
-
-    #play{
+        left: 0;
+        opacity: 0.98;
+      }
+  
+      #info-page.fade {
+          opacity: 0 !important;
+          transition: ease-out !important;
+      }
+  
+      .container {
+    --edges: 12%;
+    padding: 90 var(--edges) 80px var(--edges);
+    flex-grow: 1;
+  }
+  
+      .step {
+        font-size: 12px;
+        color: #828385;
+        height: 20px;
+        font-family: "ploni_dl_1.1_aaaregular" !important;
+      }
+  
+      .page-title {
+        font-size: 28px;
+        
+        line-height: 1.5;
+        color: #f4f6fa;
+      }
+  
+      .entry {
+        display: flex;
+        justify-content: top;
+        flex-direction: column;
+      }
+  
+      .close {
+        position: fixed;
+        left: 60px;
+        top: 60px;
         cursor: pointer;
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
-    }
-    :root {
-      --progress: 0%;
-      --line-height: 4px;
-      --color: #01eD95;
-    }
-
-    input[type="range"] {
-    /*   display: block; */
-      -webkit-appearance: none;
-      background-color: black;
-      width: 157px;
-      height: var(--line-height);
-      border-radius: 5px;
-      outline: 0;
-      margin: 0;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      background-color: var(--color);
-      margin-top: -6px;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: 0.3s ease-in-out;
-    }
-    input[type="range"]::-moz-range-thumb,
-    input[type="range"]::-ms-thumb {
-      border: 2px solid #979797;
-      height: 15px;
-      width: 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: 0.3s ease-in-out;
-    }
-
-    input[type="range"]::-webkit-slider-thumb:active {
-      transform: scale(1.1);
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track {
-      background: #979797;
-      height: var(--line-height);
-      border-radius: var(--line-height);
-    }
-
-    input[type="range"]::-moz-range-track {
-      background-color: #979797;
-      border-radius: 4px;
-    }
-    input[type="range"]::-ms-track {
-      background-color: #979797;
-      color: transparent;
-      border: none;
-    }
-    input[type="range"]::-ms-fill-lower {
-      background-color: var(--color);
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track {
-      background: linear-gradient(
-        to right,
-        var(--color) 0%,
-        var(--color) var(--progress),
-        #979797 var(--progress),
-        #979797
-      );
-    }
-    input[type="range"]::-moz-range-track {
-      background: linear-gradient(
-        to right,
-        var(--color) 0%,
-        var(--color) var(--progress),
-        #979797 var(--progress),
-        #979797
-      );
-    }
-    input[type="range"]::-ms-fill-lower {
-      background: linear-gradient(
-        to right,
-        var(--color) 0%,
-        var(--color) var(--progress),
-        #979797 var(--progress),
-        #979797
-      );
-    }
-
-    .gallery-item {
-      position: relative;
-    }
-  </style>
-<div id="info-page">
-    <script src="../library.js"></script>
-    <div class="container">
-        <div>
-            <span class="entry page-title">
-                    Lost in space
-            </span>
-            <span class="text">
-                By Avishay Ram - <u>print</u>
-                <br>
-                <br>
+        height: 20px;
+        width: 20px;
+        background-image: url('../assets/svgs/close.svg');
+        opacity: 0.5;
+        transition: opacity ease-out 0.3s;
+      }
+  
+      .close:hover {
+        opacity: 1;
+      }
+  
+      .container {
+          display: grid;
+          grid-template-columns: 420px 420px 420px;
+       }
+  
+      .under-line-text{
+          text-decoration: underline;
+      }
+  
+  
+      .lost-in-space{
+          background-repeat: no-repeat;
+          background-size: contain;
+          width: 419px !important;
+          height: 593px !important;
+          background-image: url("../assets/discover/lostinspace.jpg");
+          position: absolute;
+          top: 0;
+          transform: none !important;
+      }
+  
+      .tempo-grid{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+        margin-top: 20px !important;
+      }
+  
+      #play{
+          cursor: pointer;
+          width: 35px;
+          height: 35px;
+          margin-right: 10px;
+      }
+      :root {
+        --progress: 0%;
+        --line-height: 4px;
+        --color: #01eD95;
+      }
+  
+      input[type="range"] {
+        -webkit-appearance: none;
+        background-color: black;
+        width: 157px;
+        height: var(--line-height);
+        border-radius: 5px;
+        outline: 0;
+        margin: 0;
+      }
+  
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background-color: var(--color);
+        margin-top: -6px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+      }
+      input[type="range"]::-moz-range-thumb,
+      input[type="range"]::-ms-thumb {
+        border: 2px solid #979797;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+      }
+  
+      input[type="range"]::-webkit-slider-thumb:active {
+        transform: scale(1.1);
+      }
+  
+      input[type="range"]::-webkit-slider-runnable-track {
+        background: #979797;
+        height: var(--line-height);
+        border-radius: var(--line-height);
+      }
+  
+      input[type="range"]::-moz-range-track {
+        background-color: #979797;
+        border-radius: 4px;
+      }
+      input[type="range"]::-ms-track {
+        background-color: #979797;
+        color: transparent;
+        border: none;
+      }
+      input[type="range"]::-ms-fill-lower {
+        background-color: var(--color);
+      }
+  
+      input[type="range"]::-webkit-slider-runnable-track {
+        background: linear-gradient(
+          to right,
+          var(--color) 0%,
+          var(--color) var(--progress),
+          #979797 var(--progress),
+          #979797
+        );
+      }
+      input[type="range"]::-moz-range-track {
+        background: linear-gradient(
+          to right,
+          var(--color) 0%,
+          var(--color) var(--progress),
+          #979797 var(--progress),
+          #979797
+        );
+      }
+      input[type="range"]::-ms-fill-lower {
+        background: linear-gradient(
+          to right,
+          var(--color) 0%,
+          var(--color) var(--progress),
+          #979797 var(--progress),
+          #979797
+        );
+      }
+  
+      .gallery-item {
+        position: relative;
+      }
+    </style>
+  <div id="info-page">
+      <!-- <script src="../library.js"></script> -->
+      <div class="container">
+          <div>
+              <span class="entry page-title">
+                      Lost in space
+              </span>
+              <span class="text">
+                  By Avishay Ram - <u>print</u>
+                  <br>
+                  <br>
+                
+              </span>
               
-            </span>
-            
-            <div class="tempo-grid f-center">
-              <div>
-                  <img id="play" src="../assets/icons/playICN.svg" alt="" />
-                  <audio id="sounds">
-                    <source src="../assets/discover/lostmusic.mp3" type="audio/mpeg">
-                  </audio>
-              </div>
-              <div class="tempo-container">
-                  <input id="tempo" type="range" min="0" max="120" step="1" value="0" />
+              <div class="tempo-grid f-center">
+                <div>
+                    <img id="play" src="../assets/icons/playICN.svg" alt="" />
+                    <audio id="sounds">
+                      <source src="../assets/discover/halal.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+                <div class="tempo-container">
+                    <input id="tempo" type="range" min="0" max="120" step="1" value="0" />
+                </div>
+            </div>
+          </div>
+  
+          <div>
+              <div class="gallery-item">
+                  <div class="image lost-in-space"></div>
               </div>
           </div>
-        </div>
-
-        <div>
-            <div class="gallery-item">
-                <div class="image lost-in-space"></div>
-            </div>
-        </div>
-    </div>
-<div class="close" onclick="closePage()"></div>
-
+      </div>
+  <div class="close" onclick="closePage()"></div>
+  
+  

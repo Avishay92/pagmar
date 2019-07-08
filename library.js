@@ -30,7 +30,7 @@ function initializeEffects() {
   phaserEffect = new Tone.Phaser(15, 5, 1000).chain(autoWahEffect);
   vibratoEffect = new Tone.Vibrato(5, 0.1).chain(phaserEffect);
   pitchEffect= new Tone.PitchShift().chain(vibratoEffect);
-  distortionEffect = new Tone.Distortion(0.8).chain(pitchEffect);
+  distortionEffect = new Tone.Distortion(0).chain(pitchEffect);
   reverbEffect = new Tone.Freeverb({
     roomSize  : 0.2 ,
     dampening  : 1000
@@ -57,7 +57,7 @@ function updateEffects(soundEffects) {
         break;
       case "sReverbEffect":
         reverbEffect.roomSize.input.value = soundEffects[key];
-        reverbEffect.dampening.input.value = 10000;
+        // reverbEffect.dampening.input.value = 10000;
         break;
     }
   });
@@ -86,7 +86,7 @@ const effectRanges = {
       minVisual: 1,
       maxVisual: 30,
       minSound: 0,
-      maxSound: 2,
+      maxSound: 1,
   },
   uNoiseDistortAmplitude: { //pitch
       minVisual: 0.008,
