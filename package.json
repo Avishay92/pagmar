@@ -1,0 +1,8 @@
+{
+  "name": "pagmar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Avishay92/pagmar.git",
+  "author": "Liron Shalev <lironrs@gmail.com>",
+  "license": "MIT"
+}

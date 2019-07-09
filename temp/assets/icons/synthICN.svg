@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="toolbar-editor" transform="translate(-516.000000, -22.000000)" fill-rule="nonzero">
+            <g id="Group" transform="translate(516.000000, 22.000000)">
+                <circle id="Oval" fill="#161616" cx="25" cy="25" r="25"></circle>
+                <g id="Group-7" transform="translate(15.000000, 16.000000)">
+                    <g id="Group-2" transform="translate(4.347826, 0.869565)">
+                        <rect id="Rectangle-Copy-2" stroke="#01ED81" fill="#01ED81" x="0.5" y="0.5" width="1.60869565" height="9.43478261"></rect>
+                        <rect id="Rectangle-Copy-3" stroke="#01ED95" fill="#01ED95" x="4.84782609" y="0.5" width="1.60869565" height="9.43478261"></rect>
+                        <rect id="Rectangle-Copy-4" stroke="#01ED81" fill="#01ED81" x="9.19565217" y="0.5" width="1.60869565" height="9.43478261"></rect>
+                        <path d="M1.30434783,9.56521739 L1.30434783,15.7589426" id="Line-Copy-2" stroke="#01ED81" stroke-linecap="square"></path>
+                        <path d="M5.65217391,9.56521739 L5.65217391,15.7589426" id="Line-Copy-3" stroke="#01ED95" stroke-linecap="square"></path>
+                        <path d="M10,9.56521739 L10,15.7589426" id="Line-Copy-4" stroke="#01ED95" stroke-linecap="square"></path>
+                    </g>
+                    <rect id="Rectangle" stroke="#01ED81" x="0.5" y="0.5" width="19" height="16.3913043" rx="3"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

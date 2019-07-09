@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="114px" height="11px" viewBox="0 0 114 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="fontune" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Choose-synth-polly" transform="translate(-46.000000, -49.000000)" fill="#F4F6FA">
+            <g id="Group" transform="translate(45.000000, 45.000000)">
+                <text id="Fontune" font-family="PloniDL1.1AAA-Bold, Ploni DL 1.1 AAA" font-size="16" font-weight="bold">
+                    <tspan x="0.20984456" y="14">Fontune</tspan>
+                </text>
+                <text id="CREATE" font-family="PloniDL1.1AAA-Regular, Ploni DL 1.1 AAA" font-size="10" font-weight="normal">
+                    <tspan x="81" y="13">CREATE</tspan>
+                </text>
+                <text id="/" font-family="PloniDL1.1AAA-Regular, Ploni DL 1.1 AAA" font-size="10" font-weight="normal">
+                    <tspan x="67" y="13">/</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

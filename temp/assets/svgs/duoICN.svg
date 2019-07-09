@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="64px" viewBox="0 0 160 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group-7" transform="translate(0.000000, 23.000000)" fill-rule="nonzero" stroke="#F4F6FA">
+            <path d="M0.5,9 L159.5,8.5" id="Line-9-Copy-4" opacity="0.3"></path>
+            <g id="Group-2" transform="translate(19.000000, 0.000000)" stroke-width="3">
+                <path d="M1.70530257e-13,9.25233645 C17.1887231,3.08411215 27.4859038,5.15143483e-13 30.8915423,5.15143483e-13 C34.2971808,5.15143483e-13 44.1154229,3.08411215 60.3462687,9.25233645 C75.1834163,15.0841121 85.0016584,18 89.800995,18 C94.6003317,18 104.777778,15.0841121 120.333333,9.25233645" id="Path-3-Copy-2" transform="translate(60.166667, 9.000000) scale(1, -1) translate(-60.166667, -9.000000) "></path>
+                <path d="M1.3500312e-13,8.75 C17.25222,2.91666667 27.5764322,5.09814413e-13 30.9726368,5.09814413e-13 C34.3688414,5.09814413e-13 44.1598862,3.08411215 60.3457711,9.25233645 C75.1418186,15.0841121 84.9328634,18 89.7189055,18 C94.5049476,18 104.660887,14.9508015 120.186724,8.85240459" id="Path-3-Copy-2"></path>
+            </g>
+        </g>
+    </g>
+</svg>
