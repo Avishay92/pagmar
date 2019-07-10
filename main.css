@@ -22,6 +22,12 @@ body {
   width:100%;
 }
 
+#text {
+  color: #828385;
+  font-family: "ploni_dl_1.1_aaaregular" !important;
+  font-size: 14px;
+}
+
 #about {
   font-family: "ploni_dl_1.1_aaaregular" !important;
   text-align: right;
