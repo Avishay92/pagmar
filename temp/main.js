@@ -7,7 +7,7 @@ WebFont.load({
     },
     custom: {
         families: ['ploni_dl_1.1_aaabold'],
-        urls: ['../../fonts/fonts.css']
+        urls: ['../fonts/fonts.css']
     },
     active: () => createBlotterText()
 });

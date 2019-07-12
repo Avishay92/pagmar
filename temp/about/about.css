@@ -1,0 +1,155 @@
+
+@font-face {
+  font-family: "Glyphter";
+  src: url("../fonts/Glyphter.eot");
+  src: url("../fonts/Glyphter.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Glyphter.woff") format("woff"),
+    url("../fonts/Glyphter.ttf") format("truetype"),
+    url("../fonts/Glyphter.svg#Glyphter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class*="icon-"]:after,
+[class*="icon-"]:before {
+  display: inline-block;
+  font-family: "Glyphter";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+body {
+    background: #161616 !important;
+    color: #ADAEB1;
+    font-family: "ploni_dl_1.1_aaalight" !important;
+    font-size: 40px;
+    margin: 80 120;
+}
+
+body {
+  opacity: 1;
+  transition: 0.6s opacity;
+}
+
+body.fade {
+    opacity: 0 !important;
+    transition: ease-out !important;
+}
+
+.links {
+color: #828385;
+font-family: "ploni_dl_1.1_aaalight" !important;
+font-size: 14px;
+line-height: 22px;
+
+}
+
+a:link, a:visited {
+  color: #ADAEB1;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: #f4f6fa;
+  transition: ease-in-out 0.2s;
+  /* text-decoration: underline; */
+
+
+}
+
+hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: 750px;
+  border-style: inset;
+  border-width: 0.5px;
+  color: #F4F6FA;
+}
+
+.nav-controls-container {
+  display: flex;
+  align-content: center;
+  justify-content: space-between; 
+}
+
+.next-btn-container {
+ display: flex;
+ flex-direction: column;
+ align-content: center; 
+
+}
+
+.next-btn-container.disable .nav-btn{
+  background-color: transparent;
+  border: transparent;
+  pointer-events: none;
+
+  color: var(--clr-grey-dark);
+}
+.next-btn-container.disable:hover {
+  cursor: not-allowed;
+}
+
+.next-btn-container.disable .next-btn-text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.nav-btn {
+  user-select: none;
+  outline: none;
+  margin-top: 70px;
+  max-width: 150px;
+  font-family: "ploni_dl_1.1_aaamedium" !important;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: var(--clr-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 58px;
+  height: 32px;
+  color: var(--clr-black);
+  transition: all 400ms;
+  cursor: pointer;
+  
+}
+
+.next-btn-text {
+  font-size: 12px;
+  color: var(--clr-grey);
+  margin-top: 7px;
+  opacity: 1;
+}
+
+.back-btn {
+  background-color: transparent;
+  border: transparent;
+  color: grey;
+  font-size: 12px;
+}
+.back-btn:hover{
+   color: #f4f6fa;;
+}
+
+
+
+.back-btn.icon-arrow:after {
+  display: none;
+}
+.back-btn.icon-arrow:before {
+  content: "\0041";
+  margin-right: 9px;
+  transform: rotate(180deg);
+}
+
+.icon-arrow:after {
+  content: "\0041";
+  margin-left: 9px;
+}
