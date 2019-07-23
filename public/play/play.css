@@ -109,7 +109,8 @@ body.dark-mode {
 }
 
 .top-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   color: #a7a8ab;
   height: var(--bar-height);
   background-color: var(--bar-background);
@@ -476,6 +477,6 @@ input[type="range"]::-ms-fill-lower {
 }
 
 #darkMode {
-  margin: 0 65px 0 45px;
+  margin: 0 0px 0 45px;
   width: 73px;
 }

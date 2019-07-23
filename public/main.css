@@ -8,6 +8,16 @@ body {
   font-family: "ploni_dl_1.1_aaabold" !important;
 }
 
+.isMobile span{
+  font-family: "ploni_dl_1.1_aaalight" !important;
+  font-size: 40px;
+  color: #828385;
+  text-align: center;
+  display: block;
+  flex-direction: column;
+  margin:15% 15% 15% 35%!important
+}
+ 
 #menu {
   text-align: center;
   height: 100%;
