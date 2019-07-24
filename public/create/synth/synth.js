@@ -73,6 +73,7 @@ const initValueuNoiseDistortVolatility = parseFloat(7).toPrecision(2);
 const initValueuNoiseDistortAmplitude = parseFloat(0).toPrecision(2);
 const f3 = parseFloat(0.5).toPrecision(2);
 const initValueDistortPosition = [f3, f3];
+const initRotation = parseFloat(1).toPrecision(2);
 
 const defaultUniforms = {
   uSineDistortCycleCount: initValueCycleCount,
@@ -80,7 +81,7 @@ const defaultUniforms = {
   uSineDistortAmplitude: initValueSineDistortAmplitude,
   uNoiseDistortVolatility: initValueuNoiseDistortVolatility,
   uNoiseDistortAmplitude: initValueuNoiseDistortAmplitude,
-  uRotation: f1,
+  uRotation: initRotation,
   uSpeed: f1,
   //  uSpeed: parseFloat(f1).toPrecision(2),
   uDistortPosition: initValueDistortPosition

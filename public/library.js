@@ -95,7 +95,7 @@ const effectRanges = {
       maxSound: 24,
   },
   uRotation: { //Reverb
-      minVisual: 0,
+      minVisual: 1,
       maxVisual: 180,
       minSound: 0,
       maxSound: 0.6,
